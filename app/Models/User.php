@@ -17,6 +17,15 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    public $timestamps = false;
+    public function classes()
+    {
+        return $this->hasMany(Classes::class);
+    }
+    public function subscriptions()
+    {
+        return $this->hasMany(Subscription::class);
+    }
     protected $fillable = [
         'name',
         'email',
