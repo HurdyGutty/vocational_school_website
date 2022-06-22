@@ -29,8 +29,8 @@ class SubscriptionFactory extends Factory
             }
 
         return [
-            'class_id' => Classes::all('id')->random(),
-            'user_id' => User::where('role', 0)->get('id')->random(),
+            'class_id' => $class_id,
+            'user_id' => $user_id,
             'admin_id' => Admin::all('id')->random(),
             'register_time' => now()
         ];

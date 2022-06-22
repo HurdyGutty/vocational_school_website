@@ -5,16 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Classes extends Model
+class Attendance extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    public function subscriptions()
+    public function classes()
     {
-        return $this->hasMany(Subscription::class);
+        return $this->belongsTo(Classes::class);
     }
-    public function attendances()
+    public function class_attendance()
     {
-        return $this->hasMany(Attendance::class);
+        return $this->hasMany(Class_attendance::class);
     }
 }
