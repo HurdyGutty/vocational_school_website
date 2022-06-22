@@ -11,10 +11,22 @@ class Classes extends Model
     public $timestamps = false;
     public function subscriptions()
     {
-        return $this->hasMany(Subscription::class);
+        return $this->hasMany(Subscription::class,'class_id','id');
     }
     public function attendances()
     {
-        return $this->hasMany(Attendance::class);
+        return $this->hasMany(Attendance::class,'class_id','id');
+    }
+    public function schedules()
+    {
+        return $this->hasMany(Schedule::class,'class_id','id');
+    }
+    public function subject()
+    {
+        return $this->belongsTo(Subject::class,'subject_id','id');
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class,'user_id','id');
     }
 }

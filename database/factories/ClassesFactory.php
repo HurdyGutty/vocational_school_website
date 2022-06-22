@@ -20,14 +20,14 @@ class ClassesFactory extends Factory
      */
     public function definition()
     {
-        $schedule_file = Storage::get("json/schedule.json");
-        $schedule = json_decode($schedule_file);
-        $schedule_day = $schedule[array_rand($schedule)];
+        // $schedule_file = Storage::get("json/schedule.json");
+        // $schedule = json_decode($schedule_file);
+        // $schedule_day = $schedule[array_rand($schedule)];
         return [
             'name' => $this->faker->jobTitle(),
             'status' => $this->faker->randomElement(ClassesStatus::showValue()),
-            'schedule' => $schedule_day->thứ . ' ' . $schedule_day->ca[array_rand($schedule_day->ca)],
-            'user_id' => User::all('id')->random(),
+            // 'schedule' => $schedule_day->thứ . ' ' . $schedule_day->ca[array_rand($schedule_day->ca)],
+            'user_id' => User::where('role', 1)->get('id')->random(),
             'subject_id' => Subject::all('id')->random(),
         ];
     }

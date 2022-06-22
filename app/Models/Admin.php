@@ -11,6 +11,6 @@ class Admin extends Model
     public $timestamps = false;
     public function subscriptions()
     {
-        return $this->hasMany(Subscription::class);
+        return $this->hasMany(Subscription::class,'admin_id','id');
     }
 }

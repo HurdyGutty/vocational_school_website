@@ -31,7 +31,7 @@ class SubscriptionFactory extends Factory
         return [
             'class_id' => $class_id,
             'user_id' => $user_id,
-            'admin_id' => Admin::all('id')->random(),
+            'admin_id' => Admin::where('role', 0)->get('id')->random(),
             'register_time' => now()
         ];
     }
