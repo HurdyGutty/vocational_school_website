@@ -11,14 +11,14 @@ class Subscription extends Model
     public $timestamps = false;
     public function classes()
     {
-        return $this->belongsTo(Classes::class);
+        return $this->belongsTo(Classes::class,'class_id','id');
     }
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'user_id','id');
     }
     public function admin()
     {
-        return $this->belongsTo(Admin::class);
+        return $this->belongsTo(Admin::class,'admin_id','id');
     }
 }

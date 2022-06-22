@@ -15,6 +15,6 @@ class Attendance extends Model
     }
     public function class_attendance()
     {
-        return $this->hasMany(Class_attendance::class);
+        return $this->belongsTo(Class_attendance::class,'class_id','id');
     }
 }

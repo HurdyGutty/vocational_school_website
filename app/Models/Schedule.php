@@ -5,12 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Major extends Model
+class Schedule extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    public function subjects()
+    protected $table = 'schedule';
+    public function class()
     {
-        return $this->hasMany(Subject::class,'major_id','id');
+        return $this->belongsTo(Classes::class,'class_id','id');
     }
 }
