@@ -20,19 +20,19 @@ class SubscriptionFactory extends Factory
      */
     public function definition()
     {
-        $class_id = ClassModel::all('id')->random();
-        $user_id = User::where('role', 0)->get('id')->random();
-        while (Subscription::where('class_id', $class_id)->where('user_id', $user_id)->exists())
-            {
-                $class_id = ClassModel::all('id')->random();
-                $user_id = User::where('role', 0)->get('id')->random();
-            }
-
-        return [
-            'class_id' => $class_id,
-            'user_id' => $user_id,
-            'admin_id' => Admin::where('role', 0)->get('id')->random(),
-            'register_time' => now()
-        ];
+//        $class_id = ClassModel::all('id')->random();
+//        $user_id = User::where('role', 0)->get('id')->random();
+//        while (Subscription::where('class_id', $class_id)->where('user_id', $user_id)->exists())
+//            {
+//                $class_id = ClassModel::all('id')->random();
+//                $user_id = User::where('role', 0)->get('id')->random();
+//            }
+//
+//        return [
+//            'class_id' => $class_id,
+//            'user_id' => $user_id,
+//            'admin_id' => Admin::where('role', 0)->get('id')->random(),
+//            'register_time' => now()
+//        ];
     }
 }

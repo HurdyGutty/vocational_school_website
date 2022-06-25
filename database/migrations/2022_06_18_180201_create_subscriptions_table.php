@@ -14,11 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('subscriptions', function (Blueprint $table) {
-            $table->foreignId('class_id')->constrained();
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('admin_id')->constrained();
+            $table->foreignId('class_id')->constrained('classes');
+            $table->foreignId('student_id')->constrained('users');
+            $table->foreignId('admin_id')->nullable()->constrained('admins');
             $table->dateTime('register_time');
-            $table->primary(['class_id', 'user_id']);
+            $table->primary(['class_id', 'student_id']);
         });
     }
 

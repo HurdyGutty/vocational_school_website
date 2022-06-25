@@ -18,17 +18,23 @@ class AttendanceFactory extends Factory
      */
     public function definition()
     {
-        $class_id = ClassModel::all('id')->random();
-        $period = $this->faker->numberBetween(1,20);
-        while (Attendance::where('class_id', $class_id)->where('period', $period)->exists())
-            {
-                $class_id = ClassModel::all('id')->random();
-                $period = $this->faker->numberBetween(1,20);
-            }
-        return [
-            'class_id' => $class_id,
-            'period' => $period,
-            'date' => now()->format('Y-m-d'),
-        ];
-    }
+//        $class_ids = ClassModel::query()->pluck('id')->toArray();
+//        foreach ($class_ids as $class_id) {
+//
+//        }
+//
+//
+//        $class_id = ClassModel::all('id')->random();
+//        $period = $this->faker->numberBetween(1,20);
+//        while (Attendance::where('class_id', $class_id)->where('period', $period)->exists())
+//            {
+//                $class_id = ClassModel::all('id')->random();
+//                $period = $this->faker->numberBetween(1,20);
+//            }
+//        return [
+//            'class_id' => $class_id,
+//            'period' => $period,
+//            'date' => now()->format('Y-m-d'),
+//        ];
+//    }
 }

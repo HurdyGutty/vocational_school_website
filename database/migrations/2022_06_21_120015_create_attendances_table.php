@@ -16,7 +16,7 @@ return new class extends Migration
     {
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('class_id')->constrained();
+            $table->foreignId('class_id')->constrained('classes');
             $table->integer('period');
             $table->date('date');
             $table->unique(['class_id','period']);

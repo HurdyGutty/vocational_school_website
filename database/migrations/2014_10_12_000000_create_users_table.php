@@ -20,10 +20,11 @@ return new class extends Migration
             $table->date('date_of_birth');
             $table->string('phone', 17)->nullable();
             $table->string('email')->unique();
-            $table->timestamp('email_activation')->nullable();
-            $table->smallinteger('role');
             $table->string('password');
-            $table->rememberToken();
+            $table->boolean('active')->default(false);
+            $table->smallinteger('role');
+//            $table->timestamp('email_activation')->nullable();
+//            $table->rememberToken();
         });
     }
 

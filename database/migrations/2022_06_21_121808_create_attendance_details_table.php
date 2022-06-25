@@ -14,10 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('attendance_details', function (Blueprint $table) {
-            $table->foreignId('attendance_id')->constrained();
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('attendance_id')->constrained('attendances');
+            $table->foreignId('student_id')->constrained('users');
             $table->boolean('is_present')->default(1);
-            $table->primary(['attendance_id','user_id']);
+            $table->primary(['attendance_id','student_id']);
         });
     }
 

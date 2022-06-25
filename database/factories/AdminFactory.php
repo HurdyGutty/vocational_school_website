@@ -27,10 +27,10 @@ class AdminFactory extends Factory
             'date_of_birth' => $this->faker->dateTimeBetween($startDate = '-50 years', $endDate = '-18 years')->format("Y-m-d"),
             'phone' => $this->faker->phoneNumber(),
             'email' => $this->faker->unique()->safeEmail(),
-            'email_activation' => now(),
-            'role' => $this->faker->randomElement(AdminRoles::showValue()),
             'password' => Hash::make($name),
-            'remember_token' => Str::random(10),
+            'role' => $this->faker->randomElement(AdminRoles::showValue()),
+//            'email_activation' => now(),
+//            'remember_token' => Str::random(10),
         ];
     }
 }

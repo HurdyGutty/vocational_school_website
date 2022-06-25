@@ -2,8 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\AttendanceDetail;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class AttendanceDetailSeeder extends Seeder
@@ -15,6 +13,6 @@ class AttendanceDetailSeeder extends Seeder
      */
     public function run()
     {
-        AttendanceDetail::factory(5)->create();
+
     }
 }

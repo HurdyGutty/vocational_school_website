@@ -19,8 +19,8 @@ return new class extends Migration
             $table->date('date_start')->nullable();
             $table->date('date_end')->nullable();
             $table->smallInteger('status')->default(0);
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('subject_id')->constrained();
+            $table->foreignId('teacher_id')->constrained('users');
+            $table->foreignId('subject_id')->constrained('subjects');
         });
     }
 
