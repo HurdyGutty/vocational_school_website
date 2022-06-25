@@ -12,6 +12,6 @@ class Schedule extends Model
     protected $table = 'schedule';
     public function class()
     {
-        return $this->belongsTo(Classes::class,'class_id','id');
+        return $this->belongsTo(ClassModel::class,'class_id','id');
     }
 }

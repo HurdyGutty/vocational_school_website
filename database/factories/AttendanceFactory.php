@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Attendance;
-use App\Models\Classes;
+use App\Models\ClassModel;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,11 +18,11 @@ class AttendanceFactory extends Factory
      */
     public function definition()
     {
-        $class_id = Classes::all('id')->random();
+        $class_id = ClassModel::all('id')->random();
         $period = $this->faker->numberBetween(1,20);
         while (Attendance::where('class_id', $class_id)->where('period', $period)->exists())
             {
-                $class_id = Classes::all('id')->random();
+                $class_id = ClassModel::all('id')->random();
                 $period = $this->faker->numberBetween(1,20);
             }
         return [

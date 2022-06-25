@@ -11,7 +11,7 @@ class Subject extends Model
     public $timestamps = false;
     public function classes()
     {
-        return $this->hasMany(Classes::class,"subject_id",'id');
+        return $this->hasMany(ClassModel::class,"subject_id",'id');
     }
     public function major()
     {

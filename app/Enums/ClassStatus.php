@@ -1,8 +1,8 @@
 <?php
- 
+
 namespace App\Enums;
- 
-enum ClassesStatus: int
+
+enum ClassStatus: int
 {
     case Empty = 0;
     case Waiting = 1;

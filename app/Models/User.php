@@ -20,7 +20,7 @@ class User extends Authenticatable
     public $timestamps = false;
     public function classes()
     {
-        return $this->hasMany(Classes::class);
+        return $this->hasMany(ClassModel::class);
     }
     public function subscriptions()
     {

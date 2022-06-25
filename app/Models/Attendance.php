@@ -11,7 +11,7 @@ class Attendance extends Model
     public $timestamps = false;
     public function classes()
     {
-        return $this->belongsTo(Classes::class);
+        return $this->belongsTo(ClassModel::class);
     }
     public function class_attendance()
     {

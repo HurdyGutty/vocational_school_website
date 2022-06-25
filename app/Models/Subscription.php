@@ -11,7 +11,7 @@ class Subscription extends Model
     public $timestamps = false;
     public function classes()
     {
-        return $this->belongsTo(Classes::class,'class_id','id');
+        return $this->belongsTo(ClassModel::class,'class_id','id');
     }
     public function user()
     {

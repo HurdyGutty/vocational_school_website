@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Classes;
+use App\Models\ClassModel;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,7 +18,7 @@ class ScheduleFactory extends Factory
     public function definition()
     {
         return [
-            'class_id' => Classes::all('id')->random(),
+            'class_id' => ClassModel::all('id')->random(),
             'period' => $this->faker->numberBetween(1,20),
             'date' => $this->faker->dateTimeBetween('now','+1 month')->format('Y-m-d'),
             'time' => $this->faker->randomElement(["17h45-19h30","19h30-21h30"]),

@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Admin;
-use App\Models\Classes;
+use App\Models\ClassModel;
 use App\Models\Subscription;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -20,11 +20,11 @@ class SubscriptionFactory extends Factory
      */
     public function definition()
     {
-        $class_id = Classes::all('id')->random();
+        $class_id = ClassModel::all('id')->random();
         $user_id = User::where('role', 0)->get('id')->random();
         while (Subscription::where('class_id', $class_id)->where('user_id', $user_id)->exists())
             {
-                $class_id = Classes::all('id')->random();
+                $class_id = ClassModel::all('id')->random();
                 $user_id = User::where('role', 0)->get('id')->random();
             }
 
