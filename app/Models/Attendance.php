@@ -4,17 +4,25 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Attendance extends Model
 {
     use HasFactory;
+
     public $timestamps = false;
-    public function classes()
+
+    protected $fillable = [
+        'class_id', 'period', 'date',
+    ];
+
+    public function class(): BelongsTo
     {
-        return $this->belongsTo(ClassModel::class);
+        return $this->belongsTo(ClassModel::class, 'class_id', 'id');
     }
-    public function class_attendance()
+
+    public function attendanceDetail(): BelongsTo
     {
-        return $this->belongsTo(Class_attendance::class,'class_id','id');
+        return $this->belongsTo(AttendanceDetail::class, 'class_id', 'id');
     }
 }

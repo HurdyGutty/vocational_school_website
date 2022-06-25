@@ -4,18 +4,33 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Model
 {
     use HasFactory;
+
     public $timestamps = false;
-    public function classes()
+
+    protected $fillable = [
+        'name', 'gender', 'date_of_birth', 'phone', 'email', 'password', 'active', 'role',
+    ];
+
+    public function classes(): HasMany
     {
-        return $this->hasMany(ClassModel::class);
+        return $this->hasMany(ClassModel::class, 'teacher_id', 'id');
     }
-    public function subscriptions()
+
+    public function subscriptions(): HasMany
     {
-        return $this->hasMany(Subscription::class);
+        return $this->hasMany(Subscription::class, 'student_id', 'id');
+    }
+
+    public function attendanceDetail($period): HasMany
+    {
+        return $this->hasMany(AttendanceDetail::class, 'student_id', 'id')
+            ->where('period', $period);
     }
 
 }
+
