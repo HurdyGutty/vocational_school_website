@@ -36,5 +36,5 @@ class AttendanceFactory extends Factory
 //            'period' => $period,
 //            'date' => now()->format('Y-m-d'),
 //        ];
-//    }
+    }
 }

@@ -19,17 +19,17 @@ class AttendanceDetailFactory extends Factory
      */
     public function definition()
     {
-        $attendance_id = Attendance::all('id')->random();
-        $user_id = User::where('role', 0)->get('id')->random();
-        while (AttendanceDetail::where('attendance_id', $attendance_id)->where('user_id', $user_id)->exists())
-            {
-                $attendance_id = Attendance::all('id')->random();
-                $user_id = User::where('role', 0)->get('id')->random();
-            }
-        return [
-            'attendance_id' => $attendance_id,
-            'user_id' => $user_id,
-            'is_present' => $this->faker->boolean(),
-        ];
+//        $attendance_id = Attendance::all('id')->random();
+//        $user_id = User::where('role', 0)->get('id')->random();
+//        while (AttendanceDetail::where('attendance_id', $attendance_id)->where('user_id', $user_id)->exists())
+//            {
+//                $attendance_id = Attendance::all('id')->random();
+//                $user_id = User::where('role', 0)->get('id')->random();
+//            }
+//        return [
+//            'attendance_id' => $attendance_id,
+//            'user_id' => $user_id,
+//            'is_present' => $this->faker->boolean(),
+//        ];
     }
 }
