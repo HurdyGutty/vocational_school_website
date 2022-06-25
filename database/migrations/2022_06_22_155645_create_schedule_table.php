@@ -17,9 +17,10 @@ return new class extends Migration
         Schema::create('schedule', function (Blueprint $table) {
             $table->id();
             $table->foreignId('class_id')->constrained();
-            $table->bigInteger('period');
-            $table->date('date')->default(DB::raw('(CURRENT_DATE)'));
-            $table->string('time')->default('17h45-19h30');
+            $table->integer('period');
+            $table->date('date');
+            $table->time('start_time');
+            $table->time('end_time');
             $table->boolean('is_substitute')->default(0);
         });
     }

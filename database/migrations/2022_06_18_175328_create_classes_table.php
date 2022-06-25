@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('name');
             $table->date('date_start')->nullable();
             $table->date('date_end')->nullable();
-            $table->string('schedule');
             $table->smallInteger('status')->default(0);
             $table->foreignId('user_id')->constrained();
             $table->foreignId('subject_id')->constrained();
