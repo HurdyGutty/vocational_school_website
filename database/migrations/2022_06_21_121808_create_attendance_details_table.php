@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('class_attendances', function (Blueprint $table) {
+        Schema::create('attendance_details', function (Blueprint $table) {
             $table->foreignId('attendance_id')->constrained();
             $table->foreignId('user_id')->constrained();
             $table->boolean('is_present')->default(1);
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('class_attendances');
+        Schema::dropIfExists('attendance_details');
     }
 };

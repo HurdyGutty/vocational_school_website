@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\ClassAttendance;
+use App\Models\AttendanceDetail;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class ClassAttendanceSeeder extends Seeder
+class AttendanceDetailSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,6 +15,6 @@ class ClassAttendanceSeeder extends Seeder
      */
     public function run()
     {
-        ClassAttendance::factory(5)->create();
+        AttendanceDetail::factory(5)->create();
     }
 }

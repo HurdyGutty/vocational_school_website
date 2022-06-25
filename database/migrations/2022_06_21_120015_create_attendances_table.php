@@ -18,7 +18,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('class_id')->constrained();
             $table->integer('period');
-            $table->date('date')->default(DB::raw('(CURRENT_DATE)'));
+            $table->date('date');
             $table->unique(['class_id','period']);
         });
     }
