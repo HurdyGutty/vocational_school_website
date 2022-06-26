@@ -13,6 +13,7 @@ use App\Models\Subject;
 use App\Models\Subscription;
 use App\Models\User;
 use Carbon\Carbon;
+use Faker\Factory as Faker;
 use Faker\Provider\DateTime;
 
 class DatabaseSeeder extends Seeder
@@ -24,7 +25,8 @@ class DatabaseSeeder extends Seeder
      * @throws \Exception
      */
     public function run()
-    {
+    {   
+        $faker = Faker::create();
         User::factory(100)->create();
         Admin::factory(10)->create();
         Major::factory(5)->create();
@@ -52,7 +54,7 @@ class DatabaseSeeder extends Seeder
         $class_ids = ClassModel::query()->pluck('id')->toArray();
         foreach ($class_ids as $class_id) {
             $max_period = random_int( 6, 10 );
-            $date = DateTime::date($format = 'Y-m-d', $max = 'now');
+            $date = $faker->dateTimeBetween($startDate = '-1 months', $endDate = 'now')->format('Y-m-d');
             for ($i = 1; $i <= $max_period; $i++) {
                 $created = Attendance::query()->orderBy('id', 'DESC')->first();
                 $current_date = $created->date ?? $date;
