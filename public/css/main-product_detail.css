@@ -1,0 +1,345 @@
+a {
+    color: black;
+}
+.mobile-category-item:nth-of-type(3n + 1) .mobile-category-link {
+    background-color: #87afd8;
+}
+.mobile-category-item:nth-of-type(3n + 2) .mobile-category-link {
+    background-color: rgb(255, 173, 65);
+}
+.mobile-category-item:nth-of-type(3n + 3) .mobile-category-link {
+    background-color: rgb(109, 93, 255);
+}
+.mobile-category-link {
+    display: block;
+    text-decoration: none;
+    color: white;
+    font-size: 1.4rem;
+    line-height: 2rem;
+    text-align: center;
+    width: 108px;
+    height: 40px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    border-radius: 4px;
+    font-weight: 300;
+    user-select: none;
+    -webkit-user-select: none;
+    padding: 0 6px;
+}
+.home-filter-lanel {
+    font-size: 1.4rem;
+    color: #555555;
+    margin-right: 16px;
+}
+.page-number-wrap {
+    display: flex;
+}
+.home-filter-btn {
+    margin-right: 12px;
+    min-width: 90px;
+}
+.select-price:hover .price-list {
+    display: block;
+}
+.pdt-24 {
+    padding-top: 20px;
+}
+.shop-information {
+    margin-top: 60px;
+}
+.info-service {
+    font-weight: 700;
+    line-height: 1.4;
+}
+.no-email-mt-top {
+    margin-top: 46px !important;
+}
+.shop-email {
+    font-weight: 600;
+    color: red;
+}
+.info-service-item-list {
+    margin-top: 28px;
+    list-style: none;
+}
+.info-service-item-link {
+    font-size: 12px;
+    color: #959595;
+    text-decoration: none;
+}
+.normal-write {
+    color: #636363;
+    font-size: 12px !important;
+    line-height: 2;
+}
+.normal-write:hover {
+    opacity: 0.7;
+}
+.verify-link {
+    text-decoration: none;
+    color: black;
+}
+.footer-100-info {
+    display: block;
+    font-size: 12px;
+    color: #959595;
+    line-height: 1.6;
+}
+.footer {
+    margin-top: 40px;
+    border-top: 1px solid var(--text-color);
+    height: 2px;
+}
+.footer-wrap {
+    margin-top: 20px;
+}
+.hidden-navbar-item {
+    padding-left: 8px;
+}
+table,
+th,
+td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+.table-board {
+    width: 100%;
+}
+th {
+    padding: 4px !important;
+    font-size: 2rem;
+    background-color: #f2f2f2;
+    color: black;
+    font-weight: 400 !important;
+}
+td {
+    font-size: 1.8rem;
+    padding: 8px !important;
+    font-weight: 700 !important;
+}
+/* Search history */
+.search-history {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    width: calc(100% - 19px);
+    background-color: white;
+    border-radius: 2px;
+    box-shadow: 0 0 0 rgb(172, 172, 172);
+    display: none;
+    flex-direction: column;
+    z-index: 1;
+}
+.search-history-content {
+    color: #999;
+    margin: 6px 12px;
+    font-size: 1.4rem;
+    font-weight: 400;
+    line-height: 38px;
+}
+.header-item a {
+    font-size: 18px;
+    color: white;
+    margin: 0 12px;
+}
+/* Content */
+.product-content-heading {
+    font-size: 2.4rem;
+    text-align: center;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #999;
+}
+.product-content {
+    margin: 0 8px;
+}
+.bold {
+    font-weight: 700;
+}
+.product-price {
+    padding-bottom: 8px;
+    border-bottom: 1px solid #999;
+    margin: 16px 8px;
+    padding: 4px;
+    background-color: #fafafa;
+}
+.old-price {
+    font-size: 1.8rem;
+    margin: 0 8px;
+}
+.new-price {
+    font-size: 2.4rem;
+    color: #ec593c;
+    margin: 0 8px;
+}
+.product-content-descrip {
+    font-size: 1.4rem;
+}
+.sale-off-number {
+    background-color: #ee4d2d;
+    font-size: 1.8rem;
+    margin: 0 8px;
+    border-radius: 4px;
+    color: white;
+    padding: 4px;
+}
+.product-content-descrip {
+    font-size: 1.8rem;
+    margin: 8px 0;
+}
+.product-content-descrip-item {
+    margin-left: 16px;
+}
+.order-button {
+    font-size: 2.4rem;
+    padding: 8px;
+    background-color: var(--primary-color);
+    color: white;
+    float: right;
+    border-radius: 4px;
+    margin-top: 8px;
+}
+.order-button:hover {
+    cursor: pointer;
+    background-color: #ee4d2d;
+}
+.disable {
+    background-color: #666;
+    opacity: 0.7;
+}
+.disable:hover {
+    background-color: #666;
+    cursor: default;
+}
+.heading-des {
+    padding-top: 8px;
+    border-top: 1px solid #999;
+    font-size: 2.4rem;
+    text-align: center;
+}
+.product-des {
+    font-size: 1.8rem;
+}
+.app-container {
+    margin-top: 24px;
+}
+.video-place {
+    text-align: center;
+}
+.item-choose {
+    margin-top: 8px;
+}
+.item-choose-container {
+    border-top: 1px #999 solid;
+}
+.item-choose-name {
+    font-size: 2rem;
+    text-align: center;
+    background-color: #ee4d2d;
+    color: white;
+}
+.item-choose-name:hover {
+    opacity: 0.9;
+    cursor: pointer;
+}
+.item-choose-content {
+    display: none;
+}
+@media (max-width: 739px) {
+    .video-place iframe {
+        width: 70% !important;
+    }
+}
+/* Slideshow container */
+.slideshow-container {
+    max-width: 1000px;
+    position: relative;
+    margin: auto;
+}
+
+/* Hide the images by default */
+.mySlides {
+    display: none;
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Caption text */
+.text {
+    color: #f2f2f2;
+    font-size: 15px;
+    padding: 8px 12px;
+    position: absolute;
+    bottom: 8px;
+    width: 100%;
+    text-align: center;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+.active,
+.dot:hover {
+    background-color: #717171;
+}
+
+/* Fading animation */
+.fade-item {
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@keyframes fade {
+    from {
+        opacity: 0.4;
+    }
+    to {
+        opacity: 1;
+    }
+}

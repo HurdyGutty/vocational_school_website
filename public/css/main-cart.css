@@ -1,0 +1,88 @@
+.hot_line_number {
+    margin-left: 50%;
+}
+.cart-heading-content {
+    font-weight: 700;
+}
+.table-heading-content {
+    text-align: center;
+    margin: 8px 0;
+    font-size: 2.2rem;
+    font-weight: 600;
+}
+.table-heading-container {
+    margin-top: 8px;
+    border-top: 1px #999 solid;
+    border-bottom: 1px #999 solid;
+}
+.info-containter {
+    margin: 8px 0;
+}
+.heading-info-item {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #f5402d;
+    margin-top: 16px;
+}
+.decrease-btn {
+    text-align: center;
+    min-width: 18.51px;
+    background-color: #f5402d;
+    color: white;
+    padding: 0px 4px;
+}
+.decrease-btn:hover {
+    cursor: pointer;
+}
+.increase-btn {
+    text-align: center;
+    background-color: #f5402d;
+    color: white;
+    padding: 0px 4px;
+}
+.increase-btn:hover {
+    cursor: pointer;
+}
+.number-container {
+    margin: 0;
+    text-align: center;
+}
+.total-price {
+    text-align: center;
+}
+.price-per-unit {
+    text-align: center;
+}
+.table-content-container {
+    border-bottom: 1px solid #999;
+}
+.endingtable {
+    margin: 8px 0;
+}
+.total-all-price {
+    text-align: right;
+}
+.total-all-number {
+    color: #f5402d;
+    font-weight: 700;
+}
+.total-all-price {
+    font-size: 1.8rem;
+    margin-top: 8px;
+}
+.total-all-number {
+    margin-top: 8px;
+    font-size: 1.8rem;
+}
+form {
+    display: inline-block;
+}
+.btn-container {
+    text-align: right;
+}
+.quantity-container {
+    text-align: center;
+}
+form {
+    height: inherit !important;
+}
