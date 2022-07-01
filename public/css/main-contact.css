@@ -1,0 +1,39 @@
+.hot_line_number {
+    margin-left: 50%;
+}
+.contact-container {
+    border: 4px solid #f5402d;
+    margin: 20px 0;
+}
+.fixed-contact {
+    padding: 12px;
+}
+.name-brand {
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+.phone-num {
+    margin-top: 12px;
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+.input-contact-container {
+    padding: 12px;
+}
+.input-item {
+    font-size: 1.6rem;
+    width: 100%;
+    height: 30px;
+    padding: 10px;
+    margin-bottom: 12px;
+}
+.input-item.messsage-input {
+    height: 180px;
+}
+.btn-send {
+    float: right;
+    margin-right: 12px;
+}
+form {
+    height: inherit !important;
+}

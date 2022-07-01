@@ -1,42 +1,29 @@
 <?php
 
-use App\Http\Controllers\StudentController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\App;
+use App\Http\Controllers\Admin;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-Route::get('/', function () {
-    return view('landing_page.index');
+// Route chưa login của học sinh và giáo viên
+Route::group(['name' => ''], static function() {
+    Route::get('/', [App\HomeController::class, 'index']);
+    Route::get('/login', [App\HomeController::class, 'login']);
+    Route::get('/register', [App\HomeController::class, 'register']);
 });
 
-Route::prefix('users')->name('users.')->controller(UserController::class)->group(function () {
-    Route::get('/', 'login')->name('login');
-    Route::get('/create', 'create')->name('create');
-    Route::post('/create', 'store')->name('store');
+// Route đã login của học sinh và giáo viên (chừng sau có middleware)
+Route::group(['prefix' => 'app'], static function() {
+
 });
 
 
-Route::prefix('students')->name('students.')->controller(StudentController::class)->group(function () {
+// Route chưa login của admin
+Route::group(['prefix' => 'admin'], static function() {
+    Route::get('/', [Admin\HomeController::class, 'index']);
+    Route::get('/login', [Admin\HomeController::class, 'login']);
+});
 
-    Route::get('/', 'index')->name('index');
-
-    //Sign up:
-    Route::get('/create', 'create')->name('create');
-    Route::post('/create', 'store')->name('store');
-
-    // Route::delete('/destroy/{student}', 'destroy')->name('destroy');
-    // Route::get('/edit/{student}', 'edit')->name('edit');
-    // Route::put('/edit/{student}', 'update')->name('update');
-    // Route::get('/api', 'api')->name('api');
-    // Route::get('/api/search', 'apiSearch')->name('api.search');
+// Route đã login của admin (chừng sau có middleware)
+Route::group(['prefix' => 'admin'], static function() {
+    Route::get('/', [Admin\LandingController::class, 'index']);
 });

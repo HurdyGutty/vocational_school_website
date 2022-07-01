@@ -1,0 +1,47 @@
+.checkout-container {
+    margin: 12px 0;
+}
+.order-summary {
+    border: 1px solid #999;
+}
+.product-item {
+    margin-left: 8px;
+    padding-bottom: 7px;
+    margin-right: 4px;
+    margin-top: 7px;
+    border-bottom: 1px solid #999;
+}
+.name-pro {
+    margin: 8px 0;
+    text-align: center;
+}
+.price-content {
+    font-size: 1.3rem;
+    color: #666;
+    text-align: center;
+}
+.total-price {
+    text-align: right;
+    margin-top: 20%;
+    color: #458b74;
+}
+.cus-heading {
+    text-align: center;
+}
+input {
+    padding: 10px;
+    font-size: 2rem;
+}
+.hot_line_number {
+    margin-left: 50%;
+}
+.total-all-price-number {
+    margin-top: 15px;
+    margin-right: 8px;
+    text-align: right;
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+.total-number {
+    color: #f05d41;
+}
