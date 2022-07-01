@@ -38,6 +38,7 @@
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
 <!--  Plugin for the DatePicker, full documentation here: https://github.com/uxsolutions/bootstrap-datepicker -->
 <script src="{{asset('js/plugins/bootstrap-datetimepicker.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('js/now-ui-kit.js')}}" type="text/javascript"></script>
 @stack('js')
 
 </html>
