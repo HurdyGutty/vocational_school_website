@@ -94,7 +94,6 @@ $(document).ready(function() {
         interval: 4000
     });
 
-    if ($(".datetimepicker").length != 0) {
         $('.datetimepicker').datetimepicker({
             icons: {
                 time: "now-ui-icons tech_watch-time",
@@ -110,7 +109,7 @@ $(document).ready(function() {
         });
 
         $('.datepicker').datetimepicker({
-            format: 'MM/DD/YYYY',
+            format: 'DD/MM/YYYY',
             icons: {
                 time: "now-ui-icons tech_watch-time",
                 date: "now-ui-icons ui-1_calendar-60",
@@ -123,7 +122,6 @@ $(document).ready(function() {
                 close: 'fa fa-remove'
             }
         });
-
         $('.timepicker').datetimepicker({
             //          format: 'H:mm',    // use this format if you want the 24hours timepicker
             format: 'h:mm A', //use this format if you want the 12hours timpiecker with AM/PM toggle
@@ -139,7 +137,6 @@ $(document).ready(function() {
                 close: 'fa fa-remove'
             }
         });
-    };
 });
 
 $(window).on('resize', function() {

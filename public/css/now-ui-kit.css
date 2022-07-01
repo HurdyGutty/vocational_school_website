@@ -9564,7 +9564,7 @@ Created using IcoMoon - icomoon.io
 
 .page-header {
     min-height: 100vh;
-    max-height: 999px;
+    max-height: 2000px;
     padding: 0;
     color: #FFFFFF;
     position: relative;
@@ -9574,13 +9574,13 @@ Created using IcoMoon - icomoon.io
     position: absolute;
     background-size: cover;
     background-position: center center;
-    width: 100%;
-    height: 100%;
+    /* width: 100vw;
+    height: 100%; */
     z-index: -1;
 }
 
 .signup-page .page-header .content-center {
-    top: 57%;
+    top: 77%;
 }
 
 .page-header .content-center {
