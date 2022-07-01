@@ -5,7 +5,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/test', function () {
-    return view('users.login');
+    return view('layout-admin-site.master');
 });
 
 Route::get('/', function () {
