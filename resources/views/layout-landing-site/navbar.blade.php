@@ -63,7 +63,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btn btn-primary" href="{{ route('users.login') }}" target="_blank">
+                    <a class="nav-link btn btn-primary" href="" target="_blank">
                         <p>Đăng nhập</p>
                     </a>
                 </li>
