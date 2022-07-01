@@ -1,4 +1,4 @@
-@extends('layout.master')
+@extends('layout-landing-site.master')
 @section('body')
 
 <body class="signup-page">

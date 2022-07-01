@@ -11,10 +11,12 @@ class UserController extends Controller
     {
         return view('users.login');
     }
+
     public function create()
     {
         return view('users.create');
     }
+
     public function store($request)
     {
         User::create($request->validated());

@@ -141,7 +141,7 @@
             },
             facebook: function(self) {
                 var sett = self.options.buttons.facebook;
-                $(self.element).find('.buttons').append('<div class="button facebook"><div id="fb-root"></div><div class="fb-like" data-href="' + (sett.url !== '' ? sett.url : self.options.url) + '" data-send="' + sett.send + '" data-layout="' + sett.layout + '" data-width="' + sett.width + '" data-show-faces="' + sett.faces + '" data-action="' + sett.action + '" data-colorscheme="' + sett.colorscheme + '" data-font="' + sett.font + '" data-via="' + sett.via + '"></div></div>');
+                $(self.element).find('.buttons').append('<div class="button facebook"><div id="fb-root"></div><div class="fb-like" data-href="' + (sett.url !== '' ? sett.url : self.options.url) + '" data-send="' + sett.send + '" data-layout-landing-site="' + sett.layout + '" data-width="' + sett.width + '" data-show-faces="' + sett.faces + '" data-action="' + sett.action + '" data-colorscheme="' + sett.colorscheme + '" data-font="' + sett.font + '" data-via="' + sett.via + '"></div></div>');
                 var loading = 0;
                 if (typeof FB === 'undefined' && loading == 0) {
                     loading = 1;
@@ -223,7 +223,7 @@
             },
             stumbleupon: function(self) {
                 var sett = self.options.buttons.stumbleupon;
-                $(self.element).find('.buttons').append('<div class="button stumbleupon"><su:badge layout="' + sett.layout + '" location="' + (sett.url !== '' ? sett.url : self.options.url) + '"></su:badge></div>');
+                $(self.element).find('.buttons').append('<div class="button stumbleupon"><su:badge layout-landing-site="' + sett.layout + '" location="' + (sett.url !== '' ? sett.url : self.options.url) + '"></su:badge></div>');
                 var loading = 0;
                 if (typeof STMBLPN === 'undefined' && loading == 0) {
                     loading = 1;
@@ -265,7 +265,7 @@
             },
             pinterest: function(self) {
                 var sett = self.options.buttons.pinterest;
-                $(self.element).find('.buttons').append('<div class="button pinterest"><a href="http://pinterest.com/pin/create/button/?url=' + (sett.url !== '' ? sett.url : self.options.url) + '&media=' + sett.media + '&description=' + sett.description + '" class="pin-it-button" count-layout="' + sett.layout + '">Pin It</a></div>');
+                $(self.element).find('.buttons').append('<div class="button pinterest"><a href="http://pinterest.com/pin/create/button/?url=' + (sett.url !== '' ? sett.url : self.options.url) + '&media=' + sett.media + '&description=' + sett.description + '" class="pin-it-button" count-layout-landing-site="' + sett.layout + '">Pin It</a></div>');
 
                 (function() {
                     var li = document.createElement('script');

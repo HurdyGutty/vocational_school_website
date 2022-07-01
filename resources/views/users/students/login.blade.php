@@ -1,4 +1,4 @@
-@extends('layout.master')
+@extends('layout-landing-site.master')
 @section('content')
 <div class="page-header" filter-color="orange">
     <div class="page-header-image" style="background-image:url(../assets/img/login.jpg)"></div>
