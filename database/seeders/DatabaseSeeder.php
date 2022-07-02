@@ -25,14 +25,34 @@ class DatabaseSeeder extends Seeder
      * @throws \Exception
      */
     public function run()
-    {   
-        $faker = Faker::create();
+    {
         User::factory(100)->create();
         Admin::factory(10)->create();
         Major::factory(5)->create();
         Subject::factory(15)->create();
         ClassModel::factory(5)->create();
-        // Subscription Factory
+        $this->createSubscription();
+        $this->createAttendance();
+        $this->createAttendanceDetail();
+        $this->createSchedule();
+        $this->createDefaultAccount();
+    }
+
+    public function createDefaultAccount(): void
+    {
+        Admin::query()->create([
+            'name' => "acc cho ae",
+            'gender' => 1,
+            'date_of_birth' => "2010-05-05",
+            'phone' => "0123465789",
+            'email' => "admin@gmail.com",
+            'password' => "1234",
+            'role' => 1,
+        ]);
+    }
+
+    public function createSubscription(): void
+    {
         for ($i = 1; $i <= 50; $i++) {
             $student_id = User::query()->where('role', 0)->inRandomOrder()->value('id');
             $class_id = ClassModel::query()->inRandomOrder()->value('id');
@@ -50,7 +70,11 @@ class DatabaseSeeder extends Seeder
                 'register_time' => now()
             ]);
         }
-        // Attendance Factory
+    }
+
+    public function createAttendance(): void
+    {
+        $faker = Faker::create();
         $class_ids = ClassModel::query()->pluck('id')->toArray();
         foreach ($class_ids as $class_id) {
             $max_period = random_int( 6, 10 );
@@ -65,7 +89,10 @@ class DatabaseSeeder extends Seeder
                 ]);
             }
         }
-        // AttendanceDetail Factory
+    }
+
+    public function createAttendanceDetail(): void
+    {
         $attendances = Attendance::all();
         foreach ($attendances as $attendance) {
             $student_ids = Subscription::query()
@@ -80,7 +107,11 @@ class DatabaseSeeder extends Seeder
                 ]);
             }
         }
-        // Schedule Factory
+    }
+
+    public function createSchedule(): void
+    {
+        $attendances = Attendance::all();
         $starts = ["17:00:00", "19:00:00"];
         foreach ($attendances as $attendance) {
             $rand_key_start = array_rand($starts);
@@ -92,6 +123,5 @@ class DatabaseSeeder extends Seeder
                 'end_time' => (new Carbon($starts[$rand_key_start]))->addHours(2)
             ]);
         }
-        
     }
 }
