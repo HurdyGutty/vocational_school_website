@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\App;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Auth\LoginRequest;
-use App\Models\Admin;
+use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
@@ -12,17 +12,22 @@ class AuthController extends Controller
 {
     public function loginForm(): View
     {
-        return view('admin_auth.login');
+        return view('landing_auth.login');
+    }
+
+    public function register(): View
+    {
+        return view('landing_auth.register');
     }
 
     public function login(LoginRequest $request): RedirectResponse
     {
         $data = $request->validated();
-        $admin = $this->auth($data['email'], $data['password']);
-        if ($admin instanceof Admin) {
-            session()->put('id', $admin->id);
-            session()->put('name', $admin->name);
-            session()->put('role', $admin->role);
+        $user = $this->auth($data['email'], $data['password']);
+        if ($user instanceof User) {
+            session()->put('id', $user->id);
+            session()->put('name', $user->name);
+            session()->put('role', $user->role);
             return redirect()->route('admin.index');
         }
         return redirect()->back();
@@ -34,11 +39,11 @@ class AuthController extends Controller
         return redirect()->route('admin.auth.view_login');
     }
 
-    public function auth($email, $password): ?Admin
+    public function auth($email, $password): ?User
     {
-        $admin = Admin::query()->where('email', $email)->first();
-        if ($admin instanceof Admin && $admin->verify($password)) {
-            return $admin;
+        $user = User::query()->where('email', $email)->first();
+        if ($user instanceof User && $user->verify($password)) {
+            return $user;
         }
         return null;
     }

@@ -12,13 +12,5 @@ class HomeController extends Controller
         return view('landing.index');
     }
 
-    public function login(): View
-    {
-        return view('landing.login');
-    }
 
-    public function register(): View
-    {
-        return view('landing.register');
-    }
 }
