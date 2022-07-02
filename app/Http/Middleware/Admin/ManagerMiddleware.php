@@ -17,7 +17,7 @@ class ManagerMiddleware
     public function handle(Request $request, Closure $next)
     {
         if (session()->get('role') !== 1) {
-            return redirect()->back();
+            return redirect()->route('admin.auth.view_login');
         }
 
         return $next($request);

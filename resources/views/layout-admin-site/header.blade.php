@@ -170,9 +170,9 @@
                     <img src="https://vnmod.net/wp-content/uploads/2021/12/151220211639558112.png" alt="user-image" class="rounded-circle">
                 </span>
                 <span>
-                    <span class="account-user-name">Tên gì đó</span>
+                    <span class="account-user-name">{{getName()}}</span>
                     <span class="account-position">
-                        Quản lý
+                        {{getRole()}}
                     </span>
                 </span>
             </a>
@@ -201,16 +201,20 @@
 {{--                </a>--}}
 
                 <!-- item-->
-                <a href="#" class="dropdown-item notify-item">
-                    <i class="mdi mdi-lock-outline mr-1"></i>
-                    <span>Khóa màn hình</span>
-                </a>
+{{--                <a href="#" class="dropdown-item notify-item">--}}
+{{--                    <i class="mdi mdi-lock-outline mr-1"></i>--}}
+{{--                    <span>Khóa màn hình</span>--}}
+{{--                </a>--}}
 
                 <!-- item-->
-                <a href="#" class="dropdown-item notify-item">
-                    <i class="mdi mdi-logout mr-1"></i>
-                    <span>Đăng xuất</span>
-                </a>
+                <form action="{{route('admin.auth.logout')}}" method="post">
+                    @csrf
+                    <a href="" class="dropdown-item notify-item">
+                        <i class="mdi mdi-logout mr-1"></i>
+                        <button class="btn" type="submit"><span>Đăng xuất</span></button>
+                    </a>
+                </form>
+
 
             </div>
         </li>

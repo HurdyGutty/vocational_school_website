@@ -6,7 +6,7 @@ use App\Http\Middleware\Admin\ManagerMiddleware;
 use Illuminate\Support\Facades\Route;
 
 // Route chưa login của học sinh và giáo viên
-Route::group(['name' => ''], static function() {
+Route::group(['as' => ''], static function() {
     Route::get('/', [App\HomeController::class, 'index']);
     Route::get('/login', [App\HomeController::class, 'login']);
     Route::get('/register', [App\HomeController::class, 'register']);
@@ -22,6 +22,7 @@ Route::group(['prefix' => 'app'], static function() {
 Route::group(['prefix' => 'admin', 'as' => 'admin.auth.'], static function() {
     Route::get('/login', [Admin\HomeController::class, 'login'])->name('view_login');
     Route::post('/login', [Admin\AuthController::class, 'login'])->name('process_login');
+    Route::post('/logout', [Admin\AuthController::class, 'logout'])->name('logout');
 });
 
 // Route đã login của admin (chừng sau có middleware)
