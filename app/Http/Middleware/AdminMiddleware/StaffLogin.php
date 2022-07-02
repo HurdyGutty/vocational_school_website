@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Middleware\Admin;
+namespace App\Http\Middleware\AdminMiddleware;
 
 use Closure;
 use Illuminate\Http\Request;
 
-class ManagerMiddleware
+class StaffLogin
 {
     /**
      * Handle an incoming request.
@@ -16,8 +16,8 @@ class ManagerMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (session()->get('role') !== 1) {
-            return redirect()->back();
+        if (empty(getRole())) {
+            return redirect()->route('admin.auth.view_login');
         }
 
         return $next($request);
