@@ -15,10 +15,10 @@
 
 <body class="loading" data-layout-config='{"leftSideBarTheme":"dark","layoutBoxed":false, "leftSidebarCondensed":false, "leftSidebarScrollable":false,"darkMode":false, "showRightSidebarOnStart": true}'>
 <div class="wrapper">
-    @include('layout-admin-site.sidebar')
+    @include('layout-dashboard-site.sidebar')
     <div class="content-page">
         <div class="content">
-            @include('layout-admin-site.header')
+            @include('layout-dashboard-site.header')
 
             <div class="container-fluid">
                 <div class="row">
@@ -34,13 +34,13 @@
             </div>
         </div>
 
-        @include('layout-admin-site.footer')
+        @include('layout-dashboard-site.footer')
 
     </div>
 
 </div>
 
-@include('layout-admin-site.rightsidebar')
+@include('layout-dashboard-site.rightsidebar')
 
 <script src="{{asset('js/admin/vendor.min.js')}}"></script>
 <script src="{{asset('js/admin/app.min.js')}}"></script>

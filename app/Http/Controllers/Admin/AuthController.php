@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Auth\LoginRequest;
+use App\Http\Requests\LoginRequest;
 use App\Models\Admin;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;

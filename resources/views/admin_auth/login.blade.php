@@ -1,4 +1,4 @@
-@extends('layout-admin-site.master-login')
+@extends('layout-dashboard-site.master-login')
 @section('content')
 
 <div class="card">

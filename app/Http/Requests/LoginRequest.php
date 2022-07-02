@@ -1,8 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Admin\Auth;
-
-use App\Http\Requests\BaseRequest;
+namespace App\Http\Requests;
 
 class LoginRequest extends BaseRequest
 {

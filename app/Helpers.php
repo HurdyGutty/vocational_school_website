@@ -6,9 +6,16 @@ if (!function_exists('getName')) {
     }
 }
 if (!function_exists('getRole')) {
-    function getRole(): string
+    function getRole(): string|null
     {
-        return session()->get('role') !== null ? "Quản lý" : "Tư vấn viên";
+        $role = session()->get('role');
+        if ($role === 1) {
+            return "Quản lý";
+        }
+        if ($role === 0) {
+            return "Tư vấn viên";
+        }
+        return null;
     }
 }
 if (!function_exists('getId')) {
