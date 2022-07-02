@@ -41,13 +41,40 @@ class DatabaseSeeder extends Seeder
     public function createDefaultAccount(): void
     {
         Admin::query()->create([
-            'name' => "acc cho ae",
+            'name' => "Acc admin",
             'gender' => 1,
             'date_of_birth' => "2010-05-05",
             'phone' => "0123465789",
             'email' => "admin@gmail.com",
             'password' => "1234",
             'role' => 1,
+        ]);
+        Admin::query()->create([
+            'name' => "Acc nhân viên",
+            'gender' => 1,
+            'date_of_birth' => "2010-05-05",
+            'phone' => "0123465789",
+            'email' => "staff@gmail.com",
+            'password' => "1234",
+            'role' => 0,
+        ]);
+        User::query()->create([
+            'name' => "Acc giáo viên",
+            'gender' => 1,
+            'date_of_birth' => "2010-05-05",
+            'phone' => "0123465789",
+            'email' => "teacher@gmail.com",
+            'password' => "1234",
+            'role' => 1,
+        ]);
+        User::query()->create([
+            'name' => "Acc học sinh",
+            'gender' => 1,
+            'date_of_birth' => "2010-05-05",
+            'phone' => "0123465789",
+            'email' => "student@gmail.com",
+            'password' => "1234",
+            'role' => 0,
         ]);
     }
 
