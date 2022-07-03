@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
+use App\Lib\JWT\JWT;
 use App\Models\Admin;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -20,17 +21,28 @@ class AuthController extends Controller
         $data = $request->validated();
         $admin = $this->auth($data['email'], $data['password']);
         if ($admin instanceof Admin) {
-            session()->put('id', $admin->id);
-            session()->put('name', $admin->name);
-            session()->put('role', $admin->role);
+            $token = $this->generateToken($admin);
+            session()->put('token', $token);
             return redirect()->route('admin.index');
         }
         return redirect()->back();
     }
 
+    public function generateToken(Admin $admin)
+    {
+        $jwt = c(JWT::class);
+        $token = $jwt->encode([
+            'id' => $admin->id,
+            'name' => $admin->name,
+            'role' => $admin->role,
+            'is_admin' => true
+        ]);
+        return $token;
+    }
+
     public function logOut(): RedirectResponse
     {
-        session()->flush();
+        session()->forget('token');
         return redirect()->route('admin.auth.view_login');
     }
 

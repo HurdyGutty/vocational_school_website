@@ -1,25 +1,37 @@
 <?php
 
+use App\Enums\AdminRoles;
+use App\Enums\UserRoles;
+use App\Lib\JWT\JWT;
+use Illuminate\Support\Facades\App;
+
+if (!function_exists('c')) {
+    function c(string $key) {
+        return App::make($key);
+    }
+}
+
 if (!function_exists('getName')) {
-    function getName() {
-        return session()->get('name');
+    function getName(): string|null
+    {
+        $token = session()->get('token');
+        if (empty($token)) {
+            return null;
+        }
+        return c(JWT::class)->match($token)->name;
     }
 }
 if (!function_exists('getRole')) {
     function getRole(): string|null
     {
-        $role = session()->get('role');
-        if ($role === 1) {
-            return "Quản lý";
+        $token = session()->get('token');
+        if (empty($token)) {
+            return null;
         }
-        if ($role === 0) {
-            return "Tư vấn viên";
-        }
-        return null;
-    }
-}
-if (!function_exists('getId')) {
-    function getId() {
-        return session()->get('id');
+        $data = c(JWT::class)->match($token);
+        return
+            $data->is_admin ?
+                AdminRoles::from($data->role)->showRole() :
+                UserRoles::from($data->role)->showRole();
     }
 }
