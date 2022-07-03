@@ -13,6 +13,7 @@ use App\Models\Subject;
 use App\Models\Subscription;
 use App\Models\User;
 use Carbon\Carbon;
+use App\Models\MajorSubject;
 use Faker\Factory as Faker;
 use Faker\Provider\DateTime;
 
@@ -29,13 +30,30 @@ class DatabaseSeeder extends Seeder
         User::factory(100)->create();
         Admin::factory(10)->create();
         Major::factory(5)->create();
-        Subject::factory(15)->create();
+        Subject::factory(30)->create();
+        $this->createMajorSubject();
         ClassModel::factory(5)->create();
         $this->createSubscription();
         $this->createAttendance();
         $this->createAttendanceDetail();
         $this->createSchedule();
         $this->createDefaultAccount();
+    }
+
+    public function createMajorSubject(): void
+    {
+        for ($i = 1; $i <= 30; $i++) {
+            $major_id = Major::query()->inRandomOrder()->value('id');
+            $subject_id = Subject::query()->inRandomOrder()->value('id');
+            $check = MajorSubject::query()->where('major_id', $major_id)->where('subject_id', $subject_id)->first();
+            if (isset($check)) {
+                continue;
+            }
+            MajorSubject::query()->create([
+                'major_id' => $major_id,
+                'subject_id' => $subject_id,
+            ]);
+        }
     }
 
     public function createDefaultAccount(): void

@@ -14,7 +14,7 @@ class Subject extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'name', 'major_id',
+        'name',
     ];
 
     public function classes(): HasMany
@@ -22,8 +22,8 @@ class Subject extends Model
         return $this->hasMany(ClassModel::class, 'subject_id', 'id');
     }
 
-    public function major(): BelongsTo
+    public function majors(): HasMany
     {
-        return $this->belongsTo(Major::class, 'major_id', 'id');
+        return $this->hasMany(MajorSubject::class, 'major_id', 'id');
     }
 }

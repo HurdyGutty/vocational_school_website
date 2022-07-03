@@ -18,6 +18,7 @@ class Major extends Model
 
     public function subjects(): HasMany
     {
-        return $this->hasMany(Subject::class, 'major_id', 'id');
+        return $this->hasMany(MajorSubject::class, 'subject_id', 'id');
     }
+
 }
