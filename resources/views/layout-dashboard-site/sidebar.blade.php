@@ -42,7 +42,7 @@
 {{--                </li>--}}
 {{--            </ul>--}}
         </li>
-
+        @if (getRole() === \App\Enums\AdminRoles::from(1)->showRole())
         <li class="side-nav-title side-nav-item">Vùng quản lý</li>
 
         <li class="side-nav-item">
@@ -141,18 +141,30 @@
             <span> Lịch sử hoạt động </span>
             </a>
         </li>
+        @endif
 
-{{--        <li class="side-nav-title side-nav-item">Custom</li>--}}
+        @if (
+            getRole() === \App\Enums\AdminRoles::from(1)->showRole() ||
+            getRole() === \App\Enums\AdminRoles::from(0)->showRole()
+        )
+            <li class="side-nav-title side-nav-item mt-1">Vùng dành cho tư vấn viên</li>
 
-{{--        <li class="side-nav-item">--}}
-{{--            <a href="{{route('customers.index')}}" class="side-nav-link">--}}
-{{--                <i class="uil-comments-alt"></i>--}}
-{{--                <span> Khách hàng </span>--}}
-{{--            </a>--}}
-{{--        </li>--}}
+            <li class="side-nav-item">
+                <a href="#" class="side-nav-link">
+                    <i class="uil-comments-alt"></i>
+                    <span> Các đơn đăng ký </span>
+                </a>
+            </li>
 
+            <li class="side-nav-item">
+                <a href="#" class="side-nav-link">
+                    <i class="uil-calcualtor"></i>
+                    <span> Lịch sử đơn đăng kí </span>
+                </a>
+            </li>
+        @endif
 
-
+        @if (getRole() === \App\Enums\UserRoles::from(1)->showRole())
         <li class="side-nav-title side-nav-item mt-1">Vùng dành cho giáo viên</li>
 
         <li class="side-nav-item">
@@ -168,7 +180,9 @@
             <span> Đăng ký dạy thêm </span>
             </a>
         </li>
+        @endif
 
+        @if (getRole() === \App\Enums\AdminRoles::from(0)->showRole())
         <li class="side-nav-title side-nav-item mt-1">Vùng dành cho học sinh</li>
 
         <li class="side-nav-item">
@@ -177,7 +191,7 @@
                 <span> Lớp học </span>
             </a>
         </li>
-
+        @endif
 
 
     </ul>

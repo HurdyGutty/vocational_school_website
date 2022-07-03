@@ -18,7 +18,6 @@
 </head>
 
 @yield('body')
-@include('layout-landing-site.navbar')
 
 @yield('content')
 </div>
