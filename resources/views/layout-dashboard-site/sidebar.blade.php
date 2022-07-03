@@ -61,6 +61,25 @@
             </ul>
         </li>
 
+            <li class="side-nav-item">
+                <a href="javascript: void(0);" class="side-nav-link">
+                    <i class="uil-store"></i>
+                    <span> Ngành và Môn học </span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <ul class="side-nav-second-level mm-collapse" aria-expanded="false">
+                    <li>
+                        <a href="#">Quản lý</a>
+                    </li>
+                    <li>
+                        <a href="#">Thêm ngành</a>
+                    </li>
+                    <li>
+                        <a href="#">Thêm môn</a>
+                    </li>
+                </ul>
+            </li>
+
         <li class="side-nav-item">
             <a href="javascript: void(0);" class="side-nav-link">
                 <i class="uil-store"></i>

@@ -2,13 +2,12 @@
 
 namespace Database\Factories;
 
-use App\Models\Major;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Subject>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\MajorSubject>
  */
-class SubjectFactory extends Factory
+class MajorSubjectFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,7 +17,7 @@ class SubjectFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->jobTitle(),
+
         ];
     }
 }
