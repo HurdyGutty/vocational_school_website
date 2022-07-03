@@ -169,6 +169,15 @@
             </a>
         </li>
 
+        <li class="side-nav-title side-nav-item mt-1">Vùng dành cho học sinh</li>
+
+        <li class="side-nav-item">
+            <a href="#" class="side-nav-link">
+                <i class="uil-comments-alt"></i>
+                <span> Lớp học </span>
+            </a>
+        </li>
+
 
 
     </ul>
