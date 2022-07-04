@@ -14,7 +14,7 @@ class Subject extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'name',
+        'name', 'description', 'time_duration', 'image_id',
     ];
 
     public function classes(): HasMany
@@ -25,5 +25,10 @@ class Subject extends Model
     public function majors(): HasMany
     {
         return $this->hasMany(MajorSubject::class, 'major_id', 'id');
+    }
+
+    public function image(): BelongsTo
+    {
+        return $this->belongsTo(Image::class, 'image_id', 'id');
     }
 }

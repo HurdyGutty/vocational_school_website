@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Image;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,10 @@ class MajorFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->jobTitle()
+            'name' => $this->faker->jobTitle(),
+            'description' => $this->faker->text(),
+            'time_duration' => 24,
+            'image_id' => Image::query()->inRandomOrder()->value('id')
         ];
     }
 }
