@@ -4,18 +4,18 @@ namespace App\Enums;
 
 enum ClassStatus: int
 {
-    case Empty = 0;
+    case Pending = 0;
     case Waiting = 1;
     case Started = 2;
-    case Ended = 3;
+    case End = 3;
 
     public function showRole(): string
     {
         return match ($this){
-            self::Empty => 'Lớp trống',
+            self::Pending => 'Chờ duyệt',
             self::Waiting => "Chưa đủ số lượng",
             self::Started => "Đã mở",
-            self::Ended => "Kết thúc",
+            self::End => "Kết thúc",
         };
     }
     public static function showValue()
