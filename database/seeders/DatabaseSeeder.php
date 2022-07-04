@@ -1,6 +1,7 @@
 <?php
 
 namespace Database\Seeders;
+use App\Models\Image;
 use Illuminate\Database\Seeder;
 
 use App\Models\Admin;
@@ -29,10 +30,11 @@ class DatabaseSeeder extends Seeder
     {
         User::factory(100)->create();
         Admin::factory(10)->create();
-        Major::factory(5)->create();
-        Subject::factory(30)->create();
+        Image::factory(50)->create();
+        Major::factory(4)->create();
+        Subject::factory(10)->create();
         $this->createMajorSubject();
-        ClassModel::factory(5)->create();
+        ClassModel::factory(30)->create();
         $this->createSubscription();
         $this->createAttendance();
         $this->createAttendanceDetail();

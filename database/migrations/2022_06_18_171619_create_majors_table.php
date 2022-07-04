@@ -16,6 +16,10 @@ return new class extends Migration
         Schema::create('majors', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->text('description')->nullable();
+            $table->integer('time_duration')->nullable(); // tháng
+            $table->integer('courses')->nullable(); // số khóa học
+            $table->foreignId('image_id')->nullable()->constrained('images');
         });
     }
 

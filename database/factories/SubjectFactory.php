@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Image;
 use App\Models\Major;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -19,6 +20,9 @@ class SubjectFactory extends Factory
     {
         return [
             'name' => $this->faker->jobTitle(),
+            'description' => $this->faker->text(),
+            'time_duration' => 24,
+            'image_id' => Image::query()->inRandomOrder()->value('id')
         ];
     }
 }
