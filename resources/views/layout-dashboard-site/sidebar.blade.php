@@ -201,7 +201,7 @@
         </li>
         @endif
 
-        @if (getRole() === \App\Enums\AdminRoles::from(0)->showRole())
+        @if (getRole() === \App\Enums\UserRoles::from(0)->showRole())
         <li class="side-nav-title side-nav-item mt-1">Vùng dành cho học sinh</li>
 
         <li class="side-nav-item">
