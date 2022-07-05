@@ -14,7 +14,7 @@ class StoreRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -29,6 +29,7 @@ class StoreRequest extends FormRequest
                 'bail',
                 'required',
                 'string',
+                'unique:majors,name'
             ],
             
         ];

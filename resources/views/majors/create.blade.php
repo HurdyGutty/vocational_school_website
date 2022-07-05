@@ -5,20 +5,21 @@
 @section('content')
 <div class="card-body">
     <h2 class="header-title">Thêm ngành</h4>
-        <form>
+        <form method="POST" action="{{ route('admin.major.store') }}">
+            @csrf
             <div class="form-group">
                 <label for="major_input" class="col-form-label">Tên ngành</label>
-                <input type="email" class="form-control" id="major_input" placeholder="Email">
+                <input type="text" class="form-control" id="major_input" name="name" placeholder="Tên ngành">
             </div>
             <div class="form-group">
                 <label for="subject_tags" class="col-form-label">Tên môn:</label>
-                <select multiple data-role="tagsinput" id="subject_tags">
-                </select>
+                <input type="hidden" class="tagsinput" data-role="tagsinput some_text" name="subjects"
+                    data-color="danger" id="subject_tags" />
             </div>
 
             <div class="form-group">
                 <label for="add_subject">Thêm môn</label>
-                <select id="add_subject" multiple class="form-control">
+                <select id="add_subject" class="form-control">
                     @foreach ($subjects as $subject)
                     <option value="{{ $subject->id }}">{{ $subject->name }}</option>
                     @endforeach
@@ -26,7 +27,7 @@
             </div>
             <div class="form-group mb-0 justify-content-end row">
                 <div class="col-12">
-                    <button type="submit" class="btn btn-info  ">Sign in</button>
+                    <button type="submit" class="btn btn-info  ">Submit</button>
                 </div>
             </div>
         </form>
@@ -37,17 +38,16 @@
 <script>
 $('#add_subject').on('change', function() {
     var select_text = $('#add_subject option:selected');
-    console.log(select_text);
-    $('#subject_tags').tagsinput({
+    var tags = $('#subject_tags');
+    tags.tagsinput({
         allowDuplicates: false,
         itemValue: 'id',
-        itemText: 'name'
+        itemText: 'text'
     });
-    $.each(select_text, function(value, text) {
-        $('#subject_tags').tagsinput('add', {
-            'id': value,
-            'name': text
-        });
+    console.log(select_text.text());
+    tags.tagsinput('add', {
+        'id': select_text.val(),
+        'text': select_text.text()
     });
 })
 </script>

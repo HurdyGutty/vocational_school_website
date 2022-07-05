@@ -41,19 +41,28 @@ class MajorController extends Controller
         return view('majors.create');
     }
     public function store(StoreRequest $request)
-    {
-        
-        $request->validate([
-            "subject_id" => [
+    {   
+            $request->merge([
+                'subjects' => explode(',',$request->subjects),
+            ]);
+        $request->validateWithBag('subjects',[
+            "subjects.*" => [
                 'bail',
                 'required',
                 'integer',
-                ValidationRule::exists(Subject::class, 'id')
+                ValidationRule::exists(Subject::class, 'id'),
             ],
         ]);
-        Major::create($request->validated());
-        MajorSubject::create($request->validated());
-        return redirect()->route('majors.index');
+        $arr = $request->all('subjects');
+        
+        $arr_create = array_map(function($subject_id){
+            return [
+                'subject_id' => $subject_id
+            ];
+        },$arr['subjects']);
+        
+        Major::firstOrCreate($request->validated())->Subjects()->createMany($arr_create);
+        return redirect()->route('admin.major.index');
     }
     
 }
