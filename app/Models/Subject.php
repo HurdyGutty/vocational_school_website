@@ -24,7 +24,7 @@ class Subject extends Model
 
     public function majors(): HasMany
     {
-        return $this->hasMany(MajorSubject::class, 'major_id', 'id');
+        return $this->hasMany(MajorSubject::class, 'subject_id', 'id');
     }
 
     public function image(): BelongsTo
