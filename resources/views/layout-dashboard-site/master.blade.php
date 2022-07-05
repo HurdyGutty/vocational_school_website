@@ -12,6 +12,7 @@
     <link href="{{asset('css/icons.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('css/app.min.css')}}" rel="stylesheet" type="text/css" id="light-style" />
     <link href="{{asset('css/app-dark.min.css')}}" rel="stylesheet" type="text/css" id="dark-style" />
+    @stack('css')
 </head>
 
 <body class="loading"
@@ -49,7 +50,7 @@
     <script src="{{asset('js/admin/apexcharts.min.js')}}"></script>
     <script src="{{asset('js/admin/component.todo.js')}}"></script>
     <script src="{{asset('js/admin/demo.dashboard-crm.js')}}"></script>
-
+    @stack('js')
 </body>
 
 </html>

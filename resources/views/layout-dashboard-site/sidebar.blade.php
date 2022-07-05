@@ -77,10 +77,10 @@
                                     </a>
                                     <ul class="side-nav-second-level mm-collapse" aria-expanded="false">
                                         <li>
-                                            <a href="#">Quản lý</a>
+                                            <a href="{{ route('admin.major.index') }}">Quản lý</a>
                                         </li>
                                         <li>
-                                            <a href="#">Thêm ngành</a>
+                                            <a href="{{ route('admin.major.create') }}">Thêm ngành</a>
                                         </li>
                                         <li>
                                             <a href="#">Thêm môn</a>
