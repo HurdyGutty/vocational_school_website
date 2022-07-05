@@ -19,7 +19,7 @@ class Major extends Model
 
     public function subjects(): HasMany
     {
-        return $this->hasMany(MajorSubject::class, 'subject_id', 'id');
+        return $this->hasMany(MajorSubject::class, 'major_id', 'id');
     }
 
     public function image(): BelongsTo

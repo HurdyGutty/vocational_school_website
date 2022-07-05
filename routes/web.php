@@ -40,22 +40,22 @@ Route::group(array(
 ), static function() {
     Route::get('/', [Admin\LandingController::class, 'index'])->name('index');
 
-    Route::group(['prefix' => 'major'], static function() {
-        Route::get('/', [Admin\MajorController::class, 'index']);
-        Route::get('/create', [Admin\MajorController::class, 'create']);
-        Route::post('/store', [Admin\MajorController::class, 'store']);
-        Route::get('/edit', [Admin\MajorController::class, 'edit']);
-        Route::put('/update', [Admin\MajorController::class, 'update']);
-        Route::delete('/delete', [Admin\MajorController::class, 'delete']);
+    Route::group(['prefix' => 'major', 'as' => 'major.'], static function() {
+        Route::get('/', [Admin\MajorController::class, 'index'])->name('index');
+        Route::get('/create', [Admin\MajorController::class, 'create'])->name('create');
+        Route::post('/store', [Admin\MajorController::class, 'store'])->name('store');
+        Route::get('/edit', [Admin\MajorController::class, 'edit'])->name('edit');
+        Route::put('/update', [Admin\MajorController::class, 'update'])->name('update');
+        Route::delete('/delete', [Admin\MajorController::class, 'delete'])->name('delete');
     });
 
-    Route::group(['prefix' => 'subject'], static function() {
-        Route::get('/', [Admin\SubjectController::class, 'index']);
-        Route::get('/create', [Admin\SubjectController::class, 'create']);
-        Route::post('/store', [Admin\SubjectController::class, 'store']);
-        Route::get('/edit', [Admin\SubjectController::class, 'edit']);
-        Route::put('/update', [Admin\SubjectController::class, 'update']);
-        Route::delete('/delete', [Admin\SubjectController::class, 'delete']);
+    Route::group(['prefix' => 'subject', 'as' => 'subject.'], static function() {
+        Route::get('/', [Admin\SubjectController::class, 'index'])->name('index');
+        Route::get('/create', [Admin\SubjectController::class, 'create'])->name('create');
+        Route::post('/store', [Admin\SubjectController::class, 'store'])->name('store');
+        Route::get('/edit', [Admin\SubjectController::class, 'edit'])->name('edit');
+        Route::put('/update', [Admin\SubjectController::class, 'update'])->name('update');
+        Route::delete('/delete', [Admin\SubjectController::class, 'delete'])->name('delete');
     });
 
 
