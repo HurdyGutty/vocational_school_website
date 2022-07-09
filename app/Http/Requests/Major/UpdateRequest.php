@@ -6,7 +6,7 @@ use App\Models\Image;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,11 +26,15 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
+            "id" => [
+                'bail',
+                'required',
+                'int',
+            ],
             "name" => [
                 'bail',
                 'required',
                 'string',
-                'unique:majors,name'
             ],
             "description" => [
                 'string',
@@ -53,8 +57,6 @@ class StoreRequest extends FormRequest
                 'nullable',
                 Rule::exists(Image::class, 'id'),
             ],
-
-            
         ];
     }
     public function messages():array
@@ -70,6 +72,7 @@ class StoreRequest extends FormRequest
     public function attributes()
     {
     return [
+        'id' => 'Mã',
         'name' => 'Tên ngành',
         "description" => 'Mô tả',
         "time_duration" => 'Thời gian',

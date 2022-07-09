@@ -44,7 +44,7 @@ Route::group(array(
         Route::get('/', [Admin\MajorController::class, 'index'])->name('index');
         Route::get('/create', [Admin\MajorController::class, 'create'])->name('create');
         Route::post('/store', [Admin\MajorController::class, 'store'])->name('store');
-        Route::get('/edit', [Admin\MajorController::class, 'edit'])->name('edit');
+        Route::get('/edit/{major}', [Admin\MajorController::class, 'edit'])->name('edit');
         Route::put('/update', [Admin\MajorController::class, 'update'])->name('update');
         Route::delete('/delete', [Admin\MajorController::class, 'delete'])->name('delete');
     });
