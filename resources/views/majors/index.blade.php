@@ -1,6 +1,15 @@
 @extends('layout-dashboard-site.master')
 @section('content')
 <div class="row">
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
     @foreach ($subject_major as $major)
     <div class="col-md-6 col-xl-3">
         <!-- project card -->
@@ -12,10 +21,14 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
                         <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item"><i class="mdi mdi-pencil mr-1"></i>Edit</a>
+                        <a href="{{ route('admin.major.edit',['major' => $major->id]) }}" class="dropdown-item"><i
+                                class="mdi mdi-pencil mr-1"></i>Edit</a>
                         <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item"><i
-                                class="mdi mdi-delete mr-1"></i>Delete</a>
+                        <form action="{{ route('admin.major.delete',$major) }}" method="POST">
+                            @csrf
+                            @method("DELETE")
+                            <button href="" class="dropdown-item"><i class="mdi mdi-delete mr-1"></i>Delete</button>
+                        </form>
                     </div>
                 </div>
                 <!-- project title-->

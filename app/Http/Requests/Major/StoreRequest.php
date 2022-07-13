@@ -38,17 +38,17 @@ class StoreRequest extends FormRequest
                 'bail',
             ],
             "time_duration" => [
-                'int',
+                'integer',
                 'nullable',
                 'bail',
             ],
             "courses" => [
-                'int',
+                'integer',
                 'nullable',
                 'bail',
             ],
             "image_id" => [
-                'int',
+                'integer',
                 'bail',
                 'nullable',
                 Rule::exists(Image::class, 'id'),
@@ -62,7 +62,7 @@ class StoreRequest extends FormRequest
         return [
             'required' => ':attribute bắt buộc phải điền',
             'unique'=> ':attribute bị trùng',
-            'int' => ':attribute phải nhập số',
+            'integer' => ':attribute phải nhập số',
             'string' => ':attribute phải nhập chữ',
             'exists' => ':attribute không có trong danh sách',
         ];
