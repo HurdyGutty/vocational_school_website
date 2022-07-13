@@ -46,7 +46,7 @@ Route::group(array(
         Route::post('/store', [Admin\MajorController::class, 'store'])->name('store');
         Route::get('/edit/{major}', [Admin\MajorController::class, 'edit'])->name('edit');
         Route::put('/update', [Admin\MajorController::class, 'update'])->name('update');
-        Route::delete('/delete', [Admin\MajorController::class, 'delete'])->name('delete');
+        Route::delete('/delete/{major}', [Admin\MajorController::class, 'delete'])->name('delete');
     });
 
     Route::group(['prefix' => 'subject', 'as' => 'subject.'], static function() {

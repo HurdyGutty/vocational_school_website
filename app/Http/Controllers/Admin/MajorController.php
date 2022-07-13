@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Major\DeleteRequest;
 use App\Http\Requests\Major\StoreRequest;
 use App\Http\Requests\Major\UpdateRequest;
 use App\Models\Major;
@@ -103,9 +104,7 @@ class MajorController extends Controller
         ])->validate();
         $original_arr = MajorSubject::where('major_id', '=' , $request->id)->pluck('subject_id');
         
-        $subject_id_arr = collect(array_map(function($subject_id){
-            return $subject_id;
-        },$subject_data['subjects']));
+        $subject_id_arr = collect(array_merge(...array_values($subject_data)));
         $add_subjects = $subject_id_arr->diff($original_arr)->all();
         $delete_subjects = $original_arr->diff($subject_id_arr)->all();
         foreach ($add_subjects as $add_subject) {
@@ -121,6 +120,12 @@ class MajorController extends Controller
                     ])->delete();
         }
         Major::updateorCreate($request->validated());
+        return redirect()->route('admin.major.index');
+    }
+
+    public function delete(DeleteRequest $request, Major $major)
+    {
+        $major->delete();
         return redirect()->route('admin.major.index');
     }
 }
