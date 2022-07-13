@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\Major\MajorDelete;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -26,4 +27,7 @@ class Major extends Model
     {
         return $this->belongsTo(Image::class, 'image_id', 'id');
     }
+    protected $dispatchesEvents = [
+        'deleting' => MajorDelete::class,
+    ];
 }
