@@ -2,11 +2,10 @@
 
 namespace App\Http\Requests\Major;
 
-use App\Models\Image;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateRequest extends FormRequest
+class DeleteRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,37 +25,12 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            "id" => [
-                'bail',
+            'id' => [
                 'required',
+                'bail',
                 'integer',
-            ],
-            "name" => [
-                'bail',
-                'required',
-                'string',
-            ],
-            "description" => [
-                'string',
-                'nullable',
-                'bail',
-            ],
-            "time_duration" => [
-                'integer',
-                'nullable',
-                'bail',
-            ],
-            "courses" => [
-                'integer',
-                'nullable',
-                'bail',
-            ],
-            "image_id" => [
-                'integer',
-                'bail',
-                'nullable',
-                Rule::exists(Image::class, 'id'),
-            ],
+                Rule::exists('majors','id'),
+            ]
         ];
     }
     public function messages():array
@@ -71,13 +45,12 @@ class UpdateRequest extends FormRequest
     }
     public function attributes()
     {
-    return [
-        'id' => 'Mã',
-        'name' => 'Tên ngành',
-        "description" => 'Mô tả',
-        "time_duration" => 'Thời gian',
-        "courses" => 'Số buổi',
-        "image_id" => 'Ảnh',
-    ];
+        return[
+            'id' =>'Mã',
+        ];
+    }
+    protected function prepareForValidation() 
+    {
+        $this->merge(['id' => $this->route('major.id')]);
     }
 }

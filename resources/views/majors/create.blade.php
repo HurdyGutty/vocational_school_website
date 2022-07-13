@@ -5,6 +5,15 @@
 @section('content')
 <div class="card-body">
     <h2 class="header-title">Thêm ngành</h4>
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
         <form method="POST" action="{{ route('admin.major.store') }}">
             @csrf
             <div class="form-group">
