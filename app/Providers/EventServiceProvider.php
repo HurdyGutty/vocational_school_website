@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Events\Major\MajorDelete;
+use App\Events\Major\MajorUpdate;
 use App\Listeners\Major\DeleteRelatedSubjects;
+use App\Listeners\Major\UpdateRelatedMajorSubjects;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -22,7 +24,10 @@ class EventServiceProvider extends ServiceProvider
         ],
         MajorDelete::class => [
             DeleteRelatedSubjects::class,
-        ]
+        ],
+        MajorUpdate::class => [
+            UpdateRelatedMajorSubjects::class,
+        ],
     ];
 
     /**
