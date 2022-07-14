@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Major;
 
 use App\Models\Image;
+use App\Models\Subject;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -53,7 +54,12 @@ class StoreRequest extends FormRequest
                 'nullable',
                 Rule::exists(Image::class, 'id'),
             ],
-
+            "subjects.*" => [
+                'bail',
+                'required',
+                'integer',
+                Rule::exists(Subject::class, 'id'),
+            ],
             
         ];
     }
@@ -62,8 +68,8 @@ class StoreRequest extends FormRequest
         return [
             'required' => ':attribute bắt buộc phải điền',
             'unique'=> ':attribute bị trùng',
-            'integer' => ':attribute phải nhập số',
-            'string' => ':attribute phải nhập chữ',
+            'integer' => ':attribute phải là số',
+            'string' => ':attribute phải là chữ',
             'exists' => ':attribute không có trong danh sách',
         ];
     }
@@ -75,6 +81,13 @@ class StoreRequest extends FormRequest
         "time_duration" => 'Thời gian',
         "courses" => 'Số buổi',
         "image_id" => 'Ảnh',
+        "subjects.*" => 'Môn'
     ];
+    }
+    protected function prepareForValidation() 
+    {
+        $this->merge([
+            'subjects' => explode(',',$this->subjects),
+        ]);
     }
 }
