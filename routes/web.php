@@ -42,6 +42,7 @@ Route::group(array(
 
     Route::group(['prefix' => 'major', 'as' => 'major.'], static function() {
         Route::get('/', [Admin\MajorController::class, 'index'])->name('index');
+        Route::get('/show/{major}', [Admin\MajorController::class, 'show'])->name('show');
         Route::get('/create', [Admin\MajorController::class, 'create'])->name('create');
         Route::post('/store', [Admin\MajorController::class, 'store'])->name('store');
         Route::get('/edit/{major}', [Admin\MajorController::class, 'edit'])->name('edit');
@@ -51,6 +52,7 @@ Route::group(array(
 
     Route::group(['prefix' => 'subject', 'as' => 'subject.'], static function() {
         Route::get('/', [Admin\SubjectController::class, 'index'])->name('index');
+        Route::get('/show/{subject}', [Admin\SubjectController::class, 'show'])->name('show');
         Route::get('/create', [Admin\SubjectController::class, 'create'])->name('create');
         Route::post('/store', [Admin\SubjectController::class, 'store'])->name('store');
         Route::get('/edit', [Admin\SubjectController::class, 'edit'])->name('edit');
