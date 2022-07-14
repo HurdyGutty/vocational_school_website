@@ -1,6 +1,14 @@
 @extends('layout-dashboard-site.master')
 @section('content')
 <div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+
+            <h2 class="page-title-center">Các ngành</h2>
+        </div>
+    </div>
+</div>
+<div class="row">
     @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -35,13 +43,12 @@
                 <h4 class="mt-0">
                     <a href="apps-projects-details.html" class="text-title">{{$major->name}}</a>
                 </h4>
-                <div class="badge badge-success mb-3">Finished</div>
 
                 <p class="text-muted font-13 mb-3">{{implode(", ",$major->subject_name)}}...<a
                         href="javascript:void(0);" class="font-weight-bold text-muted">view
                         more</a>
                 </p>
-                <a href="javascript: void(0);" class="btn btn-primary">Xem thêm</a>
+                <a href="{{ route('admin.major.show',$major) }}" class="btn btn-primary">Xem thêm</a>
             </div> <!-- end card-body-->
 
         </div> <!-- end card-->

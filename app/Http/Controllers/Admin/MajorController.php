@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\Major\MajorUpdate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Major\DeleteRequest;
 use App\Http\Requests\Major\StoreRequest;
 use App\Http\Requests\Major\UpdateRequest;
 use App\Models\Major;
-use App\Models\MajorSubject;
 use App\Models\Subject;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
-use Illuminate\Validation\Rule as ValidationRule;
 
 class MajorController extends Controller
 {
@@ -21,10 +21,8 @@ class MajorController extends Controller
         View::share('majors', $majors);
         $subjects = Subject::get();
         View::share('subjects', $subjects);
-        // $subjects_id_names = Subject::get()->mapwithKeys(function ($subject) {
-        //     return [$subject->id => $subject->name];
-        // })->toArray();
-        // View::share('subjects_id_names',$subjects_id_names);
+        $route = Route::currentRouteName();
+        View::share('route', $route);
     }
     public function index()
     {
@@ -42,36 +40,32 @@ class MajorController extends Controller
             "subject_major" => $subject_major,
         ]);
     }
+    public function show(Major $major)
+    {
+        return view('majors.show',[
+            'major' => $major,
+            'subject_arr' => Subject::find($major->subjects()->getResults()->pluck('subject_id'))
+            ->mapwithKeys(function ($subject) {
+                return [$subject->id => $subject->name];
+            })->toArray(),
+        ]);
+    }
     public function create()
     {
         return view('majors.create');
     }
     public function store(StoreRequest $request)
     {   
-            $request->merge([
-                'subjects' => explode(',',$request->subjects),
-            ]);
-            $subject_data = Validator::make($request->all('subjects'),[
-                "subjects.*" => [
-                    'bail',
-                    'required',
-                    'integer',
-                    ValidationRule::exists(Subject::class, 'id'),
-                ],
-            ],
-            [
-                'required' => 'Môn chưa nhập',
-                'exists' => 'Môn không có trong danh sách môn',
-                'integer' => 'Môn nhập sai',
-            ])->validate();
-        
+        $data = $request->validated();        
         $subject_id_arr = array_map(function($subject_id){
             return [
                 'subject_id' => $subject_id
             ];
-        },$subject_data['subjects']);
+        },$data['subjects']);
         
-        Major::firstOrCreate($request->validated())->Subjects()->createMany($subject_id_arr);
+        Major::firstOrCreate(Arr::except($data,['subjects']))
+        ->Subjects()->createMany($subject_id_arr);
+        
         return redirect()->route('admin.major.index');
     }
     public function edit(Major $major)
@@ -86,40 +80,10 @@ class MajorController extends Controller
     }
     public function update(UpdateRequest $request)
     {
-        $request->merge([
-            'subjects' => explode(',',$request->subjects),
-        ]);
-        $subject_data = Validator::make($request->all('subjects'),[
-            "subjects.*" => [
-                'bail',
-                'required',
-                'integer',
-                ValidationRule::exists(Subject::class, 'id'),
-            ],
-        ],
-        [
-            'required' => 'Môn chưa nhập',
-            'exists' => 'Môn không có trong danh sách môn',
-            'integer' => 'Môn nhập sai',
-        ])->validate();
-        $original_arr = MajorSubject::where('major_id', '=' , $request->id)->pluck('subject_id');
+        $data = $request->validated();
         
-        $subject_id_arr = collect(array_merge(...array_values($subject_data)));
-        $add_subjects = $subject_id_arr->diff($original_arr)->all();
-        $delete_subjects = $original_arr->diff($subject_id_arr)->all();
-        foreach ($add_subjects as $add_subject) {
-            MajorSubject::firstOrCreate([
-                'major_id' => $request->id,
-                'subject_id' => $add_subject,
-            ]);
-        }
-        foreach ($delete_subjects as $delete_subjects) {
-                MajorSubject::where([
-                    'major_id' => $request->id,
-                    'subject_id' => $delete_subjects,
-                    ])->delete();
-        }
-        Major::updateorCreate($request->validated());
+        event(new MajorUpdate($data));
+        Major::updateorCreate(Arr::except($data,['subjects']));
         return redirect()->route('admin.major.index');
     }
 
