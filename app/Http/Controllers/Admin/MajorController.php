@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Major\DeleteRequest;
 use App\Http\Requests\Major\StoreRequest;
 use App\Http\Requests\Major\UpdateRequest;
+use App\Models\Image;
 use App\Models\Major;
 use App\Models\Subject;
 use Illuminate\Support\Arr;
@@ -56,14 +57,18 @@ class MajorController extends Controller
     }
     public function store(StoreRequest $request)
     {   
-        $data = $request->validated();        
+        $data = $request->validated();
+            if (isset($data['image'])) {
+                $image = Image::firstorCreate(['source' => base64_encode(file_get_contents($data['image']))]);
+                $data = Arr::add($data, 'image_id', $image->id);
+            }
         $subject_id_arr = array_map(function($subject_id){
             return [
                 'subject_id' => $subject_id
             ];
         },$data['subjects']);
         
-        Major::firstOrCreate(Arr::except($data,['subjects']))
+        Major::firstOrCreate(Arr::except($data,['subjects','image']))
         ->Subjects()->createMany($subject_id_arr);
         
         return redirect()->route('admin.major.index');
@@ -81,9 +86,12 @@ class MajorController extends Controller
     public function update(UpdateRequest $request)
     {
         $data = $request->validated();
-        
-        event(new MajorUpdate($data));
-        Major::updateorCreate(Arr::except($data,['subjects']));
+        if(isset($data['image'])){
+            $image = Image::firstorCreate(["source" => base64_encode(file_get_contents($data['image']))]);
+            $data = Arr::add($data, "image_id", $image->id);
+        }
+        event(new MajorUpdate(Arr::except($data,['image'])));
+        Major::updateorCreate(['id'=>$data['id']],Arr::except($data,['subjects','image']));
         return redirect()->route('admin.major.index');
     }
 
