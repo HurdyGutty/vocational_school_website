@@ -34,7 +34,7 @@ class StoreRequest extends FormRequest
                 'unique:majors,name'
             ],
             "description" => [
-                'string',
+                'max:1000',
                 'nullable',
                 'bail',
             ],
@@ -48,11 +48,10 @@ class StoreRequest extends FormRequest
                 'nullable',
                 'bail',
             ],
-            "image_id" => [
-                'integer',
+            "image" => [
                 'bail',
+                'image',
                 'nullable',
-                Rule::exists(Image::class, 'id'),
             ],
             "subjects.*" => [
                 'bail',
@@ -71,6 +70,8 @@ class StoreRequest extends FormRequest
             'integer' => ':attribute phải là số',
             'string' => ':attribute phải là chữ',
             'exists' => ':attribute không có trong danh sách',
+            'image' => ':attribute không đúng định dạng',
+            'max' => ':attribute quá 1000 ký tự'
         ];
     }
     public function attributes()
@@ -80,7 +81,7 @@ class StoreRequest extends FormRequest
         "description" => 'Mô tả',
         "time_duration" => 'Thời gian',
         "courses" => 'Số buổi',
-        "image_id" => 'Ảnh',
+        "image" => 'Ảnh',
         "subjects.*" => 'Môn'
     ];
     }

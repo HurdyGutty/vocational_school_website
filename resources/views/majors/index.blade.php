@@ -8,8 +8,8 @@
         </div>
     </div>
 </div>
+@if ($errors->any())
 <div class="row">
-    @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
             @foreach ($errors->all() as $error)
@@ -17,9 +17,10 @@
             @endforeach
         </ul>
     </div>
-    @endif
-    @foreach ($subject_major as $major)
-    <div class="col-md-6 col-xl-3">
+</div>
+@endif
+<div class="row">
+    @foreach ($subject_major as $major) <div class="col-md-6 col-xl-3">
         <!-- project card -->
         <div class="card d-block">
             <div class="card-body">
@@ -41,12 +42,13 @@
                 </div>
                 <!-- project title-->
                 <h4 class="mt-0">
-                    <a href="apps-projects-details.html" class="text-title">{{$major->name}}</a>
+                    <a href="{{ route('admin.major.show',$major) }}" class="text-title">{{$major->name}}</a>
                 </h4>
 
-                <p class="text-muted font-13 mb-3">{{implode(", ",$major->subject_name)}}...<a
+                <p class="text-muted font-13 mb-3">{{implode(", ",$major->subject_name)}}
+                    <!-- <a
                         href="javascript:void(0);" class="font-weight-bold text-muted">view
-                        more</a>
+                        more</a> -->
                 </p>
                 <a href="{{ route('admin.major.show',$major) }}" class="btn btn-primary">Xem thêm</a>
             </div> <!-- end card-body-->
