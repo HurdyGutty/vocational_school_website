@@ -1,0 +1,62 @@
+@extends('layout-dashboard-site.master')
+@push('css')
+<link href="{{asset('css/now-ui-kit.css?v=1.1.0')}}" rel="stylesheet" />
+@endpush
+@section('content')
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+
+            <h2 class="page-title-center">Xem từng môn</h2>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row d-flex justify-content-center">
+                    <h3 class="mt-0">{{$subject->name}} <a href="{{ route('admin.subject.edit',$subject) }}"
+                            class="text-muted"><i class="mdi mdi-square-edit-outline ml-2"></i></a> </h3>
+                </div>
+                <div class="row">
+                    <div class="col-lg">
+                        <!-- Product image -->
+                        <a href="javascript: void(0);" class="text-center d-block mb-4">
+                            @isset($subject->image_id)
+                            <img src="{{ 'data:image/png;base64,' . $subject->image()->getResults()->source }}"
+                                class="img-fluid" style="max-width: 100%; text-align: center;" alt="Không thể hiện ảnh">
+                            @endisset
+                        </a>
+
+                    </div> <!-- end col -->
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!-- Product description -->
+                        <div class="mt-4">
+                            <h6 class="font-14">Mô tả:</h6>
+                            <p>{{ $subject->description}} </p>
+                        </div>
+
+                        <!-- Product information -->
+                        <div class="mt-4">
+                            <div class="row">
+                                @isset($subject->time_duration)
+                                <div class="col-md-6">
+                                    <h6 class="font-14">Tổng thời gian:</h6>
+                                    <p class="text-sm lh-150">{{$subject->time_duration}} tháng</p>
+                                </div>
+                                @endisset
+                            </div>
+                        </div>
+
+
+                    </div> <!-- end col -->
+                </div> <!-- end row-->
+
+            </div> <!-- end card-body-->
+        </div> <!-- end card-->
+    </div> <!-- end col-->
+</div>
+@endsection
