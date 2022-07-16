@@ -24,16 +24,14 @@
                         <!-- Product image -->
                         <a href="javascript: void(0);" class="text-center d-block mb-4">
                             @isset($major->image_id)
-                            <img src="{{ secure_asset($major->image()->getResults()->source) }}" class="img-fluid"
-                                style="max-width: 500px;" alt="Product-img">
+                            <img src="{{ 'data:image/png;base64,' . $major->image()->getResults()->source }}"
+                                class="img-fluid" style="max-width: 500px; text-align: center;"
+                                alt="Không thể hiện ảnh">
                             @endisset
                         </a>
 
                     </div> <!-- end col -->
                     <div class="col-lg-5">
-                        <!-- Product title -->
-                        <!-- <h3 class="mt-0">{{$major->name}} <a href="{{ route('admin.major.edit',$major) }}"
-                                class="text-muted"><i class="mdi mdi-square-edit-outline ml-2"></i></a> </h3> -->
                         <p class="mb-1">Các lớp trong ngành:</p>
                         <p class="font-16">
                         <div class="list-group list-group-flush">
