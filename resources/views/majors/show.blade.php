@@ -25,8 +25,7 @@
                         <a href="javascript: void(0);" class="text-center d-block mb-4">
                             @isset($major->image_id)
                             <img src="{{ 'data:image/png;base64,' . $major->image()->getResults()->source }}"
-                                class="img-fluid" style="max-width: 500px; text-align: center;"
-                                alt="Không thể hiện ảnh">
+                                class="img-fluid" style="max-width: 100%; text-align: center;" alt="Không thể hiện ảnh">
                             @endisset
                         </a>
 

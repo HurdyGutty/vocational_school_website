@@ -31,12 +31,12 @@
                     <div class="dropdown-menu dropdown-menu-right">
                         <!-- item-->
                         <a href="{{ route('admin.major.edit',['major' => $major->id]) }}" class="dropdown-item"><i
-                                class="mdi mdi-pencil mr-1"></i>Edit</a>
+                                class="mdi mdi-pencil mr-1"></i>Sửa</a>
                         <!-- item-->
                         <form action="{{ route('admin.major.delete',$major) }}" method="POST">
                             @csrf
                             @method("DELETE")
-                            <button href="" class="dropdown-item"><i class="mdi mdi-delete mr-1"></i>Delete</button>
+                            <button href="" class="dropdown-item"><i class="mdi mdi-delete mr-1"></i>Xoá</button>
                         </form>
                     </div>
                 </div>
@@ -44,8 +44,12 @@
                 <h4 class="mt-0">
                     <a href="{{ route('admin.major.show',$major) }}" class="text-title">{{$major->name}}</a>
                 </h4>
-
-                <p class="text-muted font-13 mb-3">{{implode(", ",$major->subject_name)}}
+                @isset ($major->image_id)
+                <img src="{{ 'data:image/png;base64,' . $major->image()->getResults()->source }}" alt="Ảnh đại diện"
+                    class="card-img-top" style="max-height: 250px; width: auto; height:auto; max-width: 100%" />
+                @endisset
+                <p class="text-muted font-13 mb-3
+                 mt-2">{{implode(", ",$major->subject_name)}}
                     <!-- <a
                         href="javascript:void(0);" class="font-weight-bold text-muted">view
                         more</a> -->
