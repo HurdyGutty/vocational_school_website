@@ -55,9 +55,18 @@ Route::group(array(
         Route::get('/show/{subject}', [Admin\SubjectController::class, 'show'])->name('show');
         Route::get('/create', [Admin\SubjectController::class, 'create'])->name('create');
         Route::post('/store', [Admin\SubjectController::class, 'store'])->name('store');
-        Route::get('/edit', [Admin\SubjectController::class, 'edit'])->name('edit');
+        Route::get('/edit/{subject}', [Admin\SubjectController::class, 'edit'])->name('edit');
         Route::put('/update', [Admin\SubjectController::class, 'update'])->name('update');
-        Route::delete('/delete', [Admin\SubjectController::class, 'delete'])->name('delete');
+        Route::delete('/delete/{subject}', [Admin\SubjectController::class, 'delete'])->name('delete');
+    });
+    Route::group(['prefix' => 'class', 'as' => 'class.', 'controller' => Admin\ClassController::class], static function() {
+        Route::get('/','index')->name('index');
+        Route::get('/show/{class}','show')->name('show');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/store', 'store')->name('store');
+        Route::get('/edit/{class}', 'edit')->name('edit');
+        Route::put('/update', 'update')->name('update');
+        Route::delete('/delete/{class}', 'delete')->name('delete');
     });
 
 

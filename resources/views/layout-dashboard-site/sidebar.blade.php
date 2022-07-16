@@ -77,13 +77,16 @@
                                     </a>
                                     <ul class="side-nav-second-level mm-collapse" aria-expanded="false">
                                         <li>
-                                            <a href="{{ route('admin.major.index') }}">Quản lý</a>
+                                            <a href="{{ route('admin.major.index') }}">Quản lý ngành</a>
                                         </li>
                                         <li>
                                             <a href="{{ route('admin.major.create') }}">Thêm ngành</a>
                                         </li>
                                         <li>
-                                            <a href="#">Thêm môn</a>
+                                            <a href="{{ route('admin.subject.index') }}">Quản lý môn</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('admin.subject.create') }}">Thêm môn</a>
                                         </li>
                                     </ul>
                                 </li>
