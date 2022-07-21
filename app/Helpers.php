@@ -38,7 +38,7 @@ if (!function_exists('getRole')) {
     }
 }
 if (!function_exists('saveImage')) {
-    function saveImage($data): Model
+    function saveImage($data): Image
     {
         return Image::firstorCreate(['source' => base64_encode(file_get_contents($data))]);
     }
