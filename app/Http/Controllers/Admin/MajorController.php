@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Major\DeleteRequest;
 use App\Http\Requests\Major\StoreRequest;
 use App\Http\Requests\Major\UpdateRequest;
-use App\Models\Image;
 use App\Models\Major;
 use App\Models\Subject;
 use Illuminate\Support\Arr;
@@ -27,14 +26,10 @@ class MajorController extends Controller
     }
     public function index()
     {
-        $subject_major = Major::get()->map(function ($major) {
-            $major->subject_name = 
-                Major::find($major->id)->subjects->pluck('subject_id')
-                ->map(function($subject){
-                    return $subject = Subject::find($subject)->name;
-                })
-                ->toArray()
-            ;
+        $subject_major = Major::with('subjects')
+        ->get()
+        ->map(function ($major) {
+            $major->subject_name = $major->subjects->pluck('name')->toArray();
             return $major;
         });
         return view('majors.index',[
@@ -45,10 +40,7 @@ class MajorController extends Controller
     {
         return view('majors.show',[
             'major' => $major,
-            'subject_arr' => Subject::find($major->subjects()->getResults()->pluck('subject_id'))
-            ->mapwithKeys(function ($subject) {
-                return [$subject->id => $subject->name];
-            })->toArray(),
+            'subject_arr' => $major->subjects()->pluck('name','id')->toArray(),
         ]);
     }
     public function create()
@@ -59,17 +51,13 @@ class MajorController extends Controller
     {   
         $data = $request->validated();
             if (isset($data['image'])) {
-                $image = Image::firstorCreate(['source' => base64_encode(file_get_contents($data['image']))]);
+                $image = saveImage($data['image']);
                 $data = Arr::add($data, 'image_id', $image->id);
             }
-        $subject_id_arr = array_map(function($subject_id){
-            return [
-                'subject_id' => $subject_id
-            ];
-        },$data['subjects']);
         
-        Major::firstOrCreate(Arr::except($data,['subjects','image']))
-        ->Subjects()->createMany($subject_id_arr);
+        $major_arr = Major::firstOrCreate(Arr::except($data,['subjects','image']))
+                        ->subjects()
+                        ->attach($data['subjects']);
         
         return redirect()->route('admin.major.index');
     }
@@ -77,17 +65,14 @@ class MajorController extends Controller
     {
         return view('majors.edit',[
             'major' => $major,
-            'subject_arr' => Subject::find($major->subjects()->getResults()->pluck('subject_id'))
-            ->mapwithKeys(function ($subject) {
-                return [$subject->id => $subject->name];
-            })->toArray(),
+            'subject_arr' => $major->subjects()->pluck('name','id')->toArray(),
         ]);
     }
     public function update(UpdateRequest $request)
     {
         $data = $request->validated();
         if(isset($data['image'])){
-            $image = Image::firstorCreate(["source" => base64_encode(file_get_contents($data['image']))]);
+            $image = saveImage($data['image']);
             $data = Arr::add($data, "image_id", $image->id);
         }
         event(new MajorUpdate(Arr::except($data,['image'])));
