@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Subject\StoreRequest;
 use App\Http\Requests\Subject\UpdateRequest;
 use App\Models\ClassModel;
-use App\Models\Image;
 use App\Models\Major;
 use App\Models\Subject;
 use Illuminate\Support\Arr;
@@ -44,7 +43,7 @@ class SubjectController extends Controller
     {
         $data = $request->validated();
             if (isset($data['image'])) {
-                $image = Image::firstorCreate(['source' => base64_encode(file_get_contents($data['image']))]);
+                $image = saveImage($data['image']);
                 $data = Arr::add($data, 'image_id', $image->id);
             }
         Subject::firstOrCreate(Arr::except($data,['image']));
@@ -60,7 +59,7 @@ class SubjectController extends Controller
     {
         $data = $request->validated();
             if (isset($data['image'])) {
-                $image = Image::firstorCreate(['source' => base64_encode(file_get_contents($data['image']))]);
+                $image = saveImage($data['image']);
                 $data = Arr::add($data, 'image_id', $image->id);
             }
         Subject::updateorCreate(['id' => $data['id']],Arr::except($data,['image']));

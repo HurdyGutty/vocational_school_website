@@ -3,6 +3,8 @@
 use App\Enums\AdminRoles;
 use App\Enums\UserRoles;
 use App\Lib\JWT\JWT;
+use App\Models\Image;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\App;
 
 if (!function_exists('c')) {
@@ -33,5 +35,11 @@ if (!function_exists('getRole')) {
             $data->is_admin ?
                 AdminRoles::from($data->role)->showRole() :
                 UserRoles::from($data->role)->showRole();
+    }
+}
+if (!function_exists('saveImage')) {
+    function saveImage($data): Model
+    {
+        return Image::firstorCreate(['source' => base64_encode(file_get_contents($data))]);
     }
 }
