@@ -31,7 +31,7 @@ class UpdateRelatedMajorSubjects implements ShouldQueue
     public function handle(MajorUpdate $event)
     {
         $data = $event->data;
-        // dd($data);
+        
         $original_arr = MajorSubject::where('major_id', $data['id'])->pluck('subject_id');
         $subject_id_arr = collect(Arr::flatten($data['subjects']));
         

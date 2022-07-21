@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Subject extends Model
@@ -22,9 +23,9 @@ class Subject extends Model
         return $this->hasMany(ClassModel::class, 'subject_id', 'id');
     }
 
-    public function majors(): HasMany
+    public function majors(): BelongsToMany
     {
-        return $this->hasMany(MajorSubject::class, 'subject_id', 'id');
+        return $this->belongsToMany(Major::class, 'major_subjects', 'major_id', 'subject_id');
     }
 
     public function image(): BelongsTo
