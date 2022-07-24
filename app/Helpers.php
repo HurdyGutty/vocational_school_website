@@ -37,6 +37,16 @@ if (!function_exists('getRole')) {
                 UserRoles::from($data->role)->showRole();
     }
 }
+if (!function_exists('getAccount')) {
+    function getAccount()
+    {
+        $token = session()->get('token');
+        if (empty($token)) {
+            return null;
+        }
+        return c(JWT::class)->match($token);
+    }
+}
 if (!function_exists('saveImage')) {
     function saveImage($data): Image
     {

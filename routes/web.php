@@ -22,6 +22,17 @@ Route::group([
     'as' => 'app.',
 ], static function() {
     Route::get('/dashboard', [App\LandingController::class, 'index'])->name('index');
+
+    Route::group(['prefix' => 'user', 'as' => 'user.', 'controller' => App\UserController::class], static function() {
+        Route::get('/', 'index')->name('index');
+        Route::get('/show/{user}','show')->name('show');
+        Route::get('/showClass/{class}','showClass')->name('showClass');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/store', 'store')->name('store');
+        Route::get('/edit',  'edit')->name('edit');
+        Route::put('/update', 'update')->name('update');
+        Route::delete('/delete/{user}', 'delete')->name('delete');
+    });
 });
 
 
