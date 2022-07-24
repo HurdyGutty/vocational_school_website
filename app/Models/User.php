@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class User extends Model
 {
@@ -25,6 +26,10 @@ class User extends Model
     {
         return $this->hasMany(Subscription::class, 'student_id', 'id');
     }
+    public function schedulesTeacher(): HasManyThrough
+    {
+        return $this->hasManyThrough(Schedule::class, ClassModel::class, 'teacher_id', 'class_id','id','id');
+    }
 
     public function attendanceDetail($period): HasMany
     {
@@ -43,4 +48,3 @@ class User extends Model
     }
 
 }
-
