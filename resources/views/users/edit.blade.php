@@ -17,39 +17,60 @@
     <form method="POST" action="{{ route('app.user.update') }}" enctype="multipart/form-data">
         @method('PUT')
         @csrf
-        <div class="form-group">
-            <label for="user_name" class="col-form-label">Họ tên</label>
-            <input type="text" class="form-control" id="user_name" name="name" value="{{ $subject->name }}">
-            @if ($errors->has('name'))
-            <div class="text-danger mt-1">
-                {{$errors->first('name')}}
-            </div>
-            @endif
-        </div>
-        <div class="form-group">
-            <label for="description">Thêm mô tả</label>
-            <textarea class="form-control" id="description" name="description"
-                rows="3">{{$subject->description}}</textarea>
-            @if ($errors->has('description'))
-            <div class="text-danger mt-1">
-                {{$errors->first('description')}}
-            </div>
-            @endif
-        </div>
-        <div class="form-group">
-            <div class="row">
-                <div class="col">
-                    <label for="time_duration">Thời gian</label>
-                    <input type="number" id="time_duration" name="time_duration" class="form-control"
-                        placeholder="Tháng" value="{{$subject->time_duration}}">
-                    @if ($errors->has('time_duration'))
-                    <div class="text-danger mt-1">
-                        {{$errors->first('time_duration')}}
-                    </div>
-                    @endif
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="user_name" class="col-form-label">Họ tên</label>
+                <input type="text" class="form-control" id="user_name" name="name" value="{{ $user->name }}">
+                @if ($errors->has('name'))
+                <div class="text-danger mt-1">
+                    {{$errors->first('name')}}
                 </div>
+                @endif
             </div>
-
+            <div class="form-group col-md-6">
+                <label class="col-form-label mr-1" for="gender">Giới tính</label>
+                <br>
+                <div class="form-check form-check-inline" id="gender">
+                    <input class="form-check-input" type="radio" name="gender" id="gender1" value="1"
+                        {{ ($user->gender === 1) ? "checked" : "" }}>
+                    <label class="form-check-label" for="gender1">
+                        Nam
+                    </label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="gender" id="gender2" value="0"
+                        {{ ($user->gender === 0) ? "checked" : "" }}>
+                    <label class="form-check-label" for="gender2">
+                        Nữ
+                    </label>
+                </div>
+                @if ($errors->has('gender'))
+                <div class="text-danger mt-1">
+                    {{$errors->first('gender')}}
+                </div>
+                @endif
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="date_of_birth">Ngày sinh</label>
+                <input class="form-control" id="date_of_birth" type="date" name="date_of_birth"
+                    value="{{ $user->date_of_birth }}">
+                @if ($errors->has('date_of_birth'))
+                <div class="text-danger mt-1">
+                    {{$errors->first('date_of_birth')}}
+                </div>
+                @endif
+            </div>
+            <div class="form-group col-md-6">
+                <label for="number">Số điện thoại</label>
+                <input type="number" id="number" name="phone" class="form-control" value="{{$user->phone}}">
+                @if ($errors->has('phone'))
+                <div class="text-danger mt-1">
+                    {{$errors->first('phone')}}
+                </div>
+                @endif
+            </div>
         </div>
         <div class="form-group">
             <div class="custom-file">
@@ -62,10 +83,10 @@
             </div>
             @endif
             <div class="row">
-                @isset ($subject->image_id)
+                @isset ($user->image_id)
                 <div class="col-md-6">
                     <label>Ảnh cũ</label><br>
-                    <img src="{{ 'data:image/png;base64,' . $subject->image()->getResults()->source }}" alt="Ảnh cũ" />
+                    <img src="{{ 'data:image/png;base64,' . $user->image()->getResults()->source }}" alt="Ảnh cũ" />
                 </div>
                 @endisset
                 <div class="col-md-6" id="new_img" hidden="true">
