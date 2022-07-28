@@ -198,14 +198,14 @@
                                 <li class="side-nav-title side-nav-item mt-1">Vùng dành cho giáo viên</li>
 
                                 <li class="side-nav-item">
-                                    <a href="#" class="side-nav-link">
+                                    <a href="{{route('app.user.index')}}" class="side-nav-link">
                                         <i class="uil-comments-alt"></i>
                                         <span> Lớp học </span>
                                     </a>
                                 </li>
 
                                 <li class="side-nav-item">
-                                    <a href="#" class="side-nav-link">
+                                    <a href="{{route('app.user.createClass')}}" class="side-nav-link">
                                         <i class="uil-calcualtor"></i>
                                         <span> Đăng ký dạy thêm </span>
                                     </a>
@@ -216,7 +216,7 @@
                                 <li class="side-nav-title side-nav-item mt-1">Vùng dành cho học sinh</li>
 
                                 <li class="side-nav-item">
-                                    <a href="#" class="side-nav-link">
+                                    <a href="{{route('app.user.index')}}" class="side-nav-link">
                                         <i class="uil-comments-alt"></i>
                                         <span> Lớp học </span>
                                     </a>
