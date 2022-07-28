@@ -27,8 +27,8 @@ Route::group([
         Route::get('/', 'index')->name('index');
         Route::get('/show/{user}','show')->name('show');
         Route::get('/showClass/{class}','showClass')->name('showClass');
-        Route::get('/create', 'create')->name('create');
-        Route::post('/store', 'store')->name('store');
+        Route::get('/createClass', 'createClass')->name('createClass');
+        Route::post('/storeClass', 'storeClass')->name('storeClass');
         Route::get('/edit',  'edit')->name('edit');
         Route::put('/update', 'update')->name('update');
         Route::delete('/delete/{user}', 'delete')->name('delete');
