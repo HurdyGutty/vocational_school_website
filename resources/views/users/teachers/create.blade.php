@@ -18,22 +18,22 @@
         @csrf
         <div class="form-group">
             <label for="subject_input" class="col-form-label">Chọn môn</label>
-            <select class="form-control" id="subject_input" name="name">
+            <select class="form-control" id="subject_input" name="subject">
                 <option disabled>Chọn môn</option>
                 @foreach($subjects as $id=>$name)
                 <option value="{{$id}}">{{$name}}</option>
                 @endforeach
             </select>
-            @if ($errors->has('name'))
+            @if ($errors->has('subject'))
             <div class="text-danger mt-1">
-                {{$errors->first('name')}}
+                {{$errors->first('subject')}}
             </div>
             @endif
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="weekday1" class="col-form-label">Chọn thứ</label>
-                <select class="form-control" id="weekday1" name="weekday1">
+                <select class="form-control drop" id="weekday1" name="weekday1">
                     <option disabled>Chọn thứ</option>
                     <option value="1">Thứ hai</option>
                     <option value="2">Thứ ba</option>
@@ -66,7 +66,7 @@
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="weekday2" class="col-form-label">Chọn thứ</label>
-                <select class="form-control" id="weekday2" name="weekday2">
+                <select class="form-control drop" id="weekday2" name="weekday2">
                     <option disabled>Chọn thứ</option>
                     <option value="1">Thứ hai</option>
                     <option value="2">Thứ ba</option>
@@ -107,12 +107,17 @@
 @push('js')
 <script src="{{asset('js/plugins/bootstrap-tagsinput.js')}}"></script>
 <script>
-imgInp.onchange = evt => {
-    const [file] = imgInp.files
-    if (file) {
-        blah.src = URL.createObjectURL(file)
-        $('#blah').attr("hidden", false)
-    }
-}
+var $drops = $('.drop');
+
+$drops.change(function() {
+    $drops.find("option").show();
+    $drops.each(function(index, el) {
+        const val = $(el).val();
+        if (val) {
+            const $other = $drops.not(this);
+            $other.find("option[value=" + $(el).val() + "]").hide();
+        }
+    });
+});
 </script>
 @endpush
