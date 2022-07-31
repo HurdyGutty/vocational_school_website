@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\App;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\Class\storeClassRequest;
 use App\Http\Requests\User\UpdateRequest;
 use App\Models\ClassModel;
 use App\Models\Schedule;
@@ -11,6 +12,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -91,9 +93,12 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function storeClass(Request $request)
+    public function storeClass(storeClassRequest $request)
     {
-        
+        $data = $request->validated();
+        DB::Transaction(function ($data) {
+            ClassModel::
+        });
     }
 
     /**
@@ -169,10 +174,4 @@ class UserController extends Controller
         return redirect()->route('admin.subject.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
 }
