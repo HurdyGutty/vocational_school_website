@@ -4,7 +4,7 @@
 @endpush
 @section('content')
 <div class="card-body">
-    <h2 class="header-title">Thêm ngành</h2>
+    <h2 class="header-title">Thêm lớp</h2>
     @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -41,7 +41,7 @@
                     <option value="4">Thứ năm</option>
                     <option value="5">Thứ sáu</option>
                     <option value="6">Thứ bảy</option>
-                    <option value="7">Chủ nhật</option>
+                    <option value="0">Chủ nhật</option>
                 </select>
                 @if ($errors->has('weekday1'))
                 <div class="text-danger mt-1">
@@ -74,7 +74,7 @@
                     <option value="4">Thứ năm</option>
                     <option value="5">Thứ sáu</option>
                     <option value="6">Thứ bảy</option>
-                    <option value="7">Chủ nhật</option>
+                    <option value="0">Chủ nhật</option>
                 </select>
                 @if ($errors->has('weekday2'))
                 <div class="text-danger mt-1">
