@@ -35,15 +35,17 @@ class storeClassRequest extends FormRequest
                 'bail',
                 'required_without:weekday2',
                 'integer',
-                'min:1',
-                'max:7',
+                'min:0',
+                'max:6',
+                'nullable',
             ],
             'weekday2' => [
                 'bail',
                 'required_without:weekday1',
                 'integer',
-                'min:1',
-                'max:7',
+                'min:0',
+                'max:6',
+                'nullable',
             ],
             'time1' => [
                 'bail',
@@ -51,6 +53,7 @@ class storeClassRequest extends FormRequest
                 'integer',
                 'min:1',
                 'max:2',
+                'nullable',
             ],
             'time2' => [
                 'bail',
@@ -58,6 +61,7 @@ class storeClassRequest extends FormRequest
                 'integer',
                 'min:1',
                 'max:2',
+                'nullable',
             ],
         ];
     }
