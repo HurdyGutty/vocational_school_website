@@ -11,7 +11,25 @@
         </div>
     </div>
 </div>
-<!-- @if ($errors->any())
+@if (!empty(session()->get('storeErrorMessage')))
+<div class="row">
+    <div class="col-12">
+        <div class="alert alert-danger">
+            {{session()->get('storeErrorMessage')}}
+        </div>
+    </div>
+</div>
+@endif
+@if (!empty( session()->get('new_class') ))
+<div class="row">
+    <div class="col-12">
+        <div class="alert alert-info">
+            Lớp {{ session()->get('new_class') }} đã được tạo
+        </div>
+    </div>
+</div>
+@endif
+@if ($errors->any())
 <div class="row">
     <div class="alert alert-danger">
         <ul>
@@ -21,7 +39,7 @@
         </ul>
     </div>
 </div>
-@endif -->
+@endif
 <div class="row">
     @foreach ($classes as $class) <div class="col-md-6 col-xl-3">
         <!-- project card -->
