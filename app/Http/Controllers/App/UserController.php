@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers\App;
 
-use App\Enums\StartTime;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\Class\storeClassRequest;
 use App\Http\Requests\User\UpdateRequest;
 use App\Models\ClassModel;
-use App\Models\Schedule;
 use App\Models\Subject;
 use App\Models\User;
 use App\Services\CreateClassAndScheduleForTeacherService;
-use Carbon\Carbon;
+use App\Services\GetStudentClassService;
+use App\Services\GetTeacherClassService;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
@@ -25,48 +24,10 @@ class UserController extends Controller
     public function index()
     {
         if (getAccount()->role){
-            $class_info = ClassModel::where('teacher_id','=', getAccount()->id)
-            ->with(['schedules' =>
-                        fn($query) => $query
-                                    ->select('id','class_id','date','start_time','end_time')
-                                    ->where('date','>', Carbon::today())
-                                    ->orderBy('date')
-                                    ])
-            ->get()
-            ->map(function($class){
-                $class->schedule_date = $class->schedules->pluck('date')->first();
-                $class->start_time = $class->schedules->pluck('start_time')->first();
-                $class->end_time = $class->schedules->pluck('end_time')->first();
-                $class->teacher_name = getAccount()->name;
-                unset($class->schedules);
-                return $class;
-            })
+            $class_info = (new GetTeacherClassService)->getClasses()
             ;
         } else {
-            $class_info = ClassModel::
-            with(['schedules' => 
-                        fn($query) => $query
-                                    ->select('id','class_id','date','start_time','end_time')
-                                    ->where('date','>', Carbon::today())
-                                    ->orderBy('date')
-                    ],
-                    'subscriptions',
-                    'teacher:id,name')
-            ->wherehas('subscriptions',
-                        fn($query) => $query
-                                    ->where('student_id',getAccount()->id)
-                                    ->whereNotNull('admin_id'))
-            ->get()
-            ->map(function($class){
-                $class->schedule_date = $class->schedules->pluck('date')->first();
-                $class->start_time = $class->schedules->pluck('start_time')->first();
-                $class->end_time = $class->schedules->pluck('end_time')->first();
-                $class->teacher_name = $class->teacher->name;
-                unset($class->teacher);
-                unset($class->schedules);
-                return $class;
-            })
-            ;
+            $class_info = (new GetStudentClassService)->getClasses();
         };
         return view('users.index',[
             'classes' => $class_info
@@ -124,32 +85,9 @@ class UserController extends Controller
     public function showClass(ClassModel $class)
     {
         if (getAccount()->role){
-            $class_info = $class->with(['schedules' =>
-            fn($query) => $query
-                        ->select('id','class_id','period','date','start_time','end_time')
-                        ->where('date','>', Carbon::today())
-                        ->orderBy('date')
-                        ])
-            ->where('id',$class->id)
-            ->first();
+            $class_info = (new GetTeacherClassService)->getOneClass($class);
         } else {
-            $date_next_class = Schedule::addSelect('date')
-                                ->where(
-                                    'class_id','=',$class->id
-                                )
-                                ->where('date','>=', Carbon::today())
-                                ->orderBy('date')
-                                ->take(1)
-                                ->value('date');
-            $class_info = $class->with(['schedules' =>
-            fn($query) => $query
-                        ->select('id','class_id','period','date','start_time','end_time')
-                        ->where('date','<=', $date_next_class)
-                        ->orderBy('date')],
-                        'teacher:name',
-                        'subject:name')
-            ->where('id',$class->id)
-            ->first();
+            $class_info = (new GetStudentClassService)->getOneClass($class);
         }
         return view('users.showClass',[
             'class' => $class,
