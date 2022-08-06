@@ -14,15 +14,27 @@
                         <div class="card card-signup">
                             <div class="card-body">
                                 <h4 class="card-title text-center">Đăng ký</h4>
-                                <form class="form" method="" action="">
+                                @if (!empty($createError))
+                                <div class="alert alert-danger">
+                                    {{$createError}}
+                                </div>
+                                @endif
+                                <form class="form" method="POST" action="{{route('app.auth.process_register')}}"
+                                    enctype='multipart/form-data'>
                                     <div class="form-row align-items-center">
 
                                         <div class="input-group col-md-6">
                                             <span class="input-group-addon">
                                                 <i class="now-ui-icons users_circle-08"></i>
                                             </span>
-                                            <input type="text" class="form-control" placeholder="Họ tên...">
+                                            <input type="text" class="form-control" name="name" placeholder="Họ tên...">
+                                            @if ($errors->has('name'))
+                                            <div class="text-danger mt-1">
+                                                {{$errors->first('name')}}
+                                            </div>
+                                            @endif
                                         </div>
+
                                         <div class="input-group col-md-6">
                                             <div class="form-check form-check-radio">
                                                 <label>Giới tính: </label>
@@ -39,6 +51,11 @@
                                                     Nữ
                                                 </label>
                                             </div>
+                                            @if ($errors->has('gender'))
+                                            <div class="text-danger mt-1">
+                                                {{$errors->first('gender')}}
+                                            </div>
+                                            @endif
                                         </div>
 
                                     </div>
@@ -48,15 +65,26 @@
                                                 <span class="input-group-addon">
                                                     <i class="now-ui-icons ui-1_calendar-60"></i>
                                                 </span>
-                                                <input type="text" class="form-control datepicker"
+                                                <input type="text" class="form-control datepicker" name="date_of_birth"
                                                     data-datepicker-color="primary" placeholder="Ngày sinh">
                                             </div>
+                                            @if ($errors->has('date_of_birth'))
+                                            <div class="text-danger mt-1">
+                                                {{$errors->first('date_of_birth')}}
+                                            </div>
+                                            @endif
                                         </div>
                                         <div class="input-group col-md-6">
                                             <span class="input-group-addon">
                                                 <i class="now-ui-icons tech_mobile"></i>
                                             </span>
-                                            <input type="text" class="form-control" placeholder="Số điện thoại...">
+                                            <input type="text" class="form-control" name="phone"
+                                                placeholder="Số điện thoại...">
+                                            @if ($errors->has('phone'))
+                                            <div class="text-danger mt-1">
+                                                {{$errors->first('phone')}}
+                                            </div>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="form-row">
@@ -64,7 +92,38 @@
                                             <span class="input-group-addon">
                                                 <i class="now-ui-icons ui-1_email-85"></i>
                                             </span>
-                                            <input type="text" class="form-control" placeholder="Email...">
+                                            <input type="text" class="form-control" name="email" placeholder="Email...">
+                                        </div>
+                                        @if ($errors->has('email'))
+                                        <div class="text-danger mt-1">
+                                            {{$errors->first('email')}}
+                                        </div>
+                                        @endif
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="input-group col-md-6">
+                                            <span class="input-group-addon">
+                                                <i class="now-ui-icons design-2_ruler-pencil"></i>
+                                            </span>
+                                            <input type="password" class="form-control" name="password"
+                                                placeholder="Mật khẩu...">
+                                            @if ($errors->has('password'))
+                                            <div class="text-danger mt-1">
+                                                {{$errors->first('password')}}
+                                            </div>
+                                            @endif
+                                        </div>
+                                        <div class="input-group col-md-6">
+                                            <span class="input-group-addon">
+                                                <i class="now-ui-icons design-2_ruler-pencil"></i>
+                                            </span>
+                                            <input type="password" class="form-control" name="password_confirmation"
+                                                placeholder="Lặp lại mật khẩu...">
+                                            @if ($errors->has('password_confirmation'))
+                                            <div class="text-danger mt-1">
+                                                {{$errors->first('password_confirmation')}}
+                                            </div>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="fileinput fileinput-new text-center" data-provides="fileinput">
@@ -77,12 +136,17 @@
                                             <span class="btn btn-raised btn-round btn-default btn-file">
                                                 <span class="fileinput-new">Add Photo</span>
                                                 <span class="fileinput-exists">Change</span>
-                                                <input type="file" name="...">
+                                                <input type="file" name="image">
                                             </span>
                                             <br>
                                             <a href="#pablo" class="btn btn-danger btn-round fileinput-exists"
                                                 data-dismiss="fileinput"><i class="now-ui-icons ui-1_simple-remove"></i>
                                                 Remove</a>
+                                            @if ($errors->has('image'))
+                                            <div class="text-danger mt-1">
+                                                {{$errors->first('image')}}
+                                            </div>
+                                            @endif
                                         </div>
                                     </div>
                                     <!-- If you want to add a checkbox to this form, uncomment this code -->
@@ -107,6 +171,6 @@
     </div>
     @endsection
     @push('js')
-    <script src="./assets/js/plugins/jasny-bootstrap.min.js">
+    <script src="{{asset('js/plugins/jasny-bootstrap.min.js')}}">
     </script>
     @endpush

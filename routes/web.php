@@ -13,6 +13,7 @@ Route::group(['as' => 'app.auth.'], static function() {
     Route::get('/login', [App\AuthController::class, 'loginForm'])->name('view_login');
     Route::post('/login', [App\AuthController::class, 'login'])->name('process_login');
     Route::get('/register', [App\AuthController::class, 'register'])->name('register');
+    Route::get('/register', [App\AuthController::class, 'registerUser'])->name('process_register');
 });
 
 // Route đã login của học sinh và giáo viên (chừng sau có middleware)
