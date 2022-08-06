@@ -1,11 +1,11 @@
 @extends('layout-landing-site.master')
 @section('body')
 
-<body class="signup-page" style="min-height: 100%">
+<body class="signup-page">
     @endsection
 
     @section('content')
-    <div class="page-header section-image" style="height: 1000px">
+    <div class="page-header section-image" style="height: 200px">
         <div class="page-header-image" style="background-image:url(../assets/img/bg18.jpg)"></div>
         <div class="content-center">
             <div class="container">

@@ -512,7 +512,7 @@
 }
 
 
-/* Horizontal layout-landing-site;
+/* Horizontal layout;
  *
  */
 
@@ -544,7 +544,7 @@
 }
 
 
-/* Vertical layout-landing-site;
+/* Vertical layout;
  *
  */
 
@@ -9190,7 +9190,6 @@ Created using IcoMoon - icomoon.io
 
 .signup-page .card-signup {
     max-width: 100%;
-    margin-bottom: 130px;
     padding: 15px 0px;
 }
 
@@ -9564,7 +9563,7 @@ Created using IcoMoon - icomoon.io
 
 .page-header {
     min-height: 100vh;
-    max-height: 2000px;
+    max-height: 999px;
     padding: 0;
     color: #FFFFFF;
     position: relative;
@@ -9574,13 +9573,13 @@ Created using IcoMoon - icomoon.io
     position: absolute;
     background-size: cover;
     background-position: center center;
-    /* width: 100vw;
-    height: 100%; */
+    width: 100%;
+    height: 100%;
     z-index: -1;
 }
 
 .signup-page .page-header .content-center {
-    top: 77%;
+    top: 17%;
 }
 
 .page-header .content-center {
@@ -9595,7 +9594,10 @@ Created using IcoMoon - icomoon.io
     color: #FFFFFF;
     padding: 0 15px;
     width: 100%;
+    height:inherit;
+    max-height: inherit;
     max-width: 880px;
+    box-sizing: border-box;
 }
 
 .page-header footer {
@@ -9605,7 +9607,7 @@ Created using IcoMoon - icomoon.io
 }
 
 .page-header .container {
-    height: 100%;
+    max-height: 100%;
     z-index: 1;
 }
 
