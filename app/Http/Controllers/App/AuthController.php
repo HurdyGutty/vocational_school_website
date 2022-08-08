@@ -6,10 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Requests\LoginRequest;
 use App\Lib\JWT\JWT;
+use App\Mail\WelcomeMail;
 use App\Models\User;
+use ErrorException;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
@@ -76,37 +79,61 @@ class AuthController extends Controller
         $email = $request->validated()['email'];
         $password = $request->validated()['password'];
         $image = $request->validated()['image'];
+        $teacher_role = $request->validated()['teacher_role']??0;
 
         try {
-            DB::Transaction(function () use ($name, $gender, $date_of_birth, $phone, $email, $password, $image) {
+            DB::Transaction(function () use ($name, $gender, $date_of_birth, $phone, $email, $password, $image,$teacher_role) {
                 if (isset($image)) {
                     $image = saveImage($image)->id;
                 }
 
-                User::create([
+                $user_created = User::create([
                     'name' => $name,
                     'gender' => $gender,
                     'date_of_birth' => $date_of_birth,
                     'phone' => $phone,
                     'email' => $email,
                     'password' => $password,
-                    'role' => 0,
+                    'role' => $teacher_role,
+                ]);
+                
+                Mail::to($email)->send(new WelcomeMail($teacher_role,$user_created->id));
+
+                return redirect()->back()->with([
+                    'createSuccess' => 'Tạo tài khoản thành công! Xin hãy xác nhận qua email',
                 ]);
 
-                $user = $this->auth($email, $password);
-                if ($user instanceof User) {
-                    $token = $this->generateToken($user);
-                    session()->put('token', $token);
-
-                    return redirect()->route('app.index');
-                }
-
-                return redirect()->back();
             });
         } catch (\Exception $ex) {
             return redirect()->back()->with([
                 'createError' => 'Không tạo được tài khoản',
             ]);
+        }
+    }
+    public function studentVerification(User $user_id = null)
+    {
+        try {
+            DB::Transaction(function () use ($user_id) {
+                if (!empty($user_id)) {
+                    $user_id->update([
+                        'active' => 1,
+                    ]);
+                    if ($user_id instanceof User) {
+                        $token = $this->generateToken($user_id);
+                        session()->put('token', $token);
+
+                        return redirect()->route('app.index')->with([
+                            'verified' => 'Xác minh thành công'
+                        ]);
+                    }
+                } else {
+                    throw new ErrorException('Xác minh thất bại');
+                }
+            });
+        } catch (\Exception $ex) {
+            return redirect()->route('index')->with([
+                'unverified' => 'Xác minh thất bại'
+            ]);;
         }
     }
 }

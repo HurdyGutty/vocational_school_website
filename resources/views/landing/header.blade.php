@@ -16,10 +16,12 @@
             </div>
         </div>
         <div class="navbar-translate">
-            <a class="navbar-brand" href="#pablo" rel="tooltip" title="Designed by Invision. Coded by Creative Tim" data-placement="bottom" target="_blank">
+            <a class="navbar-brand" href="#pablo" rel="tooltip" title="Designed by Invision. Coded by Creative Tim"
+                data-placement="bottom" target="_blank">
                 Xem thêm
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
+                aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-bar bar1"></span>
                 <span class="navbar-toggler-bar bar2"></span>
                 <span class="navbar-toggler-bar bar3"></span>
@@ -51,7 +53,7 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../index.html" target="_blank">
+                    <a class="nav-link" href="{{route('app.auth.view_login')}}" target="_blank">
                         <i class="now-ui-icons design_app"></i>
                         <p>Đăng ký lớp</p>
                     </a>
