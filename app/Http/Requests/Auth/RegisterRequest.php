@@ -55,6 +55,11 @@ class RegisterRequest extends BaseRequest
                 'nullable',
                 'dimensions:ratio=1/1',
             ],
+            "teacher_role" => [
+                'bail',
+                'nullable',
+                'boolean',
+            ],
         ];
     }
 
@@ -85,6 +90,7 @@ class RegisterRequest extends BaseRequest
         'password' => 'Mật khẩu',
         'password_confirmation' => 'Mật khẩu',
         "image" => 'Ảnh',
+        'teacher_role' => 'Đăng ký làm giáo viên'
     ];
     }
 }
