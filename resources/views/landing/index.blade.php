@@ -10,6 +10,6 @@
         @include('landing.classes')
         @include('landing.testimonies')
         @include('landing.contact')
-        @include('layout-landing-site.footer')
+        @include('layout-landing-site.components.footer')
     </div>
     @endsection
