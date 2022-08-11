@@ -8,7 +8,7 @@ use App\Mail\WelcomeMail;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [App\HomeController::class, 'index'])->name('index');
-
+Route::get('/explore/{search?}',[App\HomeController::class, 'explore'])->name('explore');
 // Route chưa login của học sinh và giáo viên
 Route::group(['as' => 'app.auth.'], static function() {
     Route::get('/login', [App\AuthController::class, 'loginForm'])->name('view_login');
