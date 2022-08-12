@@ -8,7 +8,9 @@ use App\Mail\WelcomeMail;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [App\HomeController::class, 'index'])->name('index');
-Route::get('/explore/{search?}',[App\HomeController::class, 'explore'])->name('explore');
+Route::get('/explore',[App\HomeController::class, 'explore'])->name('explore');
+Route::get('/explore/{subject}/classes',[App\HomeController::class, 'showClass'])->name('showClass')->where(['subject'=> '^[0-9]+$']);
+
 // Route chưa login của học sinh và giáo viên
 Route::group(['as' => 'app.auth.'], static function() {
     Route::get('/login', [App\AuthController::class, 'loginForm'])->name('view_login');
@@ -32,6 +34,7 @@ Route::group([
         Route::get('/showClass/{class}','showClass')->name('showClass');
         Route::get('/createClass', 'createClass')->name('createClass');
         Route::post('/storeClass', 'storeClass')->name('storeClass');
+        Route::get('/registerClass', 'registerClass')->name('registerClass');
         Route::get('/edit',  'edit')->name('edit');
         Route::put('/update', 'update')->name('update');
         Route::delete('/delete/{user}', 'delete')->name('delete');
