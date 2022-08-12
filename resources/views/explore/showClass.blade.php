@@ -6,7 +6,8 @@
     @section('content')
     <div class="wrapper">
         @include('layout-landing-site.components.navbar')
-        @include('explore.components.search')
-        @include('explore.components.subject')
+        @include('explore.components.header')
+        @include('explore.components.searchClass')
+        @include('explore.components.classes')
     </div>
     @endsection

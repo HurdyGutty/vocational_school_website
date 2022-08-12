@@ -18,6 +18,10 @@ class AuthController extends Controller
 {
     public function loginForm(): View
     {
+    //     if(!session()->has('url.intended'))
+    // {
+    //     session(['url.intended' => url()->previous()]);
+    // }
         return view('landing_auth.login');
     }
 

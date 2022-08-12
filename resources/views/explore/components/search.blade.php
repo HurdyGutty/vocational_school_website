@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-6 ml-auto mr-auto">
                 <div class="text-center">
-                    <h2 class="title">Tìm kiếm lớp học của bạn</h2>
+                    <h2 class="title">Tìm kiếm môn học của bạn</h2>
                 </div>
                 <div class="card card-raised card-form-horizontal">
                     <div class="card-body">

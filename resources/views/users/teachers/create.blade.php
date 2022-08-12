@@ -19,7 +19,7 @@
         <div class="form-group">
             <label for="subject_input" class="col-form-label">Chọn môn</label>
             <select class="form-control" id="subject_input" name="subject">
-                <option disabled>Chọn môn</option>
+                <option disabled selected value="">Chọn môn</option>
                 @foreach($subjects as $id=>$name)
                 <option value="{{$id}}">{{$name}}</option>
                 @endforeach
@@ -34,7 +34,7 @@
             <div class="form-group col-md-6">
                 <label for="weekday1" class="col-form-label">Chọn thứ</label>
                 <select class="form-control drop" id="weekday1" name="weekday1">
-                    <option disabled>Chọn thứ</option>
+                    <option disabled selected value="">Chọn thứ</option>
                     <option value="1">Thứ hai</option>
                     <option value="2">Thứ ba</option>
                     <option value="3">Thứ tư</option>
@@ -52,7 +52,7 @@
             <div class="form-group col-md-6">
                 <label for="time1" class="col-form-label">Chọn ca</label>
                 <select class="form-control" id="time1" name="time1">
-                    <option disabled>Chọn ca</option>
+                    <option disabled selected value="">Chọn ca</option>
                     <option value="1">17h00 - 19h00</option>
                     <option value="2">19h00 - 21h00</option>
                 </select>
@@ -67,7 +67,7 @@
             <div class="form-group col-md-6">
                 <label for="weekday2" class="col-form-label">Chọn thứ</label>
                 <select class="form-control drop" id="weekday2" name="weekday2">
-                    <option disabled>Chọn thứ</option>
+                    <option disabled selected value="">Chọn thứ</option>
                     <option value="1">Thứ hai</option>
                     <option value="2">Thứ ba</option>
                     <option value="3">Thứ tư</option>
@@ -85,7 +85,7 @@
             <div class="form-group col-md-6">
                 <label for="time2" class="col-form-label">Chọn ca</label>
                 <select class="form-control" id="time2" name="time2">
-                    <option disabled>Chọn ca</option>
+                    <option disabled selected value="">Chọn ca</option>
                     <option value="1">17h00 - 19h00</option>
                     <option value="2">19h00 - 21h00</option>
                 </select>
