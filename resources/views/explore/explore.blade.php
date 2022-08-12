@@ -7,6 +7,6 @@
     <div class="wrapper">
         @include('layout-landing-site.components.navbar')
         @include('explore.components.search')
-        @include('explore.components.class')
+        @include('explore.components.subject')
     </div>
     @endsection
