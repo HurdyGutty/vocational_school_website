@@ -37,6 +37,7 @@ class storeClassRequest extends FormRequest
                 'integer',
                 'min:0',
                 'max:6',
+                'different:weekday2',
                 'nullable',
             ],
             'weekday2' => [
@@ -45,6 +46,7 @@ class storeClassRequest extends FormRequest
                 'integer',
                 'min:0',
                 'max:6',
+                'different:weekday1',
                 'nullable',
             ],
             'time1' => [
@@ -76,6 +78,7 @@ class storeClassRequest extends FormRequest
             'min' => 'Bạn phải chọn trong danh sách',
             'max' => 'Bạn phải chọn trong danh sách',
             'exists' => ':attribute không có trong danh sách',
+            'different' => 'Không được chọn trùng thứ trong tuần',
         ];
     }
 
