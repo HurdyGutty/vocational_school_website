@@ -95,6 +95,11 @@ class UserController extends Controller
             ]);
     }
 
+    public function registerClass(ClassModel $class)
+    {
+        
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
