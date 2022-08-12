@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\App;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SearchRequest;
+use App\Models\ClassModel;
 use App\Models\Subject;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -13,14 +14,39 @@ class HomeController extends Controller
     {
         return view('landing.index');
     }
-    public function explore(Request $request): View
+    public function explore(SearchRequest $request): View
     {
-        $classes = Subject::where('name','like',"%{$request->search}%")->paginate(6)
+        $search = $request->validated();
+        !empty($search)?
+        $subjects = Subject::withcount(['classes' => fn($query) => $query->where('status',1)])
+        ->where('name','like',"%{$search['search']}%")
+        ->whereHas('classes' , fn($query) => $query->where('status',1))
+        ->paginate(9)
+        :$subjects = Subject::withcount(['classes' => fn($query) => $query->where('status',1)])
+        ->whereHas('classes' , fn($query) => $query->where('status',1))
+        ->paginate(9)
         ;
         return view('explore.explore',[
-            'classes' => $classes,
+            'subjects' => $subjects,
         ]);
     }
-
+    public function showClass(Subject $subject, SearchRequest $request): View
+    {
+        $search = $request->validated();
+        !empty($search)?
+        $classes = ClassModel::with('schedules','teacher:id,name')->where('subject_id',$subject->id)
+        ->where('status',1)
+        ->has('teacher.name','like',"%{$search['search']}%")
+        ->get()
+        :
+        $classes = ClassModel::with('schedules','teacher:id,name')->where('subject_id',$subject->id)
+        ->where('status',1)
+        ->get()
+        ;
+        return view('explore.showClass',[
+            'classes' => $classes,
+            'subject' => $subject,
+        ]);
+    }
 
 }
