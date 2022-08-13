@@ -38,17 +38,17 @@
                                 <li class="side-nav-item mm-active">
                                     <a href="#" class="side-nav-link active">
                                         <i class="uil-home-alt"></i>
-                                        {{--                <span class="badge badge-success float-right">2</span>--}}
+                                        {{-- <span class="badge badge-success float-right">2</span>--}}
                                         <span> Trang chủ </span>
                                     </a>
-                                    {{--            <ul class="side-nav-second-level mm-collapse mm-show" aria-expanded="false">--}}
-                                    {{--                <li>--}}
-                                    {{--                    <a href="#">Đối ngoại</a>--}}
-                                    {{--                </li>--}}
-                                    {{--                <li class="mm-active">--}}
-                                    {{--                    <a href="#" class="active">Nội bộ</a>--}}
-                                    {{--                </li>--}}
-                                    {{--            </ul>--}}
+                                    {{-- <ul class="side-nav-second-level mm-collapse mm-show" aria-expanded="false">--}}
+                                    {{-- <li>--}}
+                                    {{-- <a href="#">Đối ngoại</a>--}}
+                                    {{-- </li>--}}
+                                    {{-- <li class="mm-active">--}}
+                                    {{-- <a href="#" class="active">Nội bộ</a>--}}
+                                    {{-- </li>--}}
+                                    {{-- </ul>--}}
                                 </li>
                                 @if (getRole() === \App\Enums\AdminRoles::from(1)->showRole())
                                 <li class="side-nav-title side-nav-item">Vùng quản lý</li>
@@ -180,7 +180,7 @@
                                 <li class="side-nav-title side-nav-item mt-1">Vùng dành cho tư vấn viên</li>
 
                                 <li class="side-nav-item">
-                                    <a href="#" class="side-nav-link">
+                                    <a href="{{route('admin.class.pendingSubscription')}}" class="side-nav-link">
                                         <i class="uil-comments-alt"></i>
                                         <span> Các đơn đăng ký </span>
                                     </a>

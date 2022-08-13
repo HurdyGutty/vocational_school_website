@@ -46,7 +46,7 @@
                             <td>
                                 <a href="{{route('admin.class.deleteSubscrition',['class_id' => $class->id,'student_id' => $class->students->pluck('id')->first(),
                                     ]);}}">
-                                    <div class="btn btn-info  ">
+                                    <div class="btn btn-danger  ">
                                         Xoá
                                     </div>
                                 </a>
