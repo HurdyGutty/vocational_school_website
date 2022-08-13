@@ -5,14 +5,15 @@ use App\Http\Controllers\Admin;
 use App\Http\Middleware\AdminMiddleware\StaffLogin;
 use App\Http\Middleware\AppMiddleware\UserLogin;
 use App\Mail\WelcomeMail;
+use App\Services\CheckScheduleService;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [App\HomeController::class, 'index'])->name('index');
-Route::get('/explore',[App\HomeController::class, 'explore'])->name('explore');
-Route::get('/explore/{subject}/classes',[App\HomeController::class, 'showClass'])->name('showClass')->where(['subject'=> '^[0-9]+$']);
+Route::get('/explore', [App\HomeController::class, 'explore'])->name('explore');
+Route::get('/explore/{subject}/classes', [App\HomeController::class, 'showClass'])->name('showClass')->where(['subject' => '^[0-9]+$']);
 
 // Route chưa login của học sinh và giáo viên
-Route::group(['as' => 'app.auth.'], static function() {
+Route::group(['as' => 'app.auth.'], static function () {
     Route::get('/login', [App\AuthController::class, 'loginForm'])->name('view_login');
     Route::post('/login', [App\AuthController::class, 'login'])->name('process_login');
     Route::get('/register', [App\AuthController::class, 'register'])->name('register');
@@ -25,16 +26,16 @@ Route::group([
     'prefix' => 'app',
     'middleware' => [UserLogin::class],
     'as' => 'app.',
-], static function() {
+], static function () {
     Route::get('/dashboard', [App\LandingController::class, 'index'])->name('index');
 
-    Route::group(['prefix' => 'user', 'as' => 'user.', 'controller' => App\UserController::class], static function() {
+    Route::group(['prefix' => 'user', 'as' => 'user.', 'controller' => App\UserController::class], static function () {
         Route::get('/', 'index')->name('index');
-        Route::get('/show/{user}','show')->name('show');
-        Route::get('/showClass/{class}','showClass')->name('showClass');
+        Route::get('/show/{user}', 'show')->name('show');
+        Route::get('/showClass/{class}', 'showClass')->name('showClass');
         Route::get('/createClass', 'createClass')->name('createClass');
         Route::post('/storeClass', 'storeClass')->name('storeClass');
-        Route::get('/registerClass', 'registerClass')->name('registerClass');
+        Route::get('/registerClass/{class}', 'registerClass')->name('registerClass');
         Route::get('/edit',  'edit')->name('edit');
         Route::put('/update', 'update')->name('update');
         Route::delete('/delete/{user}', 'delete')->name('delete');
@@ -43,7 +44,7 @@ Route::group([
 
 
 // Route chưa login của admin
-Route::group(['prefix' => 'admin', 'as' => 'admin.auth.'], static function() {
+Route::group(['prefix' => 'admin', 'as' => 'admin.auth.'], static function () {
     Route::get('/login', [Admin\AuthController::class, 'loginForm'])->name('view_login');
     Route::post('/login', [Admin\AuthController::class, 'login'])->name('process_login');
     Route::post('/logout', [Admin\AuthController::class, 'logout'])->name('logout');
@@ -54,10 +55,10 @@ Route::group(array(
     'prefix' => 'admin',
     'middleware' => [StaffLogin::class],
     'as' => 'admin.',
-), static function() {
+), static function () {
     Route::get('/', [Admin\LandingController::class, 'index'])->name('index');
 
-    Route::group(['prefix' => 'major', 'as' => 'major.'], static function() {
+    Route::group(['prefix' => 'major', 'as' => 'major.'], static function () {
         Route::get('/', [Admin\MajorController::class, 'index'])->name('index');
         Route::get('/show/{major}', [Admin\MajorController::class, 'show'])->name('show');
         Route::get('/create', [Admin\MajorController::class, 'create'])->name('create');
@@ -67,7 +68,7 @@ Route::group(array(
         Route::delete('/delete/{major}', [Admin\MajorController::class, 'delete'])->name('delete');
     });
 
-    Route::group(['prefix' => 'subject', 'as' => 'subject.'], static function() {
+    Route::group(['prefix' => 'subject', 'as' => 'subject.'], static function () {
         Route::get('/', [Admin\SubjectController::class, 'index'])->name('index');
         Route::get('/show/{subject}', [Admin\SubjectController::class, 'show'])->name('show');
         Route::get('/create', [Admin\SubjectController::class, 'create'])->name('create');
@@ -76,20 +77,19 @@ Route::group(array(
         Route::put('/update', [Admin\SubjectController::class, 'update'])->name('update');
         Route::delete('/delete/{subject}', [Admin\SubjectController::class, 'delete'])->name('delete');
     });
-    Route::group(['prefix' => 'class', 'as' => 'class.', 'controller' => Admin\ClassController::class], static function() {
-        Route::get('/','index')->name('index');
-        Route::get('/show/{class}','show')->name('show');
+    Route::group(['prefix' => 'class', 'as' => 'class.', 'controller' => Admin\ClassController::class], static function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/show/{class}', 'show')->name('show');
         Route::get('/create', 'create')->name('create');
         Route::post('/store', 'store')->name('store');
-        Route::get('/edit/{class}', 'edit')->name('edit');
+        Route::get('/pendingSubscription', 'pendingSubscription')->name('pendingSubscription');
+        Route::put('/approveSubscription', 'approveSubscription')->name('approveSubscription');
+        Route::delete('/deleteSubscrition/{class_id}&{student_id}', 'deleteSubscrition')->name('deleteSubscrition');
         Route::put('/update', 'update')->name('update');
         Route::delete('/delete/{class}', 'delete')->name('delete');
     });
-
-
-
-
 });
 
 //Route test email
-Route::get('/test/mail', fn() => new WelcomeMail(1,3));
+Route::get('/test/mail', fn () => new WelcomeMail(1, 3));
+Route::get('/test/service', fn () => (new CheckScheduleService(31, 101))->checkTeacher());
