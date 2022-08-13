@@ -15,18 +15,6 @@
                 <a class="dropdown-item" href="#">Liên hệ</a>
             </div>
         </div>
-        <div class="navbar-translate">
-            <a class="navbar-brand" href="#pablo" rel="tooltip" title="Designed by Invision. Coded by Creative Tim"
-                data-placement="bottom" target="_blank">
-                Xem thêm
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
-                aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-bar bar1"></span>
-                <span class="navbar-toggler-bar bar2"></span>
-                <span class="navbar-toggler-bar bar3"></span>
-            </button>
-        </div>
         <div class="collapse navbar-collapse" data-nav-image="../img/blurred-image-1.jpg" data-color="orange">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
@@ -55,13 +43,13 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('app.auth.view_login')}}" target="_blank">
                         <i class="now-ui-icons design_app"></i>
-                        <p>Đăng ký lớp</p>
+                        <p>Khám phá các môn học</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../index.html" target="_blank">
+                    <a class="nav-link" href="{{route('app.auth.register')}}" target="_blank">
                         <i class="now-ui-icons design_app"></i>
-                        <p>Đăng ký giảng dạy</p>
+                        <p>Đăng ký</p>
                     </a>
                 </li>
                 <li class="nav-item">
