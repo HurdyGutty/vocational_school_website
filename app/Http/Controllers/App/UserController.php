@@ -101,11 +101,10 @@ class UserController extends Controller
     {
         if (!getAccount()->role) {
             if (!empty(Subscription::where('class_id', $class->id)->where('student_id', getAccount()->id)->first())) {
-                return redirect()->route('showClass')->with([
+                return redirect()->route('showClass', $class->subject()->value('id'))->with([
                     'classRegistered' => 'Bạn đã đăng ký lớp này trước đó'
                 ]);
             } else {
-
                 Subscription::create([
                     'class_id' => $class->id,
                     'student_id' => getAccount()->id,
@@ -113,7 +112,9 @@ class UserController extends Controller
                 ]);
             }
         }
-        return redirect()->route('app.user.showClass');
+        return redirect()->route('app.user.showClass', [
+            'class' => $class->id
+        ]);
     }
 
     /**
