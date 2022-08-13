@@ -36,10 +36,15 @@ class AuthController extends Controller
 
         $user = $this->auth($data['email'], $data['password']);
         if ($user instanceof User) {
-            $token = $this->generateToken($user);
-            session()->put('token', $token);
+            if ($user->active) {
+                $token = $this->generateToken($user);
+                session()->put('token', $token);
 
-            return redirect()->route('app.index');
+                return redirect()->route('app.index');
+            }
+            return redirect()->back()->with([
+                'activationError' => 'Bạn cần xác nhận qua email'
+            ]);
         }
 
         return redirect()->back();

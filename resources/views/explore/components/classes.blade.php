@@ -18,7 +18,7 @@
                     </h4>
                     @if (!empty(getAccount()))
                     <a href="{{route('app.user.registerClass',$class)}}">
-                        <button class="btn btn-primary btn-round btn-block">Tham gia</button>
+                        <div class="btn-primary btn-round btn-block text-center">Tham gia</div>
                     </a>
                     @else
                     <a href="{{route('app.auth.view_login')}}">
