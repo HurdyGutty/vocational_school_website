@@ -44,12 +44,15 @@
                                 </form>
                             </td>
                             <td>
-                                <a href="{{route('admin.class.deleteSubscrition',['class_id' => $class->id,'student_id' => $class->students->pluck('id')->first(),
-                                    ]);}}">
-                                    <div class="btn btn-danger  ">
+                                <form action="{{ route('admin.class.deleteSubscription',
+                                        ['class_id'=>$class->id,
+                                        'student_id'=>$class->students->pluck('id')->first()]) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger  ">
                                         Xoá
-                                    </div>
-                                </a>
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                         @endforeach
