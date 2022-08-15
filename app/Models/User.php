@@ -21,6 +21,10 @@ class User extends Model
     {
         return $this->hasMany(ClassModel::class, 'teacher_id', 'id');
     }
+    public function user_classes(): HasMany
+    {
+        return $this->hasMany(ClassModel::class, 'subscriptions', 'student_id', 'class_id');
+    }
 
     public function subscriptions(): HasMany
     {
@@ -28,7 +32,7 @@ class User extends Model
     }
     public function schedulesTeacher(): HasManyThrough
     {
-        return $this->hasManyThrough(Schedule::class, ClassModel::class, 'teacher_id', 'class_id','id','id');
+        return $this->hasManyThrough(Schedule::class, ClassModel::class, 'teacher_id', 'class_id', 'id', 'id');
     }
 
     public function attendanceDetail($period): HasMany
@@ -46,5 +50,4 @@ class User extends Model
     {
         return password_verify($password, $this->password);
     }
-
 }
