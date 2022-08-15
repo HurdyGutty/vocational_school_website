@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Class\DeleteSubscription;
 use App\Http\Requests\Class\SubscriptionApproveRequest;
 use App\Models\ClassModel;
 use App\Models\Subscription;
-use App\Models\User;
-use Illuminate\Http\Request;
 
 class ClassController extends Controller
 {
@@ -54,7 +53,7 @@ class ClassController extends Controller
         return redirect()->route('admin.class.pendingSubscription');
     }
 
-    public function deleteSubscrition($class_id, $student_id)
+    public function deleteSubscription(DeleteSubscription $request, $class_id, $student_id)
     {
         Subscription::where('class_id', $class_id)->where('student_id', $student_id)->delete();
         return redirect()->route('admin.class.pendingSubscription');

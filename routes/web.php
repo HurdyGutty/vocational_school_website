@@ -16,6 +16,7 @@ Route::get('/explore/{subject}/classes', [App\HomeController::class, 'showClass'
 Route::group(['as' => 'app.auth.'], static function () {
     Route::get('/login', [App\AuthController::class, 'loginForm'])->name('view_login');
     Route::post('/login', [App\AuthController::class, 'login'])->name('process_login');
+    Route::post('/logout', [App\AuthController::class, 'logOut'])->name('logout');
     Route::get('/register', [App\AuthController::class, 'register'])->name('register');
     Route::post('/register', [App\AuthController::class, 'registerUser'])->name('process_register');
     Route::get('/verify/{user_id?}', [App\AuthController::class, 'studentVerification'])->name('studentVerification');
@@ -84,7 +85,7 @@ Route::group(array(
         Route::post('/store', 'store')->name('store');
         Route::get('/pendingSubscription', 'pendingSubscription')->name('pendingSubscription');
         Route::put('/approveSubscription', 'approveSubscription')->name('approveSubscription');
-        Route::delete('/deleteSubscrition/{class_id}&{student_id}', 'deleteSubscrition')->name('deleteSubscrition');
+        Route::delete('/deleteSubscription/{class_id}&{student_id}', 'deleteSubscription')->name('deleteSubscription');
         Route::put('/update', 'update')->name('update');
         Route::delete('/delete/{class}', 'delete')->name('delete');
     });
