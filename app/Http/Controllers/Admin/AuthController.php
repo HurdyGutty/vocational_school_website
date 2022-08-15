@@ -43,7 +43,7 @@ class AuthController extends Controller
     public function logOut(): RedirectResponse
     {
         session()->forget('token');
-        return redirect()->route('index');
+        return redirect()->route('admin.auth.view_login');
     }
 
     public function auth($email, $password): ?Admin
