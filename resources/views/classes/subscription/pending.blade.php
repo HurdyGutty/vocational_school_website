@@ -30,6 +30,7 @@
                             </td>
                             <td>{{date_format(date_create($class->date_start),"d/m/Y")}}</td>
                             <td>{{((new App\Services\CheckScheduleService($class->id, $class->students->pluck('id')->first()))->checkStudent()) ? "Ổn" : "Bị trùng"}}
+                            </td>
 
                             <td>
                                 <form method="POST" action="{{route('admin.class.approveSubscription');}}">
