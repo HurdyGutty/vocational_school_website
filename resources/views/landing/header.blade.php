@@ -78,13 +78,27 @@
                         </button>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" x-placement="bottom-start"
                             style="position: absolute; transform: translate3d(1px, 48px, 0px); top: 0px; left: 0px; will-change: transform;">
-                            <form action="{{route('admin.auth.logout')}}" method="post">
-                                @csrf
-                                <a href="" class="dropdown-item notify-item">
-                                    <i class="mdi mdi-logout mr-1"></i>
-                                    <button class="btn" type="submit"><span>Đăng xuất</span></button>
+                            @if (getAccount()->is_admin)
+                            <a href="#" class="dropdown-item notify-item">
+                                @else
+                                <a href="{{route('app.user.edit')}}" class="dropdown-item notify-item">
+                                    @endif
+                                    <i class="mdi mdi-account-circle mr-1"></i>
+                                    <span>Tài khoản</span>
                                 </a>
-                            </form>
+                                @if (getAccount()->is_admin)
+                                <form action="{{route('admin.auth.logout')}}" method="post">
+                                    @else
+                                    <form action="{{route('app.auth.logout')}}" method="post">
+                                        @endif
+                                        @csrf
+                                        <a href="" class="dropdown-item notify-item">
+                                            <i class="mdi mdi-logout mr-1"></i>
+                                            <button class="btn" type="submit"><span>Đăng xuất</span></button>
+                                        </a>
+                                    </form>
+
+
                         </div>
                     </div>
                 </li>
