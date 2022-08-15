@@ -30,14 +30,14 @@ class ClassController extends Controller
         $pending_classes = ClassModel::with(
             [
                 'students' => fn ($q) => $q->select('id', 'name')
-                    ->whereHas('subscriptions', fn ($q) => $q->whereNull('admin_id'))
+                    ->whereIn('id', fn ($q) => $q->select('student_id')->from('subscriptions')->whereNull('admin_id'))
             ]
         )->with(
             [
                 'subscriptions' => fn ($q) => $q->select('class_id', 'register_time')->whereNull('admin_id')
             ]
         )
-            ->whereHas('subscriptions', fn ($q) => $q->whereNull('admin_id'))
+            ->whereIn('id', fn ($q) => $q->select('class_id')->from('subscriptions')->whereNull('admin_id'))
             ->paginate(15);
         return view('classes.subscription.pending', [
             'pending_classes' => $pending_classes
