@@ -92,7 +92,6 @@ class UserController extends Controller
             $class_info = (new GetStudentClassService)->getOneClass($class);
         }
         return view('users.showClass', [
-            'class' => $class,
             'class_info' => $class_info,
         ]);
     }

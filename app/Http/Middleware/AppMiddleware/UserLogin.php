@@ -16,8 +16,8 @@ class UserLogin
      */
     public function handle(Request $request, Closure $next)
     {
-        if (empty(getRole())) {
-            return redirect()->route('app.auth.process_login');
+        if (getAccount()->is_admin) {
+            return redirect()->route('admin.auth.logout');
         }
 
         return $next($request);

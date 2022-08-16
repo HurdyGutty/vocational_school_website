@@ -6,7 +6,7 @@
 <div class="row">
     <div class="col-12">
         <div class="page-title-box">
-            <h2 class="page-title-center">{{$class->name}}</h2>
+            <h2 class="page-title-center">{{$class_info->name}}</h2>
         </div>
     </div>
 </div>
@@ -19,8 +19,8 @@
                 <img src="assets/images/users/avatar-1.jpg" class="rounded-circle avatar-lg img-thumbnail"
                     alt="profile-image">
 
-                <h4 class="mb-0 mt-2">{{$class->teacher->value('name')}}</h4>
-                <p class="text-muted font-14">Giáo viên {{ $class->subject->value('name') }}</p>
+                <h4 class="mb-0 mt-2">{{$class_info->teacher->name}}</h4>
+                <p class="text-muted font-14">Giáo viên môn {{ $class_info->subject->name }}</p>
             </div> <!-- end card-body -->
 
         </div> <!-- end card -->
