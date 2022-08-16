@@ -18,10 +18,10 @@ class AuthController extends Controller
 {
     public function loginForm(): View
     {
-    //     if(!session()->has('url.intended'))
-    // {
-    //     session(['url.intended' => url()->previous()]);
-    // }
+        //     if(!session()->has('url.intended'))
+        // {
+        //     session(['url.intended' => url()->previous()]);
+        // }
         return view('landing_auth.login');
     }
 
@@ -62,13 +62,6 @@ class AuthController extends Controller
         ]);
     }
 
-    public function logOut(): RedirectResponse
-    {
-        session()->forget('token');
-
-        return redirect()->route('index');
-    }
-
     public function auth($email, $password): ?User
     {
         $user = User::query()->where('email', $email)->first();
@@ -79,6 +72,14 @@ class AuthController extends Controller
         return null;
     }
 
+    public function logOut(): RedirectResponse
+    {
+        session()->forget('token');
+
+        return redirect()->route('index');
+    }
+
+
     public function registerUser(RegisterRequest $request)
     {
         $name = $request->validated()['name'];
@@ -88,10 +89,10 @@ class AuthController extends Controller
         $email = $request->validated()['email'];
         $password = $request->validated()['password'];
         $image = $request->validated()['image'];
-        $teacher_role = $request->validated()['teacher_role']??0;
+        $teacher_role = $request->validated()['teacher_role'] ?? 0;
 
         try {
-            DB::Transaction(function () use ($name, $gender, $date_of_birth, $phone, $email, $password, $image,$teacher_role) {
+            DB::Transaction(function () use ($name, $gender, $date_of_birth, $phone, $email, $password, $image, $teacher_role) {
                 if (isset($image)) {
                     $image = saveImage($image)->id;
                 }
@@ -105,13 +106,12 @@ class AuthController extends Controller
                     'password' => $password,
                     'role' => $teacher_role,
                 ]);
-                
-                Mail::to($email)->send(new WelcomeMail($teacher_role,$user_created->id));
+
+                Mail::to($email)->send(new WelcomeMail($teacher_role, $user_created->id));
 
                 return redirect()->back()->with([
                     'createSuccess' => 'Tạo tài khoản thành công! Xin hãy xác nhận qua email',
                 ]);
-
             });
         } catch (\Exception $ex) {
             return redirect()->back()->with([
