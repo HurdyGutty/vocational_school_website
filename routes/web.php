@@ -16,9 +16,10 @@ Route::get('/explore/{subject}/classes', [App\HomeController::class, 'showClass'
 Route::group(['as' => 'app.auth.'], static function () {
     Route::get('/login', [App\AuthController::class, 'loginForm'])->name('view_login');
     Route::post('/login', [App\AuthController::class, 'login'])->name('process_login');
-    Route::post('/logout', [App\AuthController::class, 'logOut'])->name('logout');
+    Route::get('/logout', [App\AuthController::class, 'logOut'])->name('logout');
     Route::get('/register', [App\AuthController::class, 'register'])->name('register');
     Route::post('/register', [App\AuthController::class, 'registerUser'])->name('process_register');
+
     Route::get('/verify/{user_id?}', [App\AuthController::class, 'studentVerification'])->name('studentVerification');
 });
 
@@ -31,15 +32,17 @@ Route::group([
     Route::get('/dashboard', [App\LandingController::class, 'index'])->name('index');
 
     Route::group(['prefix' => 'user', 'as' => 'user.', 'controller' => App\UserController::class], static function () {
+
         Route::get('/', 'index')->name('index');
-        Route::get('/show/{user}', 'show')->name('show');
         Route::get('/showClass/{class}', 'showClass')->name('showClass');
-        Route::get('/createClass', 'createClass')->name('createClass');
-        Route::post('/storeClass', 'storeClass')->name('storeClass');
-        Route::get('/registerClass/{class}', 'registerClass')->name('registerClass');
+
         Route::get('/edit',  'edit')->name('edit');
         Route::put('/update', 'update')->name('update');
-        Route::delete('/delete/{user}', 'delete')->name('delete');
+
+        Route::get('/createClass', 'createClass')->name('createClass');
+        Route::post('/storeClass', 'storeClass')->name('storeClass');
+
+        Route::get('/registerClass/{class}', 'registerClass')->name('registerClass');
     });
 });
 
@@ -48,7 +51,7 @@ Route::group([
 Route::group(['prefix' => 'admin', 'as' => 'admin.auth.'], static function () {
     Route::get('/login', [Admin\AuthController::class, 'loginForm'])->name('view_login');
     Route::post('/login', [Admin\AuthController::class, 'login'])->name('process_login');
-    Route::post('/logout', [Admin\AuthController::class, 'logout'])->name('logout');
+    Route::get('/logout', [Admin\AuthController::class, 'logout'])->name('logout');
 });
 
 // Route đã login của admin (chừng sau có middleware)
@@ -79,15 +82,16 @@ Route::group(array(
         Route::delete('/delete/{subject}', [Admin\SubjectController::class, 'delete'])->name('delete');
     });
     Route::group(['prefix' => 'class', 'as' => 'class.', 'controller' => Admin\ClassController::class], static function () {
-        Route::get('/', 'index')->name('index');
+        Route::get('/', 'awaitingClasses')->name('awaitingClasses');
+
         Route::get('/show/{class}', 'show')->name('show');
+
         Route::get('/create', 'create')->name('create');
         Route::post('/store', 'store')->name('store');
+
         Route::get('/pendingSubscription', 'pendingSubscription')->name('pendingSubscription');
         Route::put('/approveSubscription', 'approveSubscription')->name('approveSubscription');
         Route::delete('/deleteSubscription/{class_id}&{student_id}', 'deleteSubscription')->name('deleteSubscription');
-        Route::put('/update', 'update')->name('update');
-        Route::delete('/delete/{class}', 'delete')->name('delete');
     });
 });
 
