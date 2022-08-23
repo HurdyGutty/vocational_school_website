@@ -16,9 +16,14 @@ class UserLogin
      */
     public function handle(Request $request, Closure $next)
     {
+        if (empty(getAccount())) {
+            return redirect()->route('app.auth.view_login');
+        }
         if (getAccount()->is_admin) {
             return redirect()->route('admin.auth.logout');
         }
+
+
 
         return $next($request);
     }

@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Collection;
 
 class GetStudentClassService implements GetClassesInterface
 {
-    private $first_query;
 
     public function __construct()
     {
