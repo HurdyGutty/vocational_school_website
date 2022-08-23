@@ -7,11 +7,19 @@ use App\Http\Requests\Class\DeleteSubscription;
 use App\Http\Requests\Class\SubscriptionApproveRequest;
 use App\Models\ClassModel;
 use App\Models\Subscription;
+use App\Services\GetClassAdminService;
 
 class ClassController extends Controller
 {
-    public function index()
+    public function awaitingClasses()
     {
+        $awaiting_classes = (new GetClassAdminService)->getClasses();
+        return view(
+            'classes.create.awaiting',
+            [
+                'awaiting_classes' => $awaiting_classes,
+            ]
+        );
     }
 
     public function show(ClassModel $class)
