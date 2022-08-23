@@ -16,9 +16,13 @@ class StaffLogin
      */
     public function handle(Request $request, Closure $next)
     {
+        if (empty(getAccount())) {
+            return redirect()->route('admin.auth.view_login');
+        }
         if (!getAccount()->is_admin) {
             return redirect()->route('app.auth.logout');
         }
+
 
         return $next($request);
     }
