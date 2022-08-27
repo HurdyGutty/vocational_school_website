@@ -60,6 +60,9 @@
                         @endforeach
                     </tbody>
                 </table>
+                <div class="pagination pagination-rounded mb-0">
+                    {{$awaiting_classes->links()}}
+                </div>
             </div>
         </div>
     </div>
