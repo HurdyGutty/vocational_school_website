@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Admin site</title>
+    <title>Trang nhân viên</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
     <meta content="Coderthemes" name="author" />
@@ -18,10 +18,10 @@
 <body class="loading"
     data-layout-config='{"leftSideBarTheme":"dark","layoutBoxed":false, "leftSidebarCondensed":false, "leftSidebarScrollable":false,"darkMode":false, "showRightSidebarOnStart": true}'>
     <div class="wrapper">
-        @include('layout-dashboard-site.sidebar')
+        @include('layout-dashboard-site.components.sidebar')
         <div class="content-page">
             <div class="content">
-                @include('layout-dashboard-site.header')
+                @include('layout-dashboard-site.components.header')
 
                 <div class="container-fluid">
                     <div class="row">
@@ -37,13 +37,13 @@
                 </div>
             </div>
 
-            @include('layout-dashboard-site.footer')
+            @include('layout-dashboard-site.components.footer')
 
         </div>
 
     </div>
 
-    @include('layout-dashboard-site.rightsidebar')
+    @include('layout-dashboard-site.components.rightsidebar')
 
     <script src="{{asset('js/admin/vendor.min.js')}}"></script>
     <script src="{{asset('js/admin/app.min.js')}}"></script>
