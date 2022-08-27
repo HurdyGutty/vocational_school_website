@@ -82,17 +82,17 @@ Route::group(array(
         Route::delete('/delete/{subject}', [Admin\SubjectController::class, 'delete'])->name('delete');
     });
     Route::group(['prefix' => 'class', 'as' => 'class.', 'controller' => Admin\ClassController::class], static function () {
-        Route::get('/', 'awaitingClasses')->name('awaitingClasses');
+        Route::get('/awaiting', 'awaitingClasses')->name('awaitingClasses');
         Route::put('/accepted', 'accepted')->name('accepted');
         Route::delete('/denied/{class_id}', 'denied')->name('denied');
 
-
+        Route::get('/', 'index')->name('index');
         Route::get('/show/{class}', 'show')->name('show');
 
         Route::get('/create', 'create')->name('create');
         Route::post('/store', 'store')->name('store');
 
-        Route::get('/pendingSubscription', 'pendingSubscription')->name('pendingSubscription');
+        Route::get('/pending', 'pendingSubscription')->name('pendingSubscription');
         Route::put('/approveSubscription', 'approveSubscription')->name('approveSubscription');
         Route::delete('/deleteSubscription/{class_id}&{student_id}', 'deleteSubscription')->name('deleteSubscription');
     });

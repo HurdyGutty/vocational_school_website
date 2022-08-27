@@ -99,10 +99,15 @@
                                     </a>
                                     <ul class="side-nav-second-level mm-collapse" aria-expanded="false">
                                         <li>
-                                            <a href="#">Quản lý</a>
+                                            <a href="{{route('admin.class.index')}}">Quản lý</a>
                                         </li>
                                         <li>
-                                            <a href="#">Thêm</a>
+                                            <a href="{{route('admin.class.awaitingClasses')}}">Duyệt đơn tạo lớp</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{route('admin.class.pendingSubscription')}}">
+                                                Duyệt đơn đăng ký lớp
+                                            </a>
                                         </li>
                                     </ul>
                                 </li>
