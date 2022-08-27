@@ -11,18 +11,25 @@ use App\Models\Schedule;
 use App\Models\Subscription;
 use App\Services\CreateClassAndScheduleForAdminService;
 use App\Services\GetClassAdminService;
+use App\Traits\Paginatable;
 use Exception;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Request;
 
 class ClassController extends Controller
 {
+    use Paginatable;
     public function awaitingClasses()
     {
-        $awaiting_classes = (new GetClassAdminService)->getClasses();
+        $awaiting_classes = (new GetClassAdminService)->getAwaitingClasses();
+        $paginator = $this->paginate($awaiting_classes, 6);
+
         return view(
             'classes.create.awaiting',
             [
-                'awaiting_classes' => $awaiting_classes,
+                'awaiting_classes' => $paginator,
             ]
         );
     }
@@ -68,8 +75,23 @@ class ClassController extends Controller
         ]);
     }
 
+    public function index()
+    {
+        $classes = (new GetClassAdminService)->getClasses();
+
+        $paginator = $this->paginate($classes, 6);
+
+        return view('classes.index', [
+            'classes' => $paginator,
+        ]);
+    }
+
     public function show(ClassModel $class)
     {
+        $class_info = (new GetClassAdminService)->getOneClass($class);
+        return view('classes.show', [
+            'class_info' => $class_info,
+        ]);
     }
 
     public function create()
