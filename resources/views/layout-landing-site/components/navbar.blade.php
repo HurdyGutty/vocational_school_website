@@ -87,9 +87,9 @@
                                     <span>Tài khoản</span>
                                 </a>
                                 @if (getAccount()->is_admin)
-                                <form action="{{route('admin.auth.logout')}}" method="post">
+                                <form action="{{route('admin.auth.logout')}}" method="GET">
                                     @else
-                                    <form action="{{route('app.auth.logout')}}" method="post">
+                                    <form action="{{route('app.auth.logout')}}" method="GET">
                                         @endif
                                         @csrf
                                         <a href="" class="dropdown-item notify-item">
