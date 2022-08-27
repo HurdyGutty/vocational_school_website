@@ -18,7 +18,7 @@ class GetClassAdminService implements GetClassesInterface
     public function getClasses(): Collection
     {
         return ClassModel::where('status', 0)
-            ->with('teacher:id,name')
+            ->with('teacher:id,name', 'subject:id,name')
             ->with([
                 'xschedules' =>
                 fn ($q) => $q->select('id', 'class_id', 'date', 'start_time', 'end_time')
@@ -29,7 +29,7 @@ class GetClassAdminService implements GetClassesInterface
                 $class->start_time = $class->schedules->take(2)->pluck('start_time');
                 $class->end_time = $class->schedules->take(2)->pluck('end_time');
                 $class->date_time = $class->schedules->take(2)->map->only(['date', 'start_time', 'end_time'])->values()->toArray();
-                $class->unique_timetable = (new TimetableServices($class->date_time))->getUniqueWeekDaysWithTime();
+                $class->timetable = (new TimetableServices($class->date_time))->getAllWeekDaysWithTime();
                 $class->teacher_name = $class->teacher->name;
                 unset($class->teacher);
                 unset($class->schedules);
@@ -46,6 +46,7 @@ class GetClassAdminService implements GetClassesInterface
                 ->select('id', 'class_id', 'date', 'start_time', 'end_time')
         ])
             ->where('id', $class_id)
+            ->where('status', 0)
             ->first();
     }
 }
