@@ -83,6 +83,9 @@ Route::group(array(
     });
     Route::group(['prefix' => 'class', 'as' => 'class.', 'controller' => Admin\ClassController::class], static function () {
         Route::get('/', 'awaitingClasses')->name('awaitingClasses');
+        Route::put('/accepted', 'accepted')->name('accepted');
+        Route::delete('/denied/{class_id}', 'denied')->name('denied');
+
 
         Route::get('/show/{class}', 'show')->name('show');
 
