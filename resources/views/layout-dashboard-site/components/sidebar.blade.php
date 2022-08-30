@@ -56,15 +56,15 @@
                                 <li class="side-nav-item">
                                     <a href="javascript: void(0);" class="side-nav-link">
                                         <i class="uil-store"></i>
-                                        <span> Đơn đăng ký </span>
+                                        <span> Đơn đăng ký lớp</span>
                                         <span class="menu-arrow"></span>
                                     </a>
                                     <ul class="side-nav-second-level mm-collapse" aria-expanded="false">
                                         <li>
-                                            <a href="#">Đơn chờ duyệt</a>
+                                            <a href="{{route('admin.class.pendingSubscription')}}">Đơn chờ duyệt</a>
                                         </li>
                                         <li>
-                                            <a href="##">Lịch sử duyệt</a>
+                                            <a href="{{route('admin.class.subscriptionsHistory')}}">Lịch sử duyệt</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -104,11 +104,7 @@
                                         <li>
                                             <a href="{{route('admin.class.awaitingClasses')}}">Duyệt đơn tạo lớp</a>
                                         </li>
-                                        <li>
-                                            <a href="{{route('admin.class.pendingSubscription')}}">
-                                                Duyệt đơn đăng ký lớp
-                                            </a>
-                                        </li>
+
                                     </ul>
                                 </li>
 
@@ -179,7 +175,6 @@
                                 @endif
 
                                 @if (
-                                getRole() === \App\Enums\AdminRoles::from(1)->showRole() ||
                                 getRole() === \App\Enums\AdminRoles::from(0)->showRole()
                                 )
                                 <li class="side-nav-title side-nav-item mt-1">Vùng dành cho tư vấn viên</li>
@@ -192,7 +187,7 @@
                                 </li>
 
                                 <li class="side-nav-item">
-                                    <a href="#" class="side-nav-link">
+                                    <a href="{{route('admin.class.subscriptionsHistory')}}" class="side-nav-link">
                                         <i class="uil-calcualtor"></i>
                                         <span> Lịch sử đơn đăng kí </span>
                                     </a>
