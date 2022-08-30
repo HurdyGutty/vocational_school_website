@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\App;
 use App\Http\Controllers\Admin;
+use App\Http\Middleware\AdminMiddleware\AdminLogin;
 use App\Http\Middleware\AdminMiddleware\StaffLogin;
+use App\Http\Middleware\AppMiddleware\TeacherLogin;
 use App\Http\Middleware\AppMiddleware\UserLogin;
 use App\Mail\WelcomeMail;
 use App\Services\CheckScheduleService;
@@ -39,10 +41,12 @@ Route::group([
         Route::get('/edit',  'edit')->name('edit');
         Route::put('/update', 'update')->name('update');
 
-        Route::get('/createClass', 'createClass')->name('createClass');
-        Route::post('/storeClass', 'storeClass')->name('storeClass');
-
         Route::get('/registerClass/{class}', 'registerClass')->name('registerClass');
+
+        Route::group(['middleware' => [TeacherLogin::class]], static function () {
+            Route::get('/createClass', 'createClass')->name('createClass');
+            Route::post('/storeClass', 'storeClass')->name('storeClass');
+        });
     });
 });
 
@@ -62,7 +66,7 @@ Route::group(array(
 ), static function () {
     Route::get('/', [Admin\LandingController::class, 'index'])->name('index');
 
-    Route::group(['prefix' => 'major', 'as' => 'major.'], static function () {
+    Route::group(['prefix' => 'major', 'as' => 'major.', 'middleware' => [AdminLogin::class]], static function () {
         Route::get('/', [Admin\MajorController::class, 'index'])->name('index');
         Route::get('/show/{major}', [Admin\MajorController::class, 'show'])->name('show');
         Route::get('/create', [Admin\MajorController::class, 'create'])->name('create');
@@ -72,7 +76,7 @@ Route::group(array(
         Route::delete('/delete/{major}', [Admin\MajorController::class, 'delete'])->name('delete');
     });
 
-    Route::group(['prefix' => 'subject', 'as' => 'subject.'], static function () {
+    Route::group(['prefix' => 'subject', 'as' => 'subject.', 'middleware' => [AdminLogin::class]], static function () {
         Route::get('/', [Admin\SubjectController::class, 'index'])->name('index');
         Route::get('/show/{subject}', [Admin\SubjectController::class, 'show'])->name('show');
         Route::get('/create', [Admin\SubjectController::class, 'create'])->name('create');
@@ -81,20 +85,41 @@ Route::group(array(
         Route::put('/update', [Admin\SubjectController::class, 'update'])->name('update');
         Route::delete('/delete/{subject}', [Admin\SubjectController::class, 'delete'])->name('delete');
     });
+
     Route::group(['prefix' => 'class', 'as' => 'class.', 'controller' => Admin\ClassController::class], static function () {
-        Route::get('/awaiting', 'awaitingClasses')->name('awaitingClasses');
-        Route::put('/accepted', 'accepted')->name('accepted');
-        Route::delete('/denied/{class_id}', 'denied')->name('denied');
+        Route::group(['middleware' => [AdminLogin::class]], static function () {
+            Route::get('/awaiting', 'awaitingClasses')->name('awaitingClasses');
+            Route::put('/accepted', 'accepted')->name('accepted');
+            Route::delete('/denied/{class_id}', 'denied')->name('denied');
 
-        Route::get('/', 'index')->name('index');
-        Route::get('/show/{class}', 'show')->name('show');
+            Route::get('/', 'index')->name('index');
+            Route::get('/show/{class}', 'show')->name('show');
 
-        Route::get('/create', 'create')->name('create');
-        Route::post('/store', 'store')->name('store');
+            Route::put('/restoreSubscription', 'restoreSubscription')->name('restoreSubscription');
+        });
 
+        Route::get('/history', 'subscriptionsHistory')->name('subscriptionsHistory');
         Route::get('/pending', 'pendingSubscription')->name('pendingSubscription');
         Route::put('/approveSubscription', 'approveSubscription')->name('approveSubscription');
         Route::delete('/deleteSubscription/{class_id}&{student_id}', 'deleteSubscription')->name('deleteSubscription');
+    });
+
+    Route::group(['prefix' => 'staff', 'as' => 'staff.', 'middleware' => [AdminLogin::class], 'controller' => Admin\StaffController::class], static function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/show/{staff}', 'show')->name('show');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/store', 'store')->name('store');
+        Route::put('/lock', 'lock')->name('lock');
+        Route::put('/unlock', 'unlock')->name('unlock');
+    });
+
+    Route::group(['prefix' => 'teacher', 'as' => 'teacher.', 'middleware' => [AdminLogin::class], 'controller' => Admin\TeacherController::class], static function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/show/{teacher}', 'show')->name('show');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/store', 'store')->name('store');
+        Route::put('/lock', 'lock')->name('lock');
+        Route::put('/unlock', 'unlock')->name('unlock');
     });
 });
 
