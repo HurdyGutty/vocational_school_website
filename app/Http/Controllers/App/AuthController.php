@@ -124,6 +124,11 @@ class AuthController extends Controller
         try {
             DB::Transaction(function () use ($user_id) {
                 if (!empty($user_id)) {
+                    if ($user_id->role) {
+                        return redirect()->route('index')->with([
+                            'unverified' => 'Xác minh thất bại'
+                        ]);
+                    }
                     $user_id->update([
                         'active' => 1,
                     ]);
@@ -142,7 +147,7 @@ class AuthController extends Controller
         } catch (\Exception $ex) {
             return redirect()->route('index')->with([
                 'unverified' => 'Xác minh thất bại'
-            ]);;
+            ]);
         }
     }
 }

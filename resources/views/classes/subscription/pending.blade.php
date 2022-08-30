@@ -1,7 +1,7 @@
 @extends('layout-dashboard-site.master')
 
 @section('content')
-<div class="title">
+<div class="title my-3">
     <h1>Đơn đăng ký</h1>
 </div>
 <div class="row">
@@ -59,6 +59,9 @@
                         @endforeach
                     </tbody>
                 </table>
+                <div class="pagination pagination-rounded mb-0">
+                    {{$pending_classes->links()}}
+                </div>
             </div>
         </div>
     </div>
