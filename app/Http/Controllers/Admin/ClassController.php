@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Class\ClassAcceptRequest;
 use App\Http\Requests\Class\DeleteSubscription;
+use App\Http\Requests\Class\RestoreSubscriptionRequest;
 use App\Http\Requests\Class\SubscriptionApproveRequest;
 use App\Models\ClassModel;
 use App\Models\Schedule;
@@ -94,13 +95,6 @@ class ClassController extends Controller
         ]);
     }
 
-    public function create()
-    {
-    }
-    public function store()
-    {
-    }
-
     public function pendingSubscription()
     {
         $pending_classes = ClassModel::with(
@@ -144,7 +138,9 @@ class ClassController extends Controller
     {
         try {
             DB::Transaction(function () use ($class_id, $student_id) {
-                Subscription::where('class_id', $class_id)->where('student_id', $student_id)->delete();
+                $subscription =  Subscription::where('class_id', $class_id)->where('student_id', $student_id);
+                $subscription->update(['admin_id' => getAccount()->id]);
+                $subscription->delete();
             });
         } catch (\Exception $ex) {
             return redirect()->route('admin.class.pendingSubscription')->with([
@@ -152,6 +148,44 @@ class ClassController extends Controller
             ]);
         }
         return redirect()->route('admin.class.pendingSubscription')->with([
+            'successMessage' => 'Thành công'
+        ]);
+    }
+
+    public function subscriptionsHistory()
+    {
+        $subscriptions = Subscription::withTrashed()->whereNot([
+            ['admin_id', null], ['deleted_at', null]
+        ])
+            ->when((getAccount()->is_admin && getAccount()->role == 0),
+                fn ($q) => $q->where('admin_id', getAccount()->id)
+            )
+            ->with(['class:id,name,date_start', 'student:id,name', 'admin:id,name'])
+            ->paginate(15);
+
+        return view('classes.subscription.history', [
+            "subscriptions" => $subscriptions
+        ]);
+    }
+
+    public function restoreSubscription(RestoreSubscriptionRequest $request)
+    {
+        $validated = $request->validated();
+        $class_id = $validated['class_id'];
+        $student_id = $validated['student_id'];
+
+        try {
+            DB::Transaction(function () use ($class_id, $student_id) {
+                $subscription =  Subscription::where('class_id', $class_id)->where('student_id', $student_id);
+                $subscription->update(['admin_id' => getAccount()->id]);
+                $subscription->restore();
+            });
+        } catch (\Exception $ex) {
+            return redirect()->route('admin.class.pendingSubscription')->with([
+                'restoreErrorMessage' => 'Chưa khôi phục được đơn',
+            ]);
+        }
+        return redirect()->route('admin.class.subscriptionsHistory')->with([
             'successMessage' => 'Thành công'
         ]);
     }
