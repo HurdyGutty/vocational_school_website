@@ -69,4 +69,9 @@ class ClassModel extends Model
     {
         return $this->belongsToMany(User::class, 'subscriptions', 'class_id', 'student_id');
     }
+
+    public function admins(): BelongsToMany
+    {
+        return $this->belongsToMany(Admin::class, 'subscriptions', 'class_id', 'admin_id');
+    }
 }
