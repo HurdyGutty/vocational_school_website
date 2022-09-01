@@ -116,7 +116,7 @@
                                     </a>
                                     <ul class="side-nav-second-level mm-collapse" aria-expanded="false">
                                         <li>
-                                            <a href="#">Quản lý</a>
+                                            <a href="{{route('admin.staff.index')}}">Quản lý</a>
                                         </li>
                                         <li>
                                             <a href="#">Thêm</a>
@@ -132,7 +132,7 @@
                                     </a>
                                     <ul class="side-nav-second-level mm-collapse" aria-expanded="false">
                                         <li>
-                                            <a href="#">Quản lý</a>
+                                            <a href="{{route('admin.teacher.index')}}">Quản lý</a>
                                         </li>
                                         <li>
                                             <a href="#">Thêm</a>

@@ -41,5 +41,5 @@
 @endsection
 
 @push('js')
-<script src="{{asset('js/plugins/bootstrap-tagsinput.js')}}"></script>
+<script></script>
 @endpush

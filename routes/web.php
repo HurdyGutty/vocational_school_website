@@ -7,6 +7,8 @@ use App\Http\Middleware\AdminMiddleware\StaffLogin;
 use App\Http\Middleware\AppMiddleware\TeacherLogin;
 use App\Http\Middleware\AppMiddleware\UserLogin;
 use App\Mail\WelcomeMail;
+use App\Services\AccountService\StaffAccount;
+use App\Services\AccountService\TeacherAccount;
 use App\Services\CheckScheduleService;
 use Illuminate\Support\Facades\Route;
 
@@ -106,23 +108,23 @@ Route::group(array(
 
     Route::group(['prefix' => 'staff', 'as' => 'staff.', 'middleware' => [AdminLogin::class], 'controller' => Admin\StaffController::class], static function () {
         Route::get('/', 'index')->name('index');
-        Route::get('/show/{staff}', 'show')->name('show');
+        Route::post('/show/{staff}', 'show')->name('show');
         Route::get('/create', 'create')->name('create');
         Route::post('/store', 'store')->name('store');
-        Route::put('/lock', 'lock')->name('lock');
-        Route::put('/unlock', 'unlock')->name('unlock');
+        Route::put('/lock/{staff}', 'lock')->name('lock');
+        Route::put('/unlock/{staff}', 'unlock')->name('unlock');
     });
 
     Route::group(['prefix' => 'teacher', 'as' => 'teacher.', 'middleware' => [AdminLogin::class], 'controller' => Admin\TeacherController::class], static function () {
         Route::get('/', 'index')->name('index');
-        Route::get('/show/{teacher}', 'show')->name('show');
+        Route::post('/show/{teacher}', 'show')->name('show');
         Route::get('/create', 'create')->name('create');
         Route::post('/store', 'store')->name('store');
-        Route::put('/lock', 'lock')->name('lock');
-        Route::put('/unlock', 'unlock')->name('unlock');
+        Route::put('/lock/{teacher}', 'lock')->name('lock');
+        Route::put('/unlock/{teacher}', 'unlock')->name('unlock');
     });
 });
 
 //Route test email
 Route::get('/test/mail', fn () => new WelcomeMail(1, 3));
-Route::get('/test/service', fn () => (new CheckScheduleService(31, 101))->checkTeacher());
+Route::get('/test/service', fn () => (new TeacherAccount(false, 1))->getOneAccount(3));
