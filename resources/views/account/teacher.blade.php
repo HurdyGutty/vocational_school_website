@@ -47,14 +47,21 @@
                                 <p class="text-muted font-13 mb-1
                                     mt-2">Số điện thoại: {{ $teacher->phone }}
                                 </p>
-                                <p class="text-muted font-13 mb-1 mt-2">
-                                    Số lớp đã và đang dạy: <span class='succeeded_subscriptions'></span> đơn trong số
-                                    <span class='succeeded_classes'></span> lớp
-                                </p>
-                                <p class="text-muted font-13 mb-1 mt-2">
-                                    Số đơn thất bại: <span class='failed_subscriptions'></span> đơn trong số <span
-                                        class='failed_classes'></span> lớp
-                                </p>
+                                <div class=" font-13 mb-1 mt-2 row">
+                                    <p class='text-muted col-3'>
+                                        <span class='created_classes font-weight-bold'></span> lớp cần duyệt
+                                    </p>
+                                    <p class='text-muted col-3'>
+                                        <span class='ongoing_classes font-weight-bold'></span> lớp đang dạy
+                                    </p>
+
+                                    <p class="text-muted col-3">
+                                        <span class='ended_classes font-weight-bold'></span> lớp hoàn thành
+                                    </p>
+                                    <p class='text-muted col-3'>
+                                        <span class='periods font-weight-bold'></span> tiết hoàn thành
+                                    </p>
+                                </div>
                             </div>
                             <div class="modal-footer">
                                 <div class="active_message"></div>
@@ -71,8 +78,6 @@
                                     @method('PUT')
                                     <button type="submit" class="btn btn-primary">Mở khoá</button>
                                 </form>
-
-
                             </div>
                         </div><!-- /.modal-content -->
                     </div><!-- /.modal-dialog -->
@@ -104,10 +109,10 @@ $('.show-account').submit(function(e) {
             data: form.serialize()
         })
         .done(function(data) {
-            card.find('span.succeeded_subscriptions').text(data.subscriptions_count);
-            card.find('span.succeeded_classes').text(data.success_class_count);
-            card.find('span.failed_subscriptions').text(data.failed_subscriptions);
-            card.find('span.failed_classes').text(data.failed_classes);
+            card.find('span.created_classes').text(data.classes_created);
+            card.find('span.ongoing_classes').text(data.classes_on);
+            card.find('span.ended_classes').text(data.classes_ended);
+            card.find('span.periods').text(data.periods_count);
         });
 })
 
