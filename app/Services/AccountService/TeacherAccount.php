@@ -28,7 +28,7 @@ class TeacherAccount extends AccountService implements AccountInterface
             'classes as classes_created' => fn (Builder $q) => $q->where('status', 0),
             'classes as classes_on' => fn (Builder $q) => $q->whereIn('status', [1, 2]),
             'classes as classes_ended' => fn (Builder $q) => $q->where('status', 3),
-            'schedulesTeacher as periods_count' => fn (Builder $q) => $q->whereHas('class', fn ($q) => $q->where('status', '>', 0)),
+            'schedulesTeacher as periods_count' => fn (Builder $q) => $q->whereHas('class', fn ($q) => $q->where('status', '=', 3)),
         ])
             ->first();
     }
