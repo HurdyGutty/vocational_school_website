@@ -29,7 +29,17 @@
                             <td>{{date_format(date_create($class->subscriptions->pluck('register_time')->first()),"H:i:s d/m/Y")}}
                             </td>
                             <td>{{date_format(date_create($class->date_start),"d/m/Y")}}</td>
-                            <td>{{((new App\Services\CheckScheduleService($class->id, $class->students->pluck('id')->first()))->checkStudent()) ? "Ổn" : "Bị trùng"}}
+                            <td class="text-center">
+                                <form class="form_check" action="{{route('admin.class.checkSchedule',
+                                    [
+                                        'class_id' => $class->id,
+                                        'user_id' => $class->students->pluck('id')->first(),
+                                        'is_teacher' => 0,
+                                        ])}}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-info checking">Kiểm tra lịch</button>
+                                </form>
+                                <div class="check_schedule row"></div>
                             </td>
 
                             <td>
@@ -69,5 +79,27 @@
 @endsection
 
 @push('js')
-<script src="{{asset('js/plugins/bootstrap-tagsinput.js')}}"></script>
+<script>
+$('form.form_check').submit(function(e) {
+    e.preventDefault();
+    let form = $(this);
+    let td = $(this).parent();
+
+    $.ajax({
+            url: form.attr('action'),
+            type: "POST",
+            dataType: 'json',
+            data: form.serialize()
+        })
+        .done(function(data) {
+            if (data.status) {
+                td.find('div.check_schedule').text(data.checked).addClass("text-center");
+                form.attr('hidden', true);
+            } else {
+                td.find('div.check_schedule').text(data.message).addClass("text-center");
+                form.attr('hidden', false);
+            }
+        })
+})
+</script>
 @endpush

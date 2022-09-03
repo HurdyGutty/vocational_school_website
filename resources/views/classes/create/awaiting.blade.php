@@ -11,13 +11,13 @@
                 <table class="table table-centered mb-0">
                     <thead>
                         <tr>
-                            <th>Tên giáo viên</th>
-                            <th>Môn học</th>
-                            <th>Tên lớp</th>
-                            <th>Ca</th>
-                            <th>Kiểm tra lịch</th>
-                            <th>Chấp thuận</th>
-                            <th>Từ chối</th>
+                            <th class="text-center">Tên giáo viên</th>
+                            <th class="text-center">Môn học</th>
+                            <th class="text-center">Tên lớp</th>
+                            <th class="text-center">Ca</th>
+                            <th class="text-center">Kiểm tra lịch</th>
+                            <th class="text-center">Chấp thuận</th>
+                            <th class="text-center">Từ chối</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -32,8 +32,19 @@
                                 <div>{{$timetable}}</div>
                                 @endforeach
                             </td>
-                            <td>
-                                <!-- {{((new App\Services\CheckScheduleService($class->id, $class->teacher_id))->checkTeacher()) ? "Ổn" : "Bị trùng"}} -->
+                            <td class="text-center">
+                                <form class="form_check" action="{{route('admin.class.checkSchedule',
+                                    [
+                                        'class_id' => $class->id,
+                                        'user_id' => $class->teacher_id,
+                                        'is_teacher' => 1,
+                                        ])}}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-info checking">Kiểm tra lịch</button>
+
+                                </form>
+
+                                <div class="check_schedule row"></div>
                             </td>
 
                             <td>
@@ -42,9 +53,9 @@
                                     @csrf
                                     <input type="hidden" id="class_id" name="class_id" value="{{$class->id}}" />
                                     <label class="sr-only" for="period">Số buổi</label>
-                                    <input type="number" id="period" name="period" class="form-control mb-2 mr-sm-2"
-                                        placeholder="Số buổi" />
-                                    <button type="submit" class="btn btn-primary mb-2  ">Tạo</button>
+                                    <input type="number" id="period" name="period"
+                                        class="form-control my-2 mr-sm-2 col-sm-8" placeholder="Số buổi" />
+                                    <button type="submit" class="btn btn-primary my-2 col-sm-3 ">Tạo</button>
                                 </form>
                             </td>
                             <td>
@@ -70,5 +81,27 @@
 @endsection
 
 @push('js')
-<script src="{{asset('js/plugins/bootstrap-tagsinput.js')}}"></script>
+<script>
+$('form.form_check').submit(function(e) {
+    e.preventDefault();
+    let form = $(this);
+    let td = $(this).parent();
+
+    $.ajax({
+            url: form.attr('action'),
+            type: "POST",
+            dataType: 'json',
+            data: form.serialize()
+        })
+        .done(function(data) {
+            if (data.status) {
+                td.find('div.check_schedule').text(data.checked).addClass("text-center");
+                form.attr('hidden', true);
+            } else {
+                td.find('div.check_schedule').text(data.message).addClass("text-center");
+                form.attr('hidden', false);
+            }
+        })
+})
+</script>
 @endpush

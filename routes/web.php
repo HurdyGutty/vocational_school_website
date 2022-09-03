@@ -99,7 +99,7 @@ Route::group(array(
 
             Route::put('/restoreSubscription', 'restoreSubscription')->name('restoreSubscription');
         });
-
+        Route::post('/check/{class_id}/{user_id}/{is_teacher}', 'checkSchedule')->name('checkSchedule');
         Route::get('/history', 'subscriptionsHistory')->name('subscriptionsHistory');
         Route::get('/pending', 'pendingSubscription')->name('pendingSubscription');
         Route::put('/approveSubscription', 'approveSubscription')->name('approveSubscription');

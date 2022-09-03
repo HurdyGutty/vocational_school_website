@@ -9,7 +9,10 @@ use Illuminate\Support\Collection;
 
 class CheckScheduleService
 {
-    public function __construct($class_id, $user_id)
+    private $new_class;
+    private $user;
+
+    public function __construct(int $class_id, int $user_id)
     {
         $this->new_class = $class_id;
         $this->user = $user_id;
