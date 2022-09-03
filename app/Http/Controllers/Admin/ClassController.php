@@ -10,21 +10,20 @@ use App\Http\Requests\Class\SubscriptionApproveRequest;
 use App\Models\ClassModel;
 use App\Models\Schedule;
 use App\Models\Subscription;
+use App\Services\CheckScheduleService;
 use App\Services\CreateClassAndScheduleForAdminService;
 use App\Services\GetClassAdminService;
 use App\Traits\Paginatable;
 use Exception;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Request;
 
 class ClassController extends Controller
 {
     use Paginatable;
+
     public function awaitingClasses()
     {
-        $awaiting_classes = (new GetClassAdminService)->getAwaitingClasses();
+        $awaiting_classes = (new GetClassAdminService())->getAwaitingClasses();
         $paginator = $this->paginate($awaiting_classes, 6);
 
         return view(
@@ -38,8 +37,8 @@ class ClassController extends Controller
     public function accepted(ClassAcceptRequest $request)
     {
         $accepted = $request->validated();
-        $class_id = (int)$accepted['class_id'];
-        $period = (int)$accepted['period'];
+        $class_id = (int) $accepted['class_id'];
+        $period = (int) $accepted['period'];
 
         try {
             DB::Transaction(function () use ($class_id, $period) {
@@ -53,9 +52,10 @@ class ClassController extends Controller
                 'updateErrorMessage' => 'Chưa cập nhật lớp',
             ]);
         }
+
         return redirect()->route('admin.class.awaitingClasses')->with([
-            'successMessage' => 'Thành công'
-        ]);;
+            'successMessage' => 'Thành công',
+        ]);
     }
 
     public function denied(DeleteSubscription $request, $class_id)
@@ -72,13 +72,13 @@ class ClassController extends Controller
         }
 
         return redirect()->route('admin.class.awaitingClasses')->with([
-            'successMessage' => 'Thành công'
+            'successMessage' => 'Thành công',
         ]);
     }
 
     public function index()
     {
-        $classes = (new GetClassAdminService)->getClasses();
+        $classes = (new GetClassAdminService())->getClasses();
 
         $paginator = $this->paginate($classes, 6);
 
@@ -89,7 +89,8 @@ class ClassController extends Controller
 
     public function show(ClassModel $class)
     {
-        $class_info = (new GetClassAdminService)->getOneClass($class);
+        $class_info = (new GetClassAdminService())->getOneClass($class);
+
         return view('classes.show', [
             'class_info' => $class_info,
         ]);
@@ -100,23 +101,25 @@ class ClassController extends Controller
         $pending_classes = ClassModel::with(
             [
                 'students' => fn ($q) => $q->select('id', 'name')
-                    ->whereIn('id', fn ($q) => $q->select('student_id')->from('subscriptions')->whereNull('admin_id'))
+                    ->whereIn('id', fn ($q) => $q->select('student_id')->from('subscriptions')->whereNull('admin_id')),
             ]
         )->with(
             [
-                'subscriptions' => fn ($q) => $q->select('class_id', 'register_time')->whereNull('admin_id')
+                'subscriptions' => fn ($q) => $q->select('class_id', 'register_time')->whereNull('admin_id'),
             ]
         )
             ->whereIn('id', fn ($q) => $q->select('class_id')->from('subscriptions')->whereNull('admin_id'))
             ->paginate(15);
+
         return view('classes.subscription.pending', [
-            'pending_classes' => $pending_classes
+            'pending_classes' => $pending_classes,
         ]);
     }
 
     public function approveSubscription(SubscriptionApproveRequest $request)
     {
         $subscription = $request->validated();
+
         try {
             DB::Transaction(function () use ($subscription) {
                 Subscription::where('student_id', $subscription['student_id'])
@@ -130,7 +133,7 @@ class ClassController extends Controller
         }
 
         return redirect()->route('admin.class.pendingSubscription')->with([
-            'successMessage' => 'Thành công'
+            'successMessage' => 'Thành công',
         ]);
     }
 
@@ -138,7 +141,7 @@ class ClassController extends Controller
     {
         try {
             DB::Transaction(function () use ($class_id, $student_id) {
-                $subscription =  Subscription::where('class_id', $class_id)->where('student_id', $student_id);
+                $subscription = Subscription::where('class_id', $class_id)->where('student_id', $student_id);
                 $subscription->update(['admin_id' => getAccount()->id]);
                 $subscription->delete();
             });
@@ -147,24 +150,26 @@ class ClassController extends Controller
                 'deleteErrorMessage' => 'Chưa huỷ được đơn',
             ]);
         }
+
         return redirect()->route('admin.class.pendingSubscription')->with([
-            'successMessage' => 'Thành công'
+            'successMessage' => 'Thành công',
         ]);
     }
 
     public function subscriptionsHistory()
     {
         $subscriptions = Subscription::withTrashed()->whereNot([
-            ['admin_id', null], ['deleted_at', null]
+            ['admin_id', null], ['deleted_at', null],
         ])
-            ->when((getAccount()->is_admin && getAccount()->role == 0),
+            ->when(
+                getAccount()->is_admin && 0 == getAccount()->role,
                 fn ($q) => $q->where('admin_id', getAccount()->id)
             )
             ->with(['class:id,name,date_start', 'student:id,name', 'admin:id,name'])
             ->paginate(15);
 
         return view('classes.subscription.history', [
-            "subscriptions" => $subscriptions
+            'subscriptions' => $subscriptions,
         ]);
     }
 
@@ -176,7 +181,7 @@ class ClassController extends Controller
 
         try {
             DB::Transaction(function () use ($class_id, $student_id) {
-                $subscription =  Subscription::where('class_id', $class_id)->where('student_id', $student_id);
+                $subscription = Subscription::where('class_id', $class_id)->where('student_id', $student_id);
                 $subscription->update(['admin_id' => getAccount()->id]);
                 $subscription->restore();
             });
@@ -185,8 +190,34 @@ class ClassController extends Controller
                 'restoreErrorMessage' => 'Chưa khôi phục được đơn',
             ]);
         }
+
         return redirect()->route('admin.class.subscriptionsHistory')->with([
-            'successMessage' => 'Thành công'
+            'successMessage' => 'Thành công',
         ]);
+    }
+
+    public function checkSchedule(int $class_id, int $user_id, int $is_teacher)
+    {
+        try {
+            $check = DB::Transaction(function () use ($class_id, $user_id, $is_teacher) {
+                if ($is_teacher) {
+                    return (new CheckScheduleService($class_id, $user_id))->checkTeacher();
+                } else {
+                    return (new CheckScheduleService($class_id, $user_id))->checkStudent();
+                }
+            });
+        } catch (\Exception $ex) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Lỗi khi kiểm tra',
+            ], 400);
+        }
+
+        $checked = $check ? "Không trùng lịch" : "Trùng lịch";
+
+        return response()->json([
+            'status' => true,
+            'checked' => $checked,
+        ], 200);
     }
 }
