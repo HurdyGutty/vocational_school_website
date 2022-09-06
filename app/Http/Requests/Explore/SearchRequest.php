@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Explore;
 
-use phpDocumentor\Reflection\Types\Nullable;
+use App\Http\Requests\BaseRequest;
 
 class SearchRequest extends BaseRequest
 {
@@ -14,13 +14,14 @@ class SearchRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'search' => [
+            'major_name' => [
+                'bail',
                 'nullable',
                 'string',
             ]
         ];
     }
-    public function messages():array
+    public function messages(): array
     {
         return [
             'string' => ':attribute phải là chữ',

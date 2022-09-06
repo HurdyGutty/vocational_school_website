@@ -18,10 +18,9 @@ class AuthController extends Controller
 {
     public function loginForm(): View
     {
-        //     if(!session()->has('url.intended'))
-        // {
-        //     session(['url.intended' => url()->previous()]);
-        // }
+        if (!session()->has('url.intended')) {
+            session(['url.intended' => url()->previous()]);
+        }
         return view('landing_auth.login');
     }
 
@@ -40,7 +39,11 @@ class AuthController extends Controller
                 $token = $this->generateToken($user);
                 session()->put('token', $token);
 
-                return redirect()->route('app.index');
+                if (getAccount()->role == 1) {
+                    return redirect()->route('app.index');
+                } else {
+                    return (session()->has('url.intended')) ? redirect(session('url.intended')) : redirect()->route('index');
+                }
             }
             return redirect()->back()->with([
                 'activationError' => 'Bạn cần xác nhận qua email'
