@@ -7,14 +7,15 @@ use App\Http\Middleware\AdminMiddleware\StaffLogin;
 use App\Http\Middleware\AppMiddleware\TeacherLogin;
 use App\Http\Middleware\AppMiddleware\UserLogin;
 use App\Mail\WelcomeMail;
-use App\Services\AccountService\StaffAccount;
-use App\Services\AccountService\TeacherAccount;
-use App\Services\CheckScheduleService;
+use App\Services\ShowAccountService\ShowStaff;
+use App\Services\ShowAccountService\ShowTeacher;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [App\HomeController::class, 'index'])->name('index');
 Route::get('/explore', [App\HomeController::class, 'explore'])->name('explore');
 Route::get('/explore/{subject}/classes', [App\HomeController::class, 'showClass'])->name('showClass')->where(['subject' => '^[0-9]+$']);
+Route::get('/teacher/{teacher}', [App\HomeController::class, 'showTeacher'])->name('showTeacher')->where(['teacher' => '^[0-9]+$']);
+Route::get('/staff/{staff}', [App\HomeController::class, 'showStaff'])->name('showStaff')->where(['staff' => '^[0-9]+$']);
 
 // Route chưa login của học sinh và giáo viên
 Route::group(['as' => 'app.auth.'], static function () {
@@ -127,4 +128,4 @@ Route::group(array(
 
 //Route test email
 Route::get('/test/mail', fn () => new WelcomeMail(1, 3));
-Route::get('/test/service', fn () => (new TeacherAccount(false, 1))->getOneAccount(3));
+Route::get('/test/service', fn () => (new ShowStaff)->show(4));
