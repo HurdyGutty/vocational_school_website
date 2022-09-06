@@ -3,9 +3,14 @@
 namespace App\Http\Controllers\App;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SearchRequest;
-use App\Models\ClassModel;
+use App\Http\Requests\Explore\ClassSearchRequest;
+use App\Http\Requests\Explore\SearchRequest;
+use App\Models\Admin;
 use App\Models\Subject;
+use App\Models\User;
+use App\Services\ExploreClassesService;
+use App\Services\ShowAccountService\ShowStaff;
+use App\Services\ShowAccountService\ShowTeacher;
 use Illuminate\Contracts\View\View;
 
 class HomeController extends Controller
@@ -16,37 +21,55 @@ class HomeController extends Controller
     }
     public function explore(SearchRequest $request): View
     {
+        $request->flash();
         $search = $request->validated();
-        !empty($search)?
-        $subjects = Subject::withcount(['classes' => fn($query) => $query->where('status',1)])
-        ->where('name','like',"%{$search['search']}%")
-        ->whereHas('classes' , fn($query) => $query->where('status',1))
-        ->paginate(9)
-        :$subjects = Subject::withcount(['classes' => fn($query) => $query->where('status',1)])
-        ->whereHas('classes' , fn($query) => $query->where('status',1))
-        ->paginate(9)
-        ;
-        return view('explore.explore',[
-            'subjects' => $subjects,
+
+        $majors = (new ExploreClassesService($search))->explore();
+
+        return view('explore.explore', [
+            'majors' => $majors,
         ]);
     }
-    public function showClass(Subject $subject, SearchRequest $request): View
+
+    public function showClass(Subject $subject, ClassSearchRequest $request): View
     {
+        $request->flash();
         $search = $request->validated();
-        !empty($search)?
-        $classes = ClassModel::with('schedules','teacher:id,name')->where('subject_id',$subject->id)
-        ->where('status',1)
-        ->has('teacher.name','like',"%{$search['search']}%")
-        ->get()
-        :
-        $classes = ClassModel::with('schedules','teacher:id,name')->where('subject_id',$subject->id)
-        ->where('status',1)
-        ->get()
-        ;
-        return view('explore.showClass',[
+        if (isset($search['time'])) {
+            $search['time'] = ($search['time'] == 1 ? '17:00:00' : '19:00:00');
+        };
+        $classes = (new ExploreClassesService($search))->showClass($subject->id);
+        return view('explore.showClass', [
             'classes' => $classes,
             'subject' => $subject,
         ]);
     }
 
+    public function showTeacher(User $teacher)
+    {
+
+        try {
+            $teacher = (new ShowTeacher())->show($teacher->id);
+        } catch (\Exception $ex) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Chưa hiện được thông tin',
+            ]);
+        }
+        return response()->json($teacher, 200);
+    }
+
+    public function showStaff(Admin $staff)
+    {
+
+        try {
+            $teacher = (new ShowStaff())->show($staff->id);
+        } catch (\Exception $ex) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Chưa hiện được thông tin',
+            ]);
+        }
+        return response()->json($teacher, 200);
+    }
 }
