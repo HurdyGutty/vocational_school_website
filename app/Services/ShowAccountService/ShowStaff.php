@@ -23,6 +23,6 @@ class ShowStaff
         )
             ->where('admins.id', $id)
             ->select('admins.id', 'admins.name', 'admins.gender', DB::raw('YEAR(date_of_birth) as birth_year'), 'student_count')
-            ->get();
+            ->first();
     }
 }
