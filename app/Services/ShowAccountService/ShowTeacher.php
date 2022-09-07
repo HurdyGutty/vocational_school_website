@@ -31,6 +31,6 @@ class ShowTeacher
         )
             ->where('users.id', $id)
             ->select('users.id', 'users.name', 'users.gender', DB::raw('YEAR(date_of_birth) as birth_year'), 'class_count', 'student_sum')
-            ->get();
+            ->first();
     }
 }
