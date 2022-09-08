@@ -4,6 +4,7 @@ namespace App\Http\Controllers\App;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Explore\ClassSearchRequest;
+use App\Http\Requests\Explore\SearchNameRequest;
 use App\Http\Requests\Explore\SearchRequest;
 use App\Models\Admin;
 use App\Models\Subject;
@@ -38,10 +39,38 @@ class HomeController extends Controller
         if (isset($search['time'])) {
             $search['time'] = ($search['time'] == 1 ? '17:00:00' : '19:00:00');
         };
+
         $classes = (new ExploreClassesService($search))->showClass($subject->id);
+
         return view('explore.showClass', [
             'classes' => $classes,
             'subject' => $subject,
+        ]);
+    }
+
+    public function teacherList(SearchNameRequest $request)
+    {
+        $request->flash();
+        $name = $request->validated('name');
+
+        $teachers = User::select('id', 'name')->where('role', 1)
+            ->where('name', 'like', "%{$name}%")->paginate(9);
+
+        return view('explore.showTeacher', [
+            'teachers' => $teachers,
+        ]);
+    }
+
+    public function staffList(SearchNameRequest $request)
+    {
+        $request->flash();
+        $name = $request->validated('name');
+
+        $staffs = Admin::select('id', 'name')->where('role', 0)
+            ->where('name', 'like', "%{$name}%")->paginate(9);
+
+        return view('explore.showStaff', [
+            'staffs' => $staffs,
         ]);
     }
 
