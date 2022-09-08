@@ -10,6 +10,8 @@
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-header">Thông tin mở rộng</a>
                 <a class="dropdown-item" href="#">Thi thử lý thuyết</a>
+                <a class="dropdown-item" href="{{route('teacherList')}}">Danh sách giáo viên</a>
+                <a class="dropdown-item" href="{{route('staffList')}}">Danh sách tư vấn viên</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#">Tin tức</a>
                 <a class="dropdown-item" href="#">Liên hệ</a>
@@ -103,24 +105,6 @@
                     </div>
                 </li>
                 @endif
-                <!-- <li class="nav-item">
-					<a class="nav-link" rel="tooltip" title="Follow us on Twitter" data-placement="bottom" href="https://twitter.com/CreativeTim" target="_blank">
-						<i class="fa fa-twitter"></i>
-						<p class="hidden-lg-up">Twitter</p>
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" rel="tooltip" title="Like us on Facebook" data-placement="bottom" href="https://www.facebook.com/CreativeTim" target="_blank">
-						<i class="fa fa-facebook-square"></i>
-						<p class="hidden-lg-up">Facebook</p>
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" rel="tooltip" title="Follow us on Instagram" data-placement="bottom" href="https://www.instagram.com/CreativeTimOfficial" target="_blank">
-						<i class="fa fa-instagram"></i>
-						<p class="hidden-lg-up">Instagram</p>
-					</a>
-				</li> -->
             </ul>
         </div>
     </div>
