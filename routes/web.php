@@ -17,6 +17,8 @@ Route::get('/explore', [App\HomeController::class, 'explore'])->name('explore');
 Route::get('/explore/{subject}/classes', [App\HomeController::class, 'showClass'])->name('showClass')->where(['subject' => '^[0-9]+$']);
 Route::post('/teacher/{teacher}', [App\HomeController::class, 'showTeacher'])->name('showTeacher')->where(['teacher' => '^[0-9]+$']);
 Route::post('/staff/{staff}', [App\HomeController::class, 'showStaff'])->name('showStaff')->where(['staff' => '^[0-9]+$']);
+Route::get('/teacher', [App\HomeController::class, 'teacherList'])->name('teacherList');
+Route::get('/staff', [App\HomeController::class, 'staffList'])->name('staffList');
 
 // Route chưa login của học sinh và giáo viên
 Route::group(['as' => 'app.auth.'], static function () {
