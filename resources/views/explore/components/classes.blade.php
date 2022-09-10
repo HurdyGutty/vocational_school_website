@@ -2,6 +2,7 @@
     <div class="title">
         <h3>Các lớp học</h3>
     </div>
+    @include('explore.components.alertClassRegister')
     <div class="row">
         @if (empty($classes))
         <h3>Không tìm thấy lớp</h3>

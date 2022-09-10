@@ -54,6 +54,16 @@ class ExploreClassesService
                     DB::raw("count(classes.subject_id) as classes_count"),
                     'classes.subject_id'
                 )
+                    ->when(
+                        !empty(getName()),
+                        fn ($w) => $w
+                            ->whereNotExists(
+                                fn ($q) =>
+                                $q->select('class_id')
+                                    ->from('subscriptions')
+                                    ->where('student_id', getAccount()->id)
+                            )
+                    )
                     ->where('classes.status', '=', 1)
                     ->groupBy('classes.subject_id'),
                 'classes',

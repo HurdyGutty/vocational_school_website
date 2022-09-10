@@ -1,11 +1,11 @@
 <div class="container">
     <div class="title">
-        <h1>Môn học</h1>
+        <h1>Các môn học trong các ngành</h1>
     </div>
     @foreach ($majors as $major_name => $value)
     <div class="row">
         <div class="title col-12 mb-3 text-primary">
-            <h2>{{$major_name}}</h2>
+            <h2>Ngành: {{$major_name}}</h2>
         </div>
         @foreach ($value as $subject)
         <div class="col-md-6 col-lg-4">
@@ -19,7 +19,7 @@
                         <i class="now-ui-icons business_bulb-63"></i> {{$subject->classes_count}} lớp đã mở
                     </h5>
                     <h4 class="card-title">
-                        <a href="{{route('showClass',$subject->subject_id)}}">{{$subject->subject_name}}</a>
+                        <a href="{{route('showClass',$subject->subject_id)}}">Môn: {{$subject->subject_name}}</a>
                     </h4>
                 </div>
             </div>
