@@ -98,7 +98,7 @@ class UserController extends Controller
 
     public function registerClass(ClassModel $class)
     {
-        if (!getAccount()->role) {
+        if (getAccount()->role == 0) {
             if (!empty(Subscription::where('class_id', $class->id)->where('student_id', getAccount()->id)->first())) {
                 return redirect()->route('showClass', $class->subject()->value('id'))->with([
                     'classRegistered' => 'Bạn đã đăng ký lớp này trước đó'
