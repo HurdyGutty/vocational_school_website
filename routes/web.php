@@ -131,4 +131,4 @@ Route::group(array(
 
 //Route test email
 Route::get('/test/mail', fn () => new WelcomeMail(1, 3));
-Route::get('/test/service', fn () => (new ShowTeacher)->show(4));
+Route::get('/test/service', fn () => (new ExploreClassesService([]))->explore());
