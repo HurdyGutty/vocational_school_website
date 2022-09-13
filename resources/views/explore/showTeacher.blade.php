@@ -14,8 +14,8 @@
     <script>
     $('.show-account').click(function(e) {
         e.preventDefault();
-        let form = $('form.form');
-        let card = $('div.card-body');
+        let form = $(this).parent().parent();
+        let card = form.parent();
         $.ajax({
                 url: form.attr('action'),
                 type: "POST",
