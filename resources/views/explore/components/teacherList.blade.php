@@ -2,6 +2,11 @@
     <div class="title">
         <h1>Danh sách giáo viên</h1>
     </div>
+    @if (!$teachers->first())
+    <div class="row">
+        <h3 class="mr-4">Không tìm thấy giáo viên</h3>
+    </div>
+    @endif
     <div class="row">
         @foreach ($teachers as $teacher)
         <div class="col-md-6 col-lg-4">
