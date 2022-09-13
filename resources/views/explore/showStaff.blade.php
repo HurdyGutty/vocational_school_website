@@ -14,8 +14,8 @@
     <script>
     $('.show-account').click(function(e) {
         e.preventDefault();
-        let form = $('form.form');
-        let card = $('div.card-body');
+        let form = $(this).parent().parent();
+        let card = form.parent();
         $.ajax({
                 url: form.attr('action'),
                 type: "POST",
@@ -23,8 +23,6 @@
                 data: form.serialize()
             })
             .done(function(data) {
-                console.log(data);
-                console.log(data.birth_year);
                 card.find('h4.name').text(data.name);
                 card.find('p.info').text((data.gender == 1 ? 'Nam' : 'Nữ') + ', ' + (new Date()
                     .getFullYear() - data.birth_year) + ' tuổi');
