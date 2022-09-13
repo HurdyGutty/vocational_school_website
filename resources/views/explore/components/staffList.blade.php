@@ -2,6 +2,11 @@
     <div class="title">
         <h1>Danh sách tư vấn viên</h1>
     </div>
+    @if (!$staffs->first())
+    <div class="row">
+        <h3 class="mr-4">Không tìm thấy tư vấn viên</h3>
+    </div>
+    @endif
     <div class="row">
         @foreach ($staffs as $staff)
         <div class="col-md-6 col-lg-4">
@@ -11,7 +16,7 @@
                         alt="Không thể hiện ảnh">
                 </div>
                 <div class="card-body">
-                    <form action="{{route('showTeacher',$staff->id)}}" method="POST" class="form">
+                    <form action="{{route('showStaff',$staff->id)}}" method="POST" class="form">
                         <h4 class="card-title">
                             @csrf
                             <a href="" class="show-account" data-toggle="modal"
@@ -39,7 +44,8 @@
                                     </p>
                                     <div class=" font-13 mb-1 mt-0 row">
                                         <p class='text-muted col-12 text-center'>
-                                            <span class='students_count font-weight-bold'></span> học sinh
+                                            <span class='students_count font-weight-bold'></span> học sinh đã được tư
+                                            vấn
                                         </p>
                                     </div>
                                 </div>
