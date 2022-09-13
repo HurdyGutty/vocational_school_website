@@ -2,6 +2,11 @@
     <div class="title">
         <h1>Các môn học trong các ngành</h1>
     </div>
+    @if (!$majors->first())
+    <div class="row">
+        <h3 class="mr-4">Không tìm thấy môn học nào phù hợp với bạn</h3>
+    </div>
+    @endif
     @foreach ($majors as $major_name => $value)
     <div class="row">
         <div class="title col-12 mb-3 text-primary">
