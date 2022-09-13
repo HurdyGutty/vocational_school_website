@@ -47,7 +47,7 @@
 
     <script src="{{asset('js/admin/vendor.min.js')}}"></script>
     <script src="{{asset('js/admin/app.min.js')}}"></script>
-    <script src="{{asset('js/admin/apexcharts.min.js')}}"></script>
+    <!-- <script src="{{asset('js/admin/apexcharts.min.js')}}"></script> -->
     <script src="{{asset('js/admin/component.todo.js')}}"></script>
     <script src="{{asset('js/admin/demo.dashboard-crm.js')}}"></script>
     @stack('js')

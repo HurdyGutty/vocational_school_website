@@ -59,12 +59,30 @@
                         <p>Khám phá các môn học</p>
                     </a>
                 </li>
+
+                @if (empty(getAccount()->id))
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('app.auth.register')}}" target="_blank">
                         <i class="now-ui-icons design_app"></i>
                         <p>Đăng ký</p>
                     </a>
                 </li>
+                @elseif (getAccount()->role == 1 && getAccount()->is_admin == 0)
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('app.index')}}" target="_blank">
+                        <i class="now-ui-icons design_app"></i>
+                        <p>Lịch giảng dạy</p>
+                    </a>
+                </li>
+                @elseif (getAccount()->role == 0 && getAccount()->is_admin == 0)
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('app.index')}}" target="_blank">
+                        <i class="now-ui-icons design_app"></i>
+                        <p>Lịch học</p>
+                    </a>
+                </li>
+                @endif
+
                 @if (empty(getAccount()->id))
                 <li class="nav-item">
                     <a class="nav-link btn btn-primary" href="{{route('app.auth.view_login')}}">

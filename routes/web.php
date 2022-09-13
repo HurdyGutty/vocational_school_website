@@ -7,6 +7,7 @@ use App\Http\Middleware\AdminMiddleware\StaffLogin;
 use App\Http\Middleware\AppMiddleware\TeacherLogin;
 use App\Http\Middleware\AppMiddleware\UserLogin;
 use App\Mail\WelcomeMail;
+use App\Services\CalendarService;
 use App\Services\ExploreClassesService;
 use App\Services\ShowAccountService\ShowStaff;
 use App\Services\ShowAccountService\ShowTeacher;
@@ -38,6 +39,7 @@ Route::group([
     'as' => 'app.',
 ], static function () {
     Route::get('/dashboard', [App\LandingController::class, 'index'])->name('index');
+    Route::post('/calendar/{class_id}', [App\LandingController::class, 'calendar'])->name('calendar');
 
     Route::group(['prefix' => 'user', 'as' => 'user.', 'controller' => App\UserController::class], static function () {
 
@@ -131,4 +133,4 @@ Route::group(array(
 
 //Route test email
 Route::get('/test/mail', fn () => new WelcomeMail(1, 3));
-Route::get('/test/service', fn () => (new ExploreClassesService([]))->explore());
+Route::get('/test/service', fn () => CalendarService::getSchedule(5));
