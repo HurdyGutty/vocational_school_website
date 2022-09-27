@@ -62,7 +62,7 @@ $('.list-group-item').css('cursor', 'pointer')
                     dataType: 'json',
                     data: form.serialize()
                 })
-                .done(function(data, form) {
+                .done(function(data) {
                     let initialDate = data[0].start;
                     let id = data[0].id;
                     calendar.addEventSource({
