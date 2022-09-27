@@ -9,6 +9,7 @@ use App\Http\Middleware\AppMiddleware\UserLogin;
 use App\Mail\WelcomeMail;
 use App\Services\CalendarService;
 use App\Services\ExploreClassesService;
+use App\Services\GetTeacherClassService;
 use App\Services\ShowAccountService\ShowStaff;
 use App\Services\ShowAccountService\ShowTeacher;
 use Illuminate\Support\Facades\Route;
@@ -133,4 +134,4 @@ Route::group(array(
 
 //Route test email
 Route::get('/test/mail', fn () => new WelcomeMail(1, 3));
-Route::get('/test/service', fn () => CalendarService::getSchedule(5));
+Route::get('/test/service', fn () => (new GetTeacherClassService)->getUncheckClasses());

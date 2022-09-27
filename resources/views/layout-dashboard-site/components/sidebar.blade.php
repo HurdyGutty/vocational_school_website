@@ -36,11 +36,19 @@
                                 <li class="side-nav-title side-nav-item">Tổng quan</li>
 
                                 <li class="side-nav-item mm-active">
+                                    @if (getAccount()->is_admin == 0)
+                                    <a href="{{route('app.index')}}" class="side-nav-link active">
+                                        <i class="uil-home-alt"></i>
+                                        {{-- <span class="badge badge-success float-right">2</span>--}}
+                                        <span> Lịch các lớp </span>
+                                    </a>
+                                    @else
                                     <a href="#" class="side-nav-link active">
                                         <i class="uil-home-alt"></i>
                                         {{-- <span class="badge badge-success float-right">2</span>--}}
                                         <span> Trang chủ </span>
                                     </a>
+                                    @endif
                                     {{-- <ul class="side-nav-second-level mm-collapse mm-show" aria-expanded="false">--}}
                                     {{-- <li>--}}
                                     {{-- <a href="#">Đối ngoại</a>--}}
