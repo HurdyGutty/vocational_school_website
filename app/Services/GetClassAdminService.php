@@ -18,7 +18,7 @@ class GetClassAdminService
 
     public function getClasses(): Collection
     {
-        return ClassModel::whereNotIn('status', [0])
+        return ClassModel::where('status', '!=', 0)
             ->with(
                 'xschedules',
                 'subject:id,name'
