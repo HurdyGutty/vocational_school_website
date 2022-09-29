@@ -30,9 +30,11 @@ class CreateClassAndScheduleForAdminService
         $date_taken = [];
         $this->update = $this->schedule->get()->map(function ($schedule) use (&$date_taken) {
             $schedule->date = Carbon::now()->copy()->addWeeks(2)->next(Carbon::parse($schedule->date)->weekday())->toDateString();
+
             while (in_array($schedule->date, $date_taken)) {
                 $schedule->date = Carbon::parse($schedule->date)->copy()->addWeek()->toDateString();
             }
+
             $date_taken[] = $schedule->date;
 
             return $schedule;
@@ -54,6 +56,7 @@ class CreateClassAndScheduleForAdminService
 
         $schedule_datetime = $this->update->map->only('period', 'date', 'start_time', 'end_time')->values()->toArray();
 
+        //get dates in the first week
         foreach ($schedule_datetime as $key => $value) {
             if (date_diff(date_create($schedule_datetime[0]['date']), date_create($value["date"])) < 7) {
                 $values_in_first_week[] =  $value;
@@ -88,6 +91,20 @@ class CreateClassAndScheduleForAdminService
     public function updateClassStatus(): self
     {
         ClassModel::where('id', $this->class_id)->update('status', 1);
+        return $this;
+    }
+
+    public function updateClassDate(): self
+    {
+        $date_start = $this->update->first()->date;
+        $date_end = Schedule::where('class_id', $this->class_id)->orderBy('period')->last()->date;
+
+        ClassModel::where('id', $this->class_id)
+            ->update([
+                'date_start' => $date_start,
+                'date_end' => $date_end,
+            ]);
+
         return $this;
     }
 }
