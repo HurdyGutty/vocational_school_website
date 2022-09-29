@@ -45,7 +45,8 @@ class ClassController extends Controller
                 (new CreateClassAndScheduleForAdminService())
                     ->setCondition($class_id, $period)
                     ->updateSchedule()
-                    ->updateClassStatus();
+                    ->updateClassStatus()
+                    ->updateClassDate();
             });
         } catch (\Exception $ex) {
             return redirect()->route('admin.class.awaitingClasses')->with([

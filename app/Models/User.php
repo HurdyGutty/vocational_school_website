@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
@@ -21,9 +22,9 @@ class User extends Model
     {
         return $this->hasMany(ClassModel::class, 'teacher_id', 'id');
     }
-    public function user_classes(): HasMany
+    public function user_classes(): BelongsToMany
     {
-        return $this->hasMany(ClassModel::class, 'subscriptions', 'student_id', 'class_id');
+        return $this->belongsToMany(ClassModel::class, 'subscriptions', 'student_id', 'class_id');
     }
 
     public function subscriptions(): HasMany
